@@ -25,7 +25,11 @@
                 android:value="" />
         </activity>
 
-        <activity android:name=".SelectActivity"></activity>
+        <activity android:name=".SelectActivity"
+            android:exported="true"/>
+        <activity android:name=".HistoryActivity"
+            android:exported="true"/>
+
     </application>
 
 </manifest>
