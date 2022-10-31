@@ -1,6 +1,7 @@
 package com.example.kotlinproject
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -51,7 +52,7 @@ class HistoryActivity : AppCompatActivity() {
 
 
         //플러스 버튼 클릭 : 데이터 추가
-        binding.mPlusButton.setOnClickListener {
+        binding.btnPlus.setOnClickListener {
 
             //랜덤 번호 만들기
             val random = Random()
@@ -65,6 +66,12 @@ class HistoryActivity : AppCompatActivity() {
             contactsList.add(contact) //리스트 추가
 
             adapter.notifyDataSetChanged() //리스트뷰 갱신
+        }
+
+        //버튼 클릭시 ChartActivity로 이통
+        binding.btnChart.setOnClickListener {
+            val nextIntent = Intent(this@HistoryActivity, ChartActivity::class.java)
+            startActivity(nextIntent)
         }
     }
 }
