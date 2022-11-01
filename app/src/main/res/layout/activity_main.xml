@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+    <TextView
+        android:layout_marginTop="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="뭐 먹을래?"
+        android:textSize="30dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="center"
+        />
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_marginTop="40dp"
+        android:text="start"
+        android:background="@drawable/solid_btn"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:layout_width="90dp"
+        android:layout_height="60dp"/>
+    <ImageView
+
+        android:layout_marginTop="40dp"
+        android:id="@+id/main_hamberger"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/main_hamburger"/>
+</LinearLayout>
