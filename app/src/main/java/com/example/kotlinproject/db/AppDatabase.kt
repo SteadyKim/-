@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.kotlinproject.db.entity.Contacts
+import com.example.kotlinproject.db.entity.Foods
 
-@Database(entities = [Contacts::class], version = 1, exportSchema = false)
+@Database(entities = [Foods::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun contactsDao(): ContactsDao
+    abstract fun FoodsDao(): FoodsDao
 
     companion object {
         private var instance: AppDatabase? = null
@@ -19,7 +19,7 @@ abstract class AppDatabase : RoomDatabase() {
                 instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "database-contacts"
+                    "database-foods"
                 )
                     .allowMainThreadQueries()
                     .build()
