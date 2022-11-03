@@ -6,5 +6,6 @@ class FoodNames {
         val BUCHIM_GAE = "buchim_gae"
         val CHICKEN = "chicken"
         val CHEONG_GOK_JANG = "cheong_guk_jang"
+
                     }
 }

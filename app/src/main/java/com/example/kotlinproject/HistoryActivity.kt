@@ -10,6 +10,8 @@ import com.example.kotlinproject.db.AppDatabase
 import com.example.kotlinproject.db.entity.Foods
 import com.example.kotlinproject.enum.FoodNames
 import com.example.kotlinproject.recyclerview.RecyclerViewAdapter
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import java.time.LocalDate
 import java.util.*
 

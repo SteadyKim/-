@@ -53,7 +53,12 @@ class RecyclerViewAdapter(private val itemList : List<Foods>) : RecyclerView.Ada
             })
 
 
-            binding.txtFood.text = item.name
+            binding.txtFood.text = when(item.name) {
+                FoodNames.BIBIM_BAP -> "비빔밥"
+                FoodNames.CHICKEN -> "치킨"
+                FoodNames.BUCHIM_GAE -> "부침개"
+                else -> "청국장"
+            }
             binding.txtDate.text = item.date
 
             binding.root.setOnClickListener {
