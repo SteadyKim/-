@@ -12,6 +12,7 @@
         android:id="@+id/btn_delete"
         android:layout_width="80dp"
         android:layout_height="47dp"
+        android:layout_marginTop="8dp"
         android:text="삭제"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
