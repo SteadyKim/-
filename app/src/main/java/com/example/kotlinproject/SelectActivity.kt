@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlinproject.databinding.ActivitySelectBinding
+import com.example.kotlinproject.recyclerview.ResultActivity
 
 class SelectActivity : AppCompatActivity() {
 
@@ -17,7 +18,13 @@ class SelectActivity : AppCompatActivity() {
 
 
         binding.btnHistory.setOnClickListener {
-            val nextIntent = Intent(this@SelectActivity, HistoryActivityss ::class.java)
+            val nextIntent = Intent(this@SelectActivity, HistoryActivity ::class.java)
+            startActivity(nextIntent)
+        }
+
+        binding.btnStartRandom.setOnClickListener {
+            val nextIntent = Intent(this@SelectActivity, ResultActivity ::class.java)
+            intent.putExtra("result",R.drawable.select_bibim_bap)    //음식 이름 넣어두기 비빔밥말고 다른거도 가능하도록...
             startActivity(nextIntent)
         }
 
