@@ -17,7 +17,7 @@ class SelectActivity : AppCompatActivity() {
 
 
         binding.btnHistory.setOnClickListener {
-            val nextIntent = Intent(this@SelectActivity, HistoryActivity::class.java)
+            val nextIntent = Intent(this@SelectActivity, HistoryActivityss ::class.java)
             startActivity(nextIntent)
         }
 
