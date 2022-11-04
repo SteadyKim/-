@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
     def room_version = "2.4.3"
 
     implementation("androidx.room:room-runtime:$room_version")
@@ -67,7 +68,7 @@ dependencies {
 
     // Add the dependency for the Firebase SDK for Google Analytics
     implementation 'com.google.firebase:firebase-analytics-ktx'
-
+    //추가된 sdk
     // TODO: Add the dependencies for any other Firebase products you want to use
     // See https://firebase.google.com/docs/android/setup#available-libraries
     // For example, add the dependencies for Firebase Authentication and Cloud Firestore

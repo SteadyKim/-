@@ -10,10 +10,9 @@ import com.example.kotlinproject.db.AppDatabase
 import com.example.kotlinproject.db.entity.Foods
 import com.example.kotlinproject.enum.FoodNames
 import com.example.kotlinproject.recyclerview.RecyclerViewAdapter
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import java.time.LocalDate
-import java.util.*
 
 
 class HistoryActivity : AppCompatActivity() {
@@ -21,6 +20,9 @@ class HistoryActivity : AppCompatActivity() {
     val TAG = "HistoryActivity"
     var db: AppDatabase? = null
     var foodsList = mutableListOf<Foods>()
+
+    val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+    val databaseReference : DatabaseReference = database.getReference()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,11 +41,14 @@ class HistoryActivity : AppCompatActivity() {
 
         //어댑터, 아이템 클릭 : 아이템 삭제
         val adapter = RecyclerViewAdapter(foodsList)
-        adapter.setItemClickListener(object : RecyclerViewAdapter.OnItemClickListener {
-            override fun onClick(v: View, position: Int) {
 
+        adapter.setItemClickListener(object : RecyclerViewAdapter.ItemClickListener {
+
+            override fun onDeleteClick(position: Int) {
+                /**
+                 * 콜백 받음
+                 */
                 val foods = foodsList[position]
-
                 db?.FoodsDao()?.delete(foods = foods) //DB에서 삭제
                 foodsList.removeAt(position) //리스트에서 삭제
                 adapter.notifyDataSetChanged() //리스트뷰 갱신
@@ -51,6 +56,7 @@ class HistoryActivity : AppCompatActivity() {
                 Log.d(TAG, "remove item($position). name:${foods.name}")
             }
         })
+
         binding.mRecyclerView.adapter = adapter
 
 
@@ -73,7 +79,7 @@ class HistoryActivity : AppCompatActivity() {
 
             val food = Foods(0, foodName, today.toString())
             foodsList.add(food) //리스트 추가
-
+            db?.FoodsDao()?.insertAll(food)
             adapter.notifyDataSetChanged() //리스트뷰 갱신
         }
 
