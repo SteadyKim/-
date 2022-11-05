@@ -28,5 +28,10 @@ class SelectActivity : AppCompatActivity() {
             startActivity(nextIntent)
         }
 
+        binding.btnMap2.setOnClickListener {
+            val intent = Intent(this@SelectActivity, MapsActivity::class.java )
+            startActivity(intent)
+        }
+
     }
 }

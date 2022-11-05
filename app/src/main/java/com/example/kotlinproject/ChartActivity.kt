@@ -91,19 +91,6 @@ class ChartActivity : AppCompatActivity() {
             setFitBars(true)
             invalidate()
         }
-
-        binding.btnChart2.setOnClickListener {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("타이틀입니다")
-                .setMessage("메세지 내용 부분입니다.")
-
-            builder.show()
-        }
-
-        binding.map.setOnClickListener {
-            val nextIntent = Intent(this@ChartActivity, SelectActivity::class.java)
-            startActivity(nextIntent)
-        }
     }
 
     inner class MyXAxisFormatter : ValueFormatter() {
