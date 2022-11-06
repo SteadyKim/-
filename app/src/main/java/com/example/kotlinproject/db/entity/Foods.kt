@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "tb_foods")
 data class Foods (
-    @PrimaryKey(autoGenerate = true) val id: Long,
-    var name: String,
-    var date: String
+    @PrimaryKey val id: String = "",
+    var name: String = "",
+    var date: String = ""
 )

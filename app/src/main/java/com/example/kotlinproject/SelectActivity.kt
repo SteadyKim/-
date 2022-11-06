@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlinproject.databinding.ActivitySelectBinding
-import com.example.kotlinproject.recyclerview.ResultActivity
 
 class SelectActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.example.kotlinproject.recyclerview
+package com.example.kotlinproject
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
