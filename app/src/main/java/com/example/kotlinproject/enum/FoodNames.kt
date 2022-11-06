@@ -12,6 +12,7 @@ class FoodNames {
         val DO_SI_RAK = "do_si_rak"
         val DOEN_JANG_JJIGAE = "doen_jang_jjigae"
         val DON_GAS = "don_gas"
+
         val GALBITANG = "galbitang"
         val GIM_BAP = "gim_bap"
         val GOB_CHANG = "gob_chang"
@@ -20,8 +21,9 @@ class FoodNames {
         val HAMBURGER = "hamburger"
         val HOTDOG = "hotdog"
         val JAJJANG = "jajjang"
-        val JEYUGBOKK = "jeyugbokk"
+        val JEYUGBOKK_EUM = "jeyugbokk_EUM"     //오타 수정
         val JJAMBONG = "jjambong"
+
         val JUKKUMI = "jukkumi"
         val KALGUGSU = "kalgugsu"
         val MAN_DO = "man_do"
@@ -32,6 +34,7 @@ class FoodNames {
         val RAMEN = "ramen"
         val SAM_GYE_TANG = "sam_gye_tang"
         val SAM_GYEOB_SAL = "sam_gyeob_sal"
+
         val SANDWICH = "sandwich"
         val SASHIMI = "sashimi"
         val SOYED_CRAB = "soyed_crab"

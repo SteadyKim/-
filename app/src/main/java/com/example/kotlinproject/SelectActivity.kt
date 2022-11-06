@@ -32,5 +32,10 @@ class SelectActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.btnAnything.setOnClickListener {
+            val intent = Intent(this@SelectActivity, ResultActivity::class.java )
+            startActivity(intent)
+        }
+
     }
 }
