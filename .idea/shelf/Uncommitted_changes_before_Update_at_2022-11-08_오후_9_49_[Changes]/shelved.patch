@@ -1,0 +1,65 @@
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id 'com.android.application'\r\n    id 'org.jetbrains.kotlin.android'\r\n    id 'kotlin-kapt'\r\n\r\n    // Add the Google services Gradle plugin\r\n    id 'com.google.gms.google-services'\r\n}\r\n\r\nandroid {\r\n    namespace 'com.example.kotlinproject'\r\n    compileSdk 32\r\n\r\n    defaultConfig {\r\n        applicationId \"com.example.kotlinproject\"\r\n        minSdk 26\r\n        targetSdk 32\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n    kotlinOptions {\r\n        jvmTarget = '1.8'\r\n    }\r\n\r\n    buildFeatures { // 뷰바인딩\r\n        viewBinding = true\r\n    }\r\n}\r\n\r\ndependencies {\r\n    implementation 'com.google.firebase:firebase-database-ktx:20.1.0'\r\n    implementation 'com.google.android.gms:play-services-maps:18.1.0'\r\n    def room_version = \"2.4.3\"\r\n\r\n    implementation(\"androidx.room:room-runtime:$room_version\")\r\n    annotationProcessor(\"androidx.room:room-compiler:$room_version\")\r\n\r\n    // To use Kotlin annotation processing tool (kapt)\r\n    kapt(\"androidx.room:room-compiler:$room_version\")\r\n\r\n\r\n    implementation \"androidx.recyclerview:recyclerview:1.1.0\"\r\n\r\n    implementation 'androidx.core:core-ktx:1.7.0'\r\n    implementation 'androidx.appcompat:appcompat:1.5.1'\r\n    implementation 'com.google.android.material:material:1.6.1'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'\r\n    testImplementation 'junit:junit:4.13.2'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.3'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'\r\n    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'\r\n\r\n    // Import the Firebase BoM\r\n    implementation platform('com.google.firebase:firebase-bom:31.0.2')\r\n\r\n    // When using the BoM, you don't specify versions in Firebase library dependencies\r\n\r\n    // Add the dependency for the Firebase SDK for Google Analytics\r\n    implementation 'com.google.firebase:firebase-analytics-ktx'\r\n    //추가된 sdk\r\n    // TODO: Add the dependencies for any other Firebase products you want to use\r\n    // See https://firebase.google.com/docs/android/setup#available-libraries\r\n    // For example, add the dependencies for Firebase Authentication and Cloud Firestore\r\n    implementation 'com.google.firebase:firebase-auth-ktx'\r\n    implementation 'com.google.firebase:firebase-firestore-ktx'\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle b/app/build.gradle
+--- a/app/build.gradle	(revision e4d560f53abe3dd7f4e823ef9b40cd7fef3f05de)
++++ b/app/build.gradle	(date 1667637575966)
+@@ -43,6 +43,7 @@
+ dependencies {
+     implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
+     implementation 'com.google.android.gms:play-services-maps:18.1.0'
++    implementation 'com.google.android.gms:play-services-location:18.0.0'
+     def room_version = "2.4.3"
+ 
+     implementation("androidx.room:room-runtime:$room_version")
+Index: app/src/main/java/com/example/kotlinproject/SelectActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.kotlinproject\r\n\r\nimport android.content.Intent\r\nimport android.os.Bundle\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport com.example.kotlinproject.databinding.ActivitySelectBinding\r\nimport com.example.kotlinproject.recyclerview.ResultActivity\r\n\r\nclass SelectActivity : AppCompatActivity() {\r\n\r\n\r\n    //2. 레이아웃(root뷰) 표시\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        val binding = ActivitySelectBinding.inflate(layoutInflater);\r\n\r\n        setContentView(binding.root)\r\n\r\n\r\n        binding.btnHistory.setOnClickListener {\r\n            val nextIntent = Intent(this@SelectActivity, HistoryActivity ::class.java)\r\n            startActivity(nextIntent)\r\n        }\r\n\r\n        binding.btnStartRandom.setOnClickListener {\r\n            val nextIntent = Intent(this@SelectActivity, ResultActivity ::class.java)\r\n            intent.putExtra(\"result\",R.drawable.select_bibim_bap)    //음식 이름 넣어두기 비빔밥말고 다른거도 가능하도록...\r\n            startActivity(nextIntent)\r\n        }\r\n\r\n        binding.btnMap2.setOnClickListener {\r\n            val intent = Intent(this@SelectActivity, MapsActivity::class.java )\r\n            startActivity(intent)\r\n        }\r\n\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/kotlinproject/SelectActivity.kt b/app/src/main/java/com/example/kotlinproject/SelectActivity.kt
+--- a/app/src/main/java/com/example/kotlinproject/SelectActivity.kt	(revision e4d560f53abe3dd7f4e823ef9b40cd7fef3f05de)
++++ b/app/src/main/java/com/example/kotlinproject/SelectActivity.kt	(date 1667637810819)
+@@ -8,7 +8,6 @@
+ 
+ class SelectActivity : AppCompatActivity() {
+ 
+-
+     //2. 레이아웃(root뷰) 표시
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.Kotlinproject\"\r\n        tools:targetApi=\"31\">\r\n        <activity\r\n            android:name=\".MapsActivity\"\r\n            android:exported=\"false\">\r\n            <meta-data\r\n                android:name=\"android.app.lib_name\"\r\n                android:value=\"\" />\r\n        </activity>\r\n\r\n        <meta-data\r\n            android:name=\"com.google.android.geo.API_KEY\"\r\n            android:value=\"AIzaSyA0T7NcQ4kTlz7zJDU4Uxdeuv9pvCBq71A\" />\r\n\r\n        <activity\r\n            android:name=\".ResultActivity\"\r\n            android:exported=\"false\">\r\n            <meta-data\r\n                android:name=\"android.app.lib_name\"\r\n                android:value=\"\" />\r\n        </activity>\r\n        <activity\r\n            android:name=\".ChartActivity\"\r\n            android:exported=\"false\">\r\n            <meta-data\r\n                android:name=\"android.app.lib_name\"\r\n                android:value=\"\" />\r\n        </activity>\r\n        <activity\r\n            android:name=\".MainActivity\"\r\n            android:exported=\"true\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n\r\n            <meta-data\r\n                android:name=\"android.app.lib_name\"\r\n                android:value=\"\" />\r\n        </activity>\r\n        <activity\r\n            android:name=\".SelectActivity\"\r\n            android:exported=\"true\" />\r\n        <activity\r\n            android:name=\".HistoryActivity\"\r\n            android:exported=\"true\" />\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision e4d560f53abe3dd7f4e823ef9b40cd7fef3f05de)
++++ b/app/src/main/AndroidManifest.xml	(date 1667637810807)
+@@ -2,6 +2,10 @@
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools">
+ 
++    <!--gps 위치 권한 허용 -->
++    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
++    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
++
+     <application
+         android:allowBackup="true"
+         android:dataExtractionRules="@xml/data_extraction_rules"
+@@ -12,6 +16,7 @@
+         android:supportsRtl="true"
+         android:theme="@style/Theme.Kotlinproject"
+         tools:targetApi="31">
++
+         <activity
+             android:name=".MapsActivity"
+             android:exported="false">
