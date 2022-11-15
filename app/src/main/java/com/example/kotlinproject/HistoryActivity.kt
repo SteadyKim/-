@@ -208,7 +208,7 @@ class HistoryActivity : AppCompatActivity() {
             // 현재 날짜 구하기
             val today: LocalDate = LocalDate.now()
             val foodName = when (random) {
-                1 -> FoodNames.CHEONG_GOK_JANG
+                1 -> FoodNames.CHEONGGUCK_JANG
                 2 -> FoodNames.CHICKEN
                 3 -> FoodNames.BIBIM_BAP
                 else -> FoodNames.BUCHIM_GAE
