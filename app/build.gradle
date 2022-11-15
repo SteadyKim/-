@@ -77,4 +77,7 @@ dependencies {
     // For example, add the dependencies for Firebase Authentication and Cloud Firestore
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'
+
+    // 카카오톡
+    implementation "com.kakao.sdk:v2-share:2.11.2" // 메시지(카카오톡 공유)
 }
