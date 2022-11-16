@@ -5,6 +5,20 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlinproject.databinding.ActivitySelectBinding
+import com.example.kotlinproject.enum.FoodNames
+import com.example.kotlinproject.enum.FoodNames.Companion.BIBIM_BAP
+import com.example.kotlinproject.enum.FoodNames.Companion.BUCHIM_GAE
+import com.example.kotlinproject.enum.FoodNames.Companion.CHEONGGUCK_JANG
+import com.example.kotlinproject.enum.FoodNames.Companion.CHICKEN
+import com.example.kotlinproject.enum.FoodNames.Companion.DAK_BAL
+import com.example.kotlinproject.enum.FoodNames.Companion.DDEK_BOKKI
+import com.example.kotlinproject.enum.FoodNames.Companion.DOEN_JANG_JJIGAE
+import com.example.kotlinproject.enum.FoodNames.Companion.DON_GAS
+import com.example.kotlinproject.enum.FoodNames.Companion.DO_SI_RAK
+import com.example.kotlinproject.enum.FoodNames.Companion.GALBITANG
+import com.example.kotlinproject.enum.FoodNames.Companion.GIM_BAP
+import com.example.kotlinproject.enum.FoodNames.Companion.GOB_CHANG
+import com.example.kotlinproject.enum.FoodNames.Companion.GUG_BAB
 
 class SelectActivity : AppCompatActivity() {
 
@@ -29,26 +43,24 @@ class SelectActivity : AppCompatActivity() {
         val anythingFunction: (View) -> Unit = {
             val intent = Intent(this@SelectActivity, ResultActivity::class.java)
             val anything: ArrayList<String> = ArrayList()
+            anything.add(BIBIM_BAP)
+            anything.add(BUCHIM_GAE)
+            anything.add(CHEONGGUCK_JANG)
+            anything.add(CHICKEN)
+            anything.add(DAK_BAL)
+            anything.add(DDEK_BOKKI)
+            anything.add(DO_SI_RAK)
+            anything.add(DOEN_JANG_JJIGAE)
+            anything.add(DON_GAS)
+            anything.add(GALBITANG)
 
-            anything.add("bibim_bap")
-            anything.add("buchim_gae")
-            anything.add("cheong_guk_jang")
-            anything.add("dak_bal")
-            anything.add("ddek_bokki")
-            anything.add("do_si_rak")
-            anything.add("doen_jang_jjigae")
-            anything.add("don_gas")
-            anything.add("galbitang")
-            anything.add("chicken")
-
-            anything.add("gim_bap")
-            anything.add("gob_chang")
-            anything.add("gug_bab")
+            anything.add(GIM_BAP)
+            anything.add(GOB_CHANG)
+            anything.add(GUG_BAB)
             anything.add("haejang_gug")
             anything.add("hamburger")
             anything.add("hotdog")
             anything.add("jajjang")
-            anything.add("jeyugbokk_eum")
             anything.add("jjambong")
             anything.add("jukkumi")
 
@@ -70,6 +82,7 @@ class SelectActivity : AppCompatActivity() {
             anything.add("sundaebokk")
             anything.add("yang_kko_chi")
             anything.add("yug_hoe")
+            anything.add("jeyugbokk_eum")
             intent.putStringArrayListExtra("anything", anything)
             startActivity(intent)
         }

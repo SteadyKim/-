@@ -54,6 +54,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val stringExtra = intent.getStringExtra("food")
+//        println("stringExtra = ${stringExtra}")
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         if(isPermitted()) startProcess()
