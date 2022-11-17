@@ -1,8 +1,11 @@
 package com.example.kotlinproject
 
 import android.content.Intent
+import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.kotlinproject.databinding.ActivityMainBinding
 
 class   MainActivity : AppCompatActivity() {
@@ -21,6 +24,13 @@ class   MainActivity : AppCompatActivity() {
             val nextIntent = Intent(this@MainActivity, SelectActivity::class.java)
             startActivity(nextIntent)
         }
-
+        //UI
+        val constraintLayout: LinearLayout = findViewById(R.id.mainLayout)
+        val animationDrawable: AnimationDrawable = constraintLayout.background as AnimationDrawable
+        animationDrawable.setEnterFadeDuration(1500)
+        animationDrawable.setExitFadeDuration(2000)
+        animationDrawable.start()
     }
+
+
 }

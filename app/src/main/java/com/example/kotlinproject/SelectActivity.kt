@@ -122,8 +122,8 @@ class SelectActivity : AppCompatActivity() {
             korean.add(DO_SI_RAK)
             korean.add(DOEN_JANG_JJIGAE)
             korean.add(GALBITANG)
-            korean.add("GIM_BAP")
-            korean.add("GOB_CHANG")
+            korean.add(GIM_BAP)
+            korean.add(GOB_CHANG)
 
             korean.add(GUG_BAB)
             korean.add(HAEJANG_GUG)
