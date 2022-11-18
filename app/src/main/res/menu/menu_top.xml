@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/selectFragment"
+        android:icon="@drawable/ic_baseline_ads_click_24"
+        android:title="select" />
+    <item
+        android:id="@+id/historyFragment"
+        android:icon="@drawable/ic_baseline_apps_24"
+        android:title="history" />
+    <item
+        android:id="@+id/mapFragment"
+        android:icon="@drawable/ic_baseline_map_24"
+        android:title="map" />
+</menu>
