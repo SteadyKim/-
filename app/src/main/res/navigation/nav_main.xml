@@ -21,13 +21,18 @@
         tools:layout="@layout/fragment_select" >
         <action
             android:id="@+id/action_selectFragment_to_resultFragment"
-            app:destination="@id/resultFragment" />
+            app:destination="@id/resultFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.example.kotlinproject.HistoryFragment"
         android:label="fragment_history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_historyFragment_to_chartFragment"
+            app:destination="@id/chartFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.kotlinproject.MapFragment"
@@ -43,6 +48,12 @@
             app:destination="@id/historyFragment" />
         <action
             android:id="@+id/action_resultFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
+            app:destination="@id/mapFragment"
+            app:popUpToInclusive="false" />
     </fragment>
+    <fragment
+        android:id="@+id/chartFragment"
+        android:name="com.example.kotlinproject.ChartFragment"
+        android:label="fragment_chart"
+        tools:layout="@layout/fragment_chart" />
 </navigation>

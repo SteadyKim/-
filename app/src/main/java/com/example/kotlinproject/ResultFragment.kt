@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.navigation.fragment.findNavController
 import com.example.kotlinproject.databinding.FragmentResultBinding
+import com.example.kotlinproject.db.AppDatabase
 import com.example.kotlinproject.db.RandomFood.Companion.ANYTHINGFOOD
 import com.example.kotlinproject.db.RandomFood.Companion.ASIANFOOD
 import com.example.kotlinproject.db.RandomFood.Companion.CHINESEFOOD
@@ -17,8 +18,16 @@ import com.example.kotlinproject.db.RandomFood.Companion.MEATFOOD
 import com.example.kotlinproject.db.RandomFood.Companion.NOODLEFOOD
 import com.example.kotlinproject.db.RandomFood.Companion.RICEFOOD
 import com.example.kotlinproject.db.RandomFood.Companion.WESTERNFOOD
+import com.example.kotlinproject.db.entity.Foods
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import java.time.LocalDate
+import java.util.*
 
 class ResultFragment : Fragment() {
+    val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+    val databaseReference : DatabaseReference = database.getReference()
+    var db: AppDatabase? = null
 
     var binding : FragmentResultBinding? = null
     lateinit var selectedFood : String
@@ -41,6 +50,28 @@ class ResultFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setImage()
+
+
+        binding?.btnMap?.setOnClickListener {
+            // firebase 에 저장
+            var random_uuid = UUID.randomUUID()
+            val today: LocalDate = LocalDate.now()
+            val food = Foods(random_uuid.toString(), selectedFood, today.toString())
+            databaseReference.child("Foods").push().setValue(food)
+
+            println("food.name = ${food.name}")
+            //내부 DB에 저장
+            db = AppDatabase.getInstance(requireContext())
+            db?.FoodsDao()?.insertAll(food)
+            findNavController().navigate(R.id.action_resultFragment_to_mapFragment)
+        }
+
+        //TODO 도혁님 redo 작업 부탁드려요
+        binding?.btnRedo?.setOnClickListener {  }
+    }
+
+    private fun setImage() {
         val anything = arguments?.getStringArrayList(ANYTHINGFOOD)
         val korean = arguments?.getStringArrayList(KOREANFOOD)
         val chinese = arguments?.getStringArrayList(CHINESEFOOD)
@@ -51,9 +82,9 @@ class ResultFragment : Fragment() {
         val meat = arguments?.getStringArrayList(MEATFOOD)
         val rice = arguments?.getStringArrayList(RICEFOOD)
 
-        if(anything != null) {
+        if (anything != null) {
             val index = (1..anything?.size!!).random()
-            selectedFood = anything!![index-1]
+            selectedFood = anything!![index - 1]
 
             val randomResource = when (index) {
                 1 -> R.drawable.select_bibim_bap
@@ -102,7 +133,7 @@ class ResultFragment : Fragment() {
 
         if (korean != null) {
             val randomNumber = (1..korean.size).random()
-            selectedFood = korean[randomNumber-1]
+            selectedFood = korean[randomNumber - 1]
 
             val randomResource = when (randomNumber) {
                 1 -> R.drawable.select_bibim_bap
@@ -131,7 +162,7 @@ class ResultFragment : Fragment() {
 
         if (chinese != null) {
             val randomNumber = (1..chinese.size).random()
-            selectedFood = chinese[randomNumber-1]
+            selectedFood = chinese[randomNumber - 1]
 
             val randomResource = when (randomNumber) {
                 1 -> R.drawable.select_jajjang
@@ -145,7 +176,7 @@ class ResultFragment : Fragment() {
 
         if (western != null) {
             val randomNumber = (1..western.size).random()
-            selectedFood = western[randomNumber-1]
+            selectedFood = western[randomNumber - 1]
 
             val randomResource = when (randomNumber) {
                 1 -> R.drawable.select_don_gas
@@ -162,7 +193,7 @@ class ResultFragment : Fragment() {
 
         if (asian != null) {
             val randomNumber = (1..asian.size).random()
-            selectedFood = asian[randomNumber-1]
+            selectedFood = asian[randomNumber - 1]
 
             val randomResource = when (randomNumber) {
                 1 -> R.drawable.select_bibim_bap
@@ -190,7 +221,7 @@ class ResultFragment : Fragment() {
 
         if (japanese != null) {
             val randomNumber = (1..japanese.size).random()
-            selectedFood = japanese[randomNumber-1]
+            selectedFood = japanese[randomNumber - 1]
 
 
             val randomResource = when (randomNumber) {
@@ -204,7 +235,7 @@ class ResultFragment : Fragment() {
 
         if (noodle != null) {
             val randomNumber = (1..noodle.size).random()
-            selectedFood = noodle[randomNumber-1]
+            selectedFood = noodle[randomNumber - 1]
 
 
             val randomResource = when (randomNumber) {
@@ -221,7 +252,7 @@ class ResultFragment : Fragment() {
 
         if (meat != null) {
             val randomNumber = (1..meat.size).random()
-            selectedFood = meat[randomNumber-1]
+            selectedFood = meat[randomNumber - 1]
 
             val randomResource = when (randomNumber) {
                 1 -> R.drawable.select_chicken
@@ -236,7 +267,7 @@ class ResultFragment : Fragment() {
 
         if (rice != null) {
             val randomNumber = (1..rice.size).random()
-            selectedFood = rice[randomNumber-1]
+            selectedFood = rice[randomNumber - 1]
 
             val randomResource = when (randomNumber) {
                 1 -> R.drawable.select_bibim_bap
@@ -250,11 +281,6 @@ class ResultFragment : Fragment() {
                 else -> R.drawable.select_sam_gye_tang
             }
             binding?.imgResult?.setImageResource(randomResource)
-        }
-
-
-        binding?.btnMap?.setOnClickListener {
-            findNavController().navigate(R.id.action_resultFragment_to_mapFragment)
         }
     }
 

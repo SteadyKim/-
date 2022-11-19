@@ -32,6 +32,11 @@ class SelectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initFoodBtnListener()
+
+    }
+
+    private fun initFoodBtnListener() {
         binding?.btnAnything?.setOnClickListener {
             val anythingFood = RandomFood.getAnyThing()
             val bundle = Bundle().apply {
@@ -43,7 +48,7 @@ class SelectFragment : Fragment() {
         binding?.btnKorean?.setOnClickListener {
             val koreanFood = RandomFood.getKoreanFood()
             val bundle = Bundle().apply {
-                putStringArrayList(KOREANFOOD,koreanFood)
+                putStringArrayList(KOREANFOOD, koreanFood)
             }
             findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)
         }
@@ -51,7 +56,7 @@ class SelectFragment : Fragment() {
         binding?.btnChinese?.setOnClickListener {
             val chineseFood = RandomFood.getChineseFood()
             val bundle = Bundle().apply {
-                putStringArrayList(CHINESEFOOD,chineseFood)
+                putStringArrayList(CHINESEFOOD, chineseFood)
             }
             findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)
         }
@@ -59,7 +64,7 @@ class SelectFragment : Fragment() {
         binding?.btnWestern?.setOnClickListener {
             val westernFood = RandomFood.getWesternFood()
             val bundle = Bundle().apply {
-                putStringArrayList(WESTERNFOOD,westernFood)
+                putStringArrayList(WESTERNFOOD, westernFood)
             }
             findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)
         }
@@ -67,7 +72,7 @@ class SelectFragment : Fragment() {
         binding?.btnAsian?.setOnClickListener {
             val asianFood = RandomFood.getAsianFood()
             val bundle = Bundle().apply {
-                putStringArrayList(ASIANFOOD,asianFood)
+                putStringArrayList(ASIANFOOD, asianFood)
             }
             findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)
         }
@@ -75,7 +80,7 @@ class SelectFragment : Fragment() {
         binding?.btnJapanese?.setOnClickListener {
             val japanenseFood = RandomFood.getJapaneseFood()
             val bundle = Bundle().apply {
-                putStringArrayList(JAPANESEFOOD,japanenseFood)
+                putStringArrayList(JAPANESEFOOD, japanenseFood)
             }
             findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)
         }
@@ -83,7 +88,7 @@ class SelectFragment : Fragment() {
         binding?.btnNoodle?.setOnClickListener {
             val noodleFood = RandomFood.getNoodleFood()
             val bundle = Bundle().apply {
-                putStringArrayList(NOODLEFOOD,noodleFood)
+                putStringArrayList(NOODLEFOOD, noodleFood)
             }
             findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)
         }
@@ -91,7 +96,7 @@ class SelectFragment : Fragment() {
         binding?.btnMeat?.setOnClickListener {
             val meatFood = RandomFood.getMeatFood()
             val bundle = Bundle().apply {
-                putStringArrayList(MEATFOOD,meatFood)
+                putStringArrayList(MEATFOOD, meatFood)
             }
             findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)
         }
@@ -99,7 +104,7 @@ class SelectFragment : Fragment() {
         binding?.btnRice?.setOnClickListener {
             val riceFood = RandomFood.getRiceFood()
             val bundle = Bundle().apply {
-                putStringArrayList(RICEFOOD,riceFood)
+                putStringArrayList(RICEFOOD, riceFood)
             }
             findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)
         }
