@@ -22,10 +22,10 @@ class Main2Activity : AppCompatActivity() {
 //                )
         binding.bottomNav.setupWithNavController(navController )
         setContentView(binding.root)
-
-        val animationDrawable = binding.ctrMain.background as AnimationDrawable
-        animationDrawable.setEnterFadeDuration(1000)
-        animationDrawable.setExitFadeDuration(1000)
-        animationDrawable.start()
+//
+//        val animationDrawable = binding.ctrMain.background as AnimationDrawable
+//        animationDrawable.setEnterFadeDuration(1000)
+//        animationDrawable.setExitFadeDuration(1000)
+//        animationDrawable.start()
     }
 }

@@ -25,11 +25,11 @@ class   MainActivity : AppCompatActivity() {
             startActivity(nextIntent)
         }
         //UI
-        val constraintLayout: LinearLayout = findViewById(R.id.mainLayout)
-        val animationDrawable: AnimationDrawable = constraintLayout.background as AnimationDrawable
-        animationDrawable.setEnterFadeDuration(1500)
-        animationDrawable.setExitFadeDuration(2000)
-        animationDrawable.start()
+//        val constraintLayout: LinearLayout = findViewById(R.id.mainLayout)
+//        val animationDrawable: AnimationDrawable = constraintLayout.background as AnimationDrawable
+//        animationDrawable.setEnterFadeDuration(1500)
+//        animationDrawable.setExitFadeDuration(2000)
+//        animationDrawable.start()
     }
 
 

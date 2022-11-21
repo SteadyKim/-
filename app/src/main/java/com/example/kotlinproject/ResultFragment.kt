@@ -79,7 +79,9 @@ class ResultFragment : Fragment() {
         }
 
         //TODO 도혁님 redo 작업 부탁드려요
-        binding?.btnRedo?.setOnClickListener {  }
+        binding?.btnRedo?.setOnClickListener {
+            setImage()
+        }
     }
 
     private fun setCurrentImage() {
