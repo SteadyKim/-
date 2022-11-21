@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import androidx.navigation.fragment.findNavController
 import com.example.kotlinproject.databinding.FragmentResultBinding
 import com.example.kotlinproject.db.AppDatabase
@@ -29,11 +30,14 @@ class ResultFragment : Fragment() {
     val databaseReference : DatabaseReference = database.getReference()
     var db: AppDatabase? = null
 
+    var flag = 0
     var binding : FragmentResultBinding? = null
+
+    var imageStatus = -1
     lateinit var selectedFood : String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 //        arguments?.let {
 //            anything = it.getStringArrayList("anything")
 //        }
@@ -50,18 +54,25 @@ class ResultFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setImage()
+
+        if(flag == 0){
+            setImage()
+        }else {
+            setCurrentImage()
+        }
+        flag++
 
 
         binding?.btnMap?.setOnClickListener {
-            // firebase 에 저장
+
+            // 1.firebase 에 저장
             var random_uuid = UUID.randomUUID()
             val today: LocalDate = LocalDate.now()
             val food = Foods(random_uuid.toString(), selectedFood, today.toString())
             databaseReference.child("Foods").push().setValue(food)
 
-            println("food.name = ${food.name}")
-            //내부 DB에 저장
+
+            // 2.내부 DB에 저장
             db = AppDatabase.getInstance(requireContext())
             db?.FoodsDao()?.insertAll(food)
             findNavController().navigate(R.id.action_resultFragment_to_mapFragment)
@@ -69,6 +80,10 @@ class ResultFragment : Fragment() {
 
         //TODO 도혁님 redo 작업 부탁드려요
         binding?.btnRedo?.setOnClickListener {  }
+    }
+
+    private fun setCurrentImage() {
+        binding?.imgResult?.setImageResource(imageStatus)
     }
 
     private fun setImage() {
@@ -84,7 +99,7 @@ class ResultFragment : Fragment() {
 
         if (anything != null) {
             val index = (1..anything?.size!!).random()
-            selectedFood = anything!![index - 1]
+            selectedFood = anything[index - 1]
 
             val randomResource = when (index) {
                 1 -> R.drawable.select_bibim_bap
@@ -128,6 +143,7 @@ class ResultFragment : Fragment() {
                 35 -> R.drawable.select_yug_hoe
                 else -> R.drawable.select_jeyugbokk_eum
             }
+            imageStatus = randomResource
             binding?.imgResult?.setImageResource(randomResource)
         }
 
@@ -157,6 +173,7 @@ class ResultFragment : Fragment() {
                 18 -> R.drawable.select_sam_gyeob_sal
                 else -> R.drawable.select_sundaebokk_eum
             }
+            imageStatus = randomResource
             binding?.imgResult?.setImageResource(randomResource)
         }
 
@@ -171,6 +188,7 @@ class ResultFragment : Fragment() {
                 4 -> R.drawable.select_mara_tang
                 else -> R.drawable.select_yang_kko_chi
             }
+            imageStatus = randomResource
             binding?.imgResult?.setImageResource(randomResource)
         }
 
@@ -188,6 +206,7 @@ class ResultFragment : Fragment() {
                 else -> R.drawable.select_sandwich
 
             }
+            imageStatus = randomResource
             binding?.imgResult?.setImageResource(randomResource)
         }
 
@@ -216,6 +235,7 @@ class ResultFragment : Fragment() {
                 17 -> R.drawable.select_jjambong
                 else -> R.drawable.select_yang_kko_chi
             }
+            imageStatus = randomResource
             binding?.imgResult?.setImageResource(randomResource)
         }
 
@@ -230,6 +250,7 @@ class ResultFragment : Fragment() {
                 3 -> R.drawable.select_sashimi
                 else -> R.drawable.select_soyed_crab
             }
+            imageStatus = randomResource
             binding?.imgResult?.setImageResource(randomResource)
         }
 
@@ -247,6 +268,7 @@ class ResultFragment : Fragment() {
                 6 -> R.drawable.select_ramen
                 else -> R.drawable.select_ssal_guksu
             }
+            imageStatus = randomResource
             binding?.imgResult?.setImageResource(randomResource)
         }
 
@@ -262,6 +284,7 @@ class ResultFragment : Fragment() {
                 5 -> R.drawable.select_yang_kko_chi
                 else -> R.drawable.select_yug_hoe
             }
+            imageStatus = randomResource
             binding?.imgResult?.setImageResource(randomResource)
         }
 
@@ -280,6 +303,7 @@ class ResultFragment : Fragment() {
                 8 -> R.drawable.select_omurice
                 else -> R.drawable.select_sam_gye_tang
             }
+            imageStatus = randomResource
             binding?.imgResult?.setImageResource(randomResource)
         }
     }

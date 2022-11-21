@@ -5,13 +5,17 @@
     <item
         android:id="@+id/selectFragment"
         android:icon="@drawable/ic_baseline_ads_click_24"
-        android:title="select" />
+        android:title="Select" />
     <item
         android:id="@+id/historyFragment"
         android:icon="@drawable/ic_baseline_apps_24"
-        android:title="history" />
+        android:title="History" />
+    <item
+        android:id="@+id/chartFragment"
+        android:icon="@drawable/ic_baseline_pie_chart_24"
+        android:title="Chart" />
     <item
         android:id="@+id/mapFragment"
         android:icon="@drawable/ic_baseline_map_24"
-        android:title="map" />
+        android:title="Map" />
 </menu>

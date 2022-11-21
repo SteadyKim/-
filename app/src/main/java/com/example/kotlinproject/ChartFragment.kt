@@ -7,19 +7,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.kotlinproject.databinding.FragmentChartBinding
+import com.example.kotlinproject.db.AppDatabase
+import com.example.kotlinproject.db.entity.Foods
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-
+import com.google.firebase.database.*
 
 class ChartFragment : Fragment() {
+    var db: AppDatabase? = null
+//    val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+//    val databaseReference : DatabaseReference = database.getReference()
+
+    var foodsList = ArrayList<Foods>()
     var pieChart: PieChart? = null
     var binding : FragmentChartBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
+
     }
 
     override fun onCreateView(
@@ -32,9 +40,23 @@ class ChartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //DB 초기화
+        db = AppDatabase.getInstance(requireContext())
 
-        val foodsList = arguments?.getStringArrayList("foodsList")!!
+        //이전에 저장한 내용 모두 불러와서 추가하기 - Room 사용
+        val savedFoods = db!!.FoodsDao().getAll()
+        if (savedFoods.isNotEmpty()) {
+            // 생명주기상 onViewCreated 시 recyclerView에 계속 추가되는 오류 해결하기
+            if (foodsList.isEmpty()) {
+                foodsList.addAll(savedFoods)
+            }
+        }
 
+//        val initFireBaseThread =  FireBaseThread(foodsList, databaseReference)
+//        initFireBaseThread.start()
+//        initFireBaseThread.join()
+
+        println("data: foodsList = ${foodsList.size}")
         if(foodsList.isEmpty()) {
             binding?.chartPie?.visibility = View.INVISIBLE
             binding?.txtInfo?.visibility = View.VISIBLE
@@ -43,20 +65,18 @@ class ChartFragment : Fragment() {
             pieChart = binding?.chartPie
 
             val foodMap = mutableMapOf<String, Int>()
-
             for (food in foodsList) {
-                if(foodMap.containsKey(food)) {
-                    val tmp = foodMap[food]
+                if(foodMap.containsKey(food.name)) {
+                    val tmp = foodMap[food.name]
 
                     if (tmp != null) {
-                        foodMap[food] = tmp + 1
+                        foodMap[food.name] = tmp + 1
                     }
                 }else {
-                    foodMap[food] = 1
+                    foodMap[food.name] = 1
                 }
             }
             val list: ArrayList<PieEntry> = makePieDateList(foodMap)
-
 
             initPieChart(list)
 

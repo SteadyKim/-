@@ -35,6 +35,7 @@ import com.example.kotlinproject.enum.FoodNames.Companion.PASTA
 import com.example.kotlinproject.enum.FoodNames.Companion.PIZZA
 import com.example.kotlinproject.enum.FoodNames.Companion.RAMEN
 import com.example.kotlinproject.enum.FoodNames.Companion.SAM_GYEOB_SAL
+import com.example.kotlinproject.enum.FoodNames.Companion.SAM_GYE_TANG
 import com.example.kotlinproject.enum.FoodNames.Companion.SANDWICH
 import com.example.kotlinproject.enum.FoodNames.Companion.SASHIMI
 import com.example.kotlinproject.enum.FoodNames.Companion.SOYED_CRAB
@@ -110,6 +111,7 @@ class RecyclerViewAdapter(private var itemList : MutableList<Foods>) : RecyclerV
                 PASTA -> R.drawable.select_pasta
                 PIZZA -> R.drawable.select_pizza
                 RAMEN -> R.drawable.select_ramen
+                SAM_GYE_TANG -> R.drawable.select_sam_gye_tang
                 SAM_GYEOB_SAL -> R.drawable.select_sam_gyeob_sal
                 SANDWICH -> R.drawable.select_sandwich
 
@@ -152,6 +154,7 @@ class RecyclerViewAdapter(private var itemList : MutableList<Foods>) : RecyclerV
                 PASTA -> "파스타"
                 PIZZA -> "피자"
                 RAMEN -> "라멘"
+                SAM_GYE_TANG -> "삼계탕"
                 SAM_GYEOB_SAL -> "삼겹살"
                 SANDWICH -> "샌드위치"
                 SASHIMI -> "사시미"

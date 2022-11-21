@@ -1,149 +1,46 @@
 package com.example.kotlinproject.enum
 
-//public enum class korean{
-//    bibim_bap,
-//    buchim_gae,
-//    cheongguck_jang,
-//    cheong_guk_jang,
-//    dak_bal,
-//    ddek_bokki,
-//    do_si_rak,
-//    doen_jang_jjigae,
-//    galbitang,
-//    gim_bap,
-//
-//    gob_chang,
-//    gug_bab,
-//    haejang_gug,
-//    jeyugbokk_eum,
-//    jukkumi,
-//    kalgugsu,
-//    sam_gye_tang,
-//    sam_gyeob_sal,
-//    sundaebokk
-//}
-//public enum class chinese{
-//    gob_chang,
-//    jajjang,
-//    jjambong,
-//    man_do,
-//    mara_tang,
-//    yang_kko_chi
-//}
-//public enum class western{
-//    don_gas,
-//    hamburger,
-//    hotdog,
-//    omurice,
-//    pasta,
-//    pizza,
-//    sandwich
-//}
-//
-//public enum class asain {
-//    bibim_bap,
-//    buchim_gae,
-//    chicken,
-//    dak_bal,
-//    do_si_rak,
-//    gim_bap,
-//    gob_chang,
-//    jajjang,
-//    jukkumi,
-//    kalgugsu,
-//    man_do,
-//    mara_tang,
-//    ramen,
-//    sam_gyeob_sal,
-//    soyed_crab,
-//    ssal_gulsu,
-//    sundaebokk,
-//    yang_kko_chi
-//}
-//
-//public enum class japanese {
-//    don_gas,
-//    ramen,
-//    sashimi,
-//    soyed_crab
-//}
-//
-//public enum class noodle {
-//    jajjang,
-//    jjambong,
-//    kalgugsu,
-//    mara_tang,
-//    pasta,
-//    ramen,
-//    ssal_gulsu
-//}
-//
-//public enum class meat {
-//    chicken,
-//    dak_bal,
-//    jeyugbokk_eum,
-//    sam_gyeob_sal,
-//    yang_kko_chi,
-//    yug_hoe
-//}
-//
-//public enum class rice {
-//    bibim_bap,
-//    cheongguck_jang,
-//    ddek_bokki,
-//    doen_jang_jjigae,
-//    galbitang,
-//    gim_bap,
-//    gob_chang,
-//    gug_bab,
-//    haejang_gug,
-//    omurice,
-//    sam_gye_tang
-//}
-
-
 class FoodNames {
     companion object{
-        val BIBIM_BAP = "bibim_bap"
-        val BUCHIM_GAE = "buchim_gae"
-        val CHEONGGUCK_JANG = "cheongguck_jang"
-        val DAK_BAL = "dak_bal"
-        val CHICKEN = "chicken"
-        val DDEK_BOKKI = "ddek_bokki"
-        val DO_SI_RAK = "do_si_rak"
-        val DOEN_JANG_JJIGAE = "doen_jang_jjigae"
-        val DON_GAS = "don_gas"
-        val GALBITANG = "galbitang"
+        val BIBIM_BAP = "비빔밥"
+        val BUCHIM_GAE = "부침개"
+        val CHEONGGUCK_JANG = "청국장"
+        val DAK_BAL = "닭발"
+        val CHICKEN = "치킨"
+        val DDEK_BOKKI = "떡볶이"
+        val DO_SI_RAK = "도시락"
+        val DOEN_JANG_JJIGAE = "된장찌개"
+        val DON_GAS = "돈까스"
+        val GALBITANG = "갈비탕"
 
-        val GIM_BAP = "gim_bap"
-        val GOB_CHANG = "gob_chang"
-        val GUG_BAB = "gug_bab"
-        val HAEJANG_GUG = "haejang_gug"
-        val HAMBURGER = "hamburger"
-        val HOTDOG = "hotdog"
-        val JAJJANG = "jajjang"
-        val JEYUGBOKK_EUM = "jeyugbokk_eum"     //오타 수정
-        val JJAMBONG = "jjambong"
-        val JUKKUMI = "jukkumi"
+        val GIM_BAP = "김밥"
+        val GOB_CHANG = "곱창"
+        val GUG_BAB = "국밥"
+        val HAEJANG_GUG = "해장국"
+        val HAMBURGER = "햄버거"
+        val HOTDOG = "핫도그"
+        val JAJJANG = "짜장면"
+        val JEYUGBOKK_EUM = "제육볶음"     //오타 수정
+        val JJAMBONG = "짬뽕"
+        val JUKKUMI = "쭈꾸미"
 
-        val KALGUGSU = "kalgugsu"
-        val MAN_DO = "man_do"
-        val MARA_TANG = "mara_tang"
-        val OMURICE = "omurice"
-        val PASTA = "pasta"
-        val PIZZA = "pizza"
-        val RAMEN = "ramen"
-        val SAM_GYE_TANG = "sam_gye_tang"
-        val SAM_GYEOB_SAL = "sam_gyeob_sal"
-        val SANDWICH = "sandwich"
+        val KALGUGSU = "칼국수"
+        val MAN_DO = "만두"
+        val MARA_TANG = "마라탕"
+        val OMURICE = "오므라이스"
+        val PASTA = "파스타"
+        val PIZZA = "피자"
+        val RAMEN = "라멘"
+        val SAM_GYE_TANG = "삼계탕"
+        val SAM_GYEOB_SAL = "삼겹살"
+        val SANDWICH = "샌드위치"
 
-        val SASHIMI = "sashimi"
-        val SOYED_CRAB = "soyed_crab"
-        val SSAL_GUKSU = "ssal_gulsu"
+        val SASHIMI = "사시미"
+        val SOYED_CRAB = "간장게장"
+        val SSAL_GUKSU = "쌀국수"
 
-        val SUNDAEBOKK = "sundaebokk"
-        val YANG_KKO_CHI = "yang_kko_chi"
-        val YUG_HOE = "yug_hoe"
-
+        val SUNDAEBOKK = "순대볶음"
+        val YANG_KKO_CHI = "양꼬치"
+        val YUG_HOE = "육회"
                     }
 }
