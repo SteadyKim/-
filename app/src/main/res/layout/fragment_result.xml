@@ -57,4 +57,16 @@
         app:layout_constraintVertical_bias="0.341"
         app:srcCompat="@drawable/select_bibim_bap" />
 
+    <Button
+        android:id="@+id/btn_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="공유하기"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_map"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toEndOf="@+id/btn_redo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.84" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
