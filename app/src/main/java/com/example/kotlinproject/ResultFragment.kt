@@ -58,6 +58,7 @@ class ResultFragment : Fragment() {
         binding = FragmentResultBinding.inflate(inflater)
         // Inflate the layout for this fragment
         return binding?.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -87,7 +88,9 @@ class ResultFragment : Fragment() {
         }
 
         //TODO 도혁님 redo 작업 부탁드려요
-        binding?.btnRedo?.setOnClickListener {  }
+        binding?.btnRedo?.setOnClickListener {
+            setImage()
+        }
 
         binding?.btnShare?.setOnClickListener {
             KakaoSdk.init(requireContext(), "a3371d68064ad62c0ef12f967df3741c")
