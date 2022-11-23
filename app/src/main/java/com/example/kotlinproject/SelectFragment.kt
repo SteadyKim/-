@@ -17,14 +17,13 @@ import com.example.kotlinproject.db.RandomFood.Companion.MEATFOOD
 import com.example.kotlinproject.db.RandomFood.Companion.NOODLEFOOD
 import com.example.kotlinproject.db.RandomFood.Companion.RICEFOOD
 import com.example.kotlinproject.db.RandomFood.Companion.WESTERNFOOD
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 
-class SelectFragment : Fragment() {
+class SelectFragment : Fragment(){
     var binding : FragmentSelectBinding? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentSelectBinding.inflate(inflater)
         return binding?.root
     }
@@ -50,6 +49,7 @@ class SelectFragment : Fragment() {
             val bundle = Bundle().apply {
                 putStringArrayList(KOREANFOOD, koreanFood)
             }
+
             findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)
         }
 

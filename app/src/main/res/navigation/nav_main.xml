@@ -35,9 +35,9 @@
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.example.kotlinproject.MapFragment"
+        android:name="com.example.kotlinproject.MapsFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_maps" />
     <fragment
         android:id="@+id/resultFragment"
         android:name="com.example.kotlinproject.ResultFragment"

@@ -2,6 +2,7 @@ package com.example.kotlinproject
 
 import android.content.ActivityNotFoundException
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.example.kotlinproject.databinding.FragmentResultBinding
 import com.example.kotlinproject.db.AppDatabase
@@ -80,6 +82,9 @@ class ResultFragment : Fragment() {
             val food = Foods(random_uuid.toString(), selectedFood, today.toString())
             databaseReference.child("Foods").push().setValue(food)
 
+            val bundle = Bundle()
+            bundle.putString("Food",selectedFood)
+            setFragmentResult("Food",bundle)
 
             // 2.내부 DB에 저장
             db = AppDatabase.getInstance(requireContext())

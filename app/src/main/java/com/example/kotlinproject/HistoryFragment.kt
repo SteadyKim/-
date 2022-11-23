@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.kotlinproject.databinding.ActivityHistoryBinding
 import com.example.kotlinproject.databinding.FragmentHistoryBinding
 import com.example.kotlinproject.db.AppDatabase
 import com.example.kotlinproject.db.RandomFood

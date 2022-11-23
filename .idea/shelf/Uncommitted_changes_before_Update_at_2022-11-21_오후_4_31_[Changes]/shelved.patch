@@ -1,0 +1,122 @@
+Index: app/src/main/java/com/example/kotlinproject/MapsActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.kotlinproject\r\n\r\nimport android.annotation.SuppressLint\r\nimport android.content.ContentValues.TAG\r\nimport android.content.Intent\r\nimport android.content.IntentSender\r\nimport android.content.pm.PackageManager\r\nimport android.content.pm.PackageManager.PERMISSION_GRANTED\r\nimport android.location.Location\r\nimport android.net.Uri\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.os.Looper\r\nimport android.provider.Settings\r\nimport android.util.Log\r\nimport android.widget.Toast\r\nimport androidx.core.app.ActivityCompat\r\nimport androidx.core.content.ContextCompat\r\n\r\nimport com.google.android.gms.maps.CameraUpdateFactory\r\nimport com.google.android.gms.maps.GoogleMap\r\nimport com.google.android.gms.maps.OnMapReadyCallback\r\nimport com.google.android.gms.maps.SupportMapFragment\r\nimport com.google.android.gms.maps.model.LatLng\r\nimport com.google.android.gms.maps.model.MarkerOptions\r\nimport com.example.kotlinproject.databinding.ActivityMapsBinding\r\nimport com.google.android.gms.common.api.ResolvableApiException\r\nimport com.google.android.gms.location.*\r\nimport com.google.android.gms.location.R\r\nimport com.google.android.gms.maps.model.CameraPosition\r\nimport com.google.android.gms.maps.model.Marker\r\nimport com.google.android.gms.tasks.Task\r\nimport com.google.android.material.snackbar.Snackbar\r\nimport io.grpc.InternalChannelz.id\r\n\r\nclass MapsActivity : AppCompatActivity(), OnMapReadyCallback {\r\n\r\n    val permissions = Array<String>(2){\r\n        android.Manifest.permission.ACCESS_COARSE_LOCATION\r\n        android.Manifest.permission.ACCESS_FINE_LOCATION\r\n    }\r\n\r\n    private lateinit var fusedLocationClient: FusedLocationProviderClient\r\n    private lateinit var locationRequest: LocationRequest\r\n    private lateinit var locationCallback: LocationCallback\r\n    private lateinit var mMap: GoogleMap\r\n    private lateinit var binding: ActivityMapsBinding\r\n\r\n    var currentMarker:Marker? = null\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n\r\n        binding = ActivityMapsBinding.inflate(layoutInflater)\r\n        setContentView(binding.root)\r\n\r\n        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)\r\n\r\n        if(isPermitted()) startProcess()\r\n        else getPermission()\r\n    }\r\n\r\n    fun isPermitted() : Boolean {\r\n        for (perm in permissions) {\r\n            if (ContextCompat.checkSelfPermission(this, perm) != PERMISSION_GRANTED)\r\n                return false\r\n        }\r\n        return true\r\n    }\r\n\r\n    fun startProcess(){\r\n        Log.d(TAG,\"Start 실행\")\r\n        val mapFragment = supportFragmentManager.findFragmentById(com.example.kotlinproject.R.id.map)\r\n                as SupportMapFragment\r\n        mapFragment.getMapAsync(this)\r\n    }\r\n\r\n    override fun onMapReady(googleMap: GoogleMap) {\r\n        mMap = googleMap\r\n        showDefaultLocation()\r\n        setLocationRequestSettings()\r\n        locationUpdate()\r\n        Log.d(TAG,\"다 실행\")\r\n    }\r\n\r\n    fun locationUpdate(){\r\n        locationCallback = object : LocationCallback(){\r\n            override fun onLocationResult(locationResult: LocationResult) {\r\n                locationResult.let{\r\n                    for ((i, location) in it.locations.withIndex()){\r\n                        showCurrentLocation(location)\r\n                    }\r\n                }\r\n            }\r\n        }\r\n        @SuppressLint(\"MissingPermission\")\r\n        if(isPermitted()) {\r\n            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())\r\n        }\r\n    }\r\n\r\n    fun showCurrentLocation(location: Location){\r\n        val currentLocation = LatLng(location.latitude, location.longitude)\r\n        val markerOption = MarkerOptions().position(currentLocation).title(\"현재 위치입니다\")\r\n        val cameraOption= CameraPosition.Builder().target(currentLocation).zoom(15.0f).build()\r\n        val camera = CameraUpdateFactory.newCameraPosition(cameraOption)\r\n        mMap.clear()\r\n        mMap.addMarker(markerOption)\r\n        mMap.moveCamera(camera)\r\n    }\r\n\r\n    fun showDefaultLocation(){\r\n        val markerTitle = \"위치정보 가져올 수 없음\"\r\n        val markerSnippet = \"위치 권한과 GPS 활성 여부를 확인하세요\"\r\n        val markerOptions = MarkerOptions()\r\n        markerOptions.position(LatLng(37.56,126.97))\r\n        markerOptions.title(markerTitle)\r\n        markerOptions.snippet(markerSnippet)\r\n        markerOptions.draggable(true)\r\n        currentMarker = mMap.addMarker(markerOptions)\r\n        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(37.56,126.97),15.0f))\r\n    }\r\n\r\n    fun setLocationRequestSettings() {\r\n        locationRequest = LocationRequest.create().apply() {\r\n            interval = 10000\r\n            fastestInterval = 5000\r\n            priority = LocationRequest.PRIORITY_HIGH_ACCURACY\r\n        }\r\n        val builder = LocationSettingsRequest.Builder()\r\n            .addLocationRequest(locationRequest)\r\n        val client: SettingsClient = LocationServices.getSettingsClient(this)\r\n        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())\r\n        //GPS가 켜져있는 경우 아무 것도 안함\r\n        task.addOnFailureListener { exception ->\r\n            // GPS가 꺼져있을 경우\r\n            if (exception is ResolvableApiException) {\r\n                try {\r\n                    exception.startResolutionForResult(\r\n                        this,\r\n                        0\r\n                    )\r\n                } catch (sendEx: IntentSender.SendIntentException) {\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    fun getPermission(){\r\n        ActivityCompat.requestPermissions(this, permissions,0)\r\n    }\r\n\r\n    override fun onRequestPermissionsResult(\r\n        requestCode: Int,\r\n        permissions: Array<out String>,\r\n        grantResults: IntArray\r\n    ) {\r\n        super.onRequestPermissionsResult(requestCode, permissions, grantResults)\r\n        when (requestCode) {//requestCode가 0일때\r\n            0 -> {\r\n                if (grantResults.isNotEmpty()) {//요청을 허락했을 때 정보를 갖는다\r\n                    var allGranted = true\r\n                    //요청한 권한 허용/거부 상태를 한번에 체크한다\r\n                    for (grant in grantResults) {\r\n                        if (grant != PackageManager.PERMISSION_GRANTED) {\r\n                            allGranted = false\r\n                            break;\r\n                        }\r\n                    }\r\n                    //요청한 권한을 모두 허용했다면\r\n                    if (allGranted) {\r\n                        startProcess()\r\n                    }\r\n                    //요청을 1회 거절하면\r\n                    else if (ActivityCompat.shouldShowRequestPermissionRationale(\r\n                            this,\r\n                            android.Manifest.permission.ACCESS_COARSE_LOCATION\r\n                        ) &&\r\n                        ActivityCompat.shouldShowRequestPermissionRationale(\r\n                            this,\r\n                            android.Manifest.permission.ACCESS_FINE_LOCATION\r\n                        )\r\n                    ) {\r\n                        Toast.makeText(this, \"주변 음식점 검색을 위해 위치 권한이 허용 되어야 합니다.\", Toast.LENGTH_SHORT).show()\r\n                        getPermission()\r\n                    }\r\n                    //요청을 2회 이상 거절하면\r\n                    else noticeCantWork()\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    fun noticeCantWork(){\r\n        Toast.makeText(this, \"설정에서 위치 사용 권한을 허용해 주세요\", Toast.LENGTH_SHORT).show()\r\n        val snackBar = Snackbar.make(\r\n            binding.root,\r\n            \"음식점 검색을 위한 위치 정보 접근 권한이 필요합니다\",\r\n            Snackbar.LENGTH_INDEFINITE\r\n        )\r\n        snackBar.setAction(\"승인\") { gotoSettings() }\r\n        snackBar.show()\r\n    }\r\n\r\n    fun gotoSettings(){\r\n        val intent = Intent()\r\n        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS\r\n        val uri = Uri.fromParts(\"package\", packageName, null)\r\n        intent.data = uri\r\n        startActivity(intent)\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/kotlinproject/MapsActivity.kt b/app/src/main/java/com/example/kotlinproject/MapsActivity.kt
+--- a/app/src/main/java/com/example/kotlinproject/MapsActivity.kt	(revision d1e9768caeb0a30a35b17ddbfb92aa78d6034f8d)
++++ b/app/src/main/java/com/example/kotlinproject/MapsActivity.kt	(date 1668585614207)
+@@ -26,12 +26,10 @@
+ import com.example.kotlinproject.databinding.ActivityMapsBinding
+ import com.google.android.gms.common.api.ResolvableApiException
+ import com.google.android.gms.location.*
+-import com.google.android.gms.location.R
+ import com.google.android.gms.maps.model.CameraPosition
+ import com.google.android.gms.maps.model.Marker
+ import com.google.android.gms.tasks.Task
+ import com.google.android.material.snackbar.Snackbar
+-import io.grpc.InternalChannelz.id
+ 
+ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+ 
+@@ -46,8 +44,6 @@
+     private lateinit var mMap: GoogleMap
+     private lateinit var binding: ActivityMapsBinding
+ 
+-    var currentMarker:Marker? = null
+-
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+ 
+@@ -56,10 +52,12 @@
+ 
+         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+ 
+-        if(isPermitted()) startProcess()
++        if(isPermitted())
++            startProcess()
+         else getPermission()
+     }
+ 
++
+     fun isPermitted() : Boolean {
+         for (perm in permissions) {
+             if (ContextCompat.checkSelfPermission(this, perm) != PERMISSION_GRANTED)
+@@ -69,7 +67,7 @@
+     }
+ 
+     fun startProcess(){
+-        Log.d(TAG,"Start 실행")
++        Log.d(TAG,"Process 실행")
+         val mapFragment = supportFragmentManager.findFragmentById(com.example.kotlinproject.R.id.map)
+                 as SupportMapFragment
+         mapFragment.getMapAsync(this)
+@@ -80,19 +78,19 @@
+         showDefaultLocation()
+         setLocationRequestSettings()
+         locationUpdate()
+-        Log.d(TAG,"다 실행")
+     }
+ 
+     fun locationUpdate(){
+         locationCallback = object : LocationCallback(){
+             override fun onLocationResult(locationResult: LocationResult) {
+                 locationResult.let{
+-                    for ((i, location) in it.locations.withIndex()){
++                    for (location in it.locations){
+                         showCurrentLocation(location)
+                     }
+                 }
+             }
+         }
++
+         @SuppressLint("MissingPermission")
+         if(isPermitted()) {
+             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
+@@ -116,8 +114,7 @@
+         markerOptions.position(LatLng(37.56,126.97))
+         markerOptions.title(markerTitle)
+         markerOptions.snippet(markerSnippet)
+-        markerOptions.draggable(true)
+-        currentMarker = mMap.addMarker(markerOptions)
++        mMap.addMarker(markerOptions)
+         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(37.56,126.97),15.0f))
+     }
+ 
+@@ -127,6 +124,7 @@
+             fastestInterval = 5000
+             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+         }
++
+         val builder = LocationSettingsRequest.Builder()
+             .addLocationRequest(locationRequest)
+         val client: SettingsClient = LocationServices.getSettingsClient(this)
+@@ -141,6 +139,7 @@
+                         0
+                     )
+                 } catch (sendEx: IntentSender.SendIntentException) {
++
+                 }
+             }
+         }
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"GRADLE\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"JDK\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision d1e9768caeb0a30a35b17ddbfb92aa78d6034f8d)
++++ b/.idea/gradle.xml	(date 1668606523423)
+@@ -7,7 +7,7 @@
+         <option name="testRunner" value="GRADLE" />
+         <option name="distributionType" value="DEFAULT_WRAPPED" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+-        <option name="gradleJvm" value="JDK" />
++        <option name="gradleJvm" value="corretto-11" />
+         <option name="modules">
+           <set>
+             <option value="$PROJECT_DIR$" />

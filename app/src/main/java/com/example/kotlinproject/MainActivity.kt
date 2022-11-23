@@ -1,36 +1,28 @@
 package com.example.kotlinproject
 
-import android.content.Intent
-import android.graphics.drawable.AnimationDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.kotlinproject.databinding.ActivityMainBinding
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.example.kotlinproject.databinding.ActivityMain2Binding
 
-class   MainActivity : AppCompatActivity() {
-
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // 1. 바인딩 초기화
-        val binding = ActivityMainBinding.inflate(layoutInflater);
+        val binding = ActivityMain2Binding.inflate(layoutInflater)
 
-        //2. 레이아웃(root뷰) 표시
+        val navController = binding.frgNav.getFragment<NavHostFragment>().navController
+//        val appBarConfiguration = AppBarConfiguration (
+//            setOf(R.id.entryFragment, R.id.historyFragment, R.id.mapFragment, R.id.selectFragment)
+//                )
+        binding.bottomNav.setupWithNavController(navController )
         setContentView(binding.root)
-
-        binding.btnStart.setOnClickListener {
-            val nextIntent = Intent(this@MainActivity, SelectActivity::class.java)
-            startActivity(nextIntent)
-        }
-        //UI
-//        val constraintLayout: LinearLayout = findViewById(R.id.mainLayout)
-//        val animationDrawable: AnimationDrawable = constraintLayout.background as AnimationDrawable
-//        animationDrawable.setEnterFadeDuration(1500)
-//        animationDrawable.setExitFadeDuration(2000)
+//
+//        val animationDrawable = binding.ctrMain.background as AnimationDrawable
+//        animationDrawable.setEnterFadeDuration(1000)
+//        animationDrawable.setExitFadeDuration(1000)
 //        animationDrawable.start()
     }
-
-
 }

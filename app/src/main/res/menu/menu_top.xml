@@ -14,8 +14,4 @@
         android:id="@+id/chartFragment"
         android:icon="@drawable/ic_baseline_pie_chart_24"
         android:title="Chart" />
-    <item
-        android:id="@+id/mapFragment"
-        android:icon="@drawable/ic_baseline_map_24"
-        android:title="Map" />
 </menu>

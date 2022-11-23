@@ -7,20 +7,6 @@
     android:orientation="vertical">
 
 
-    <Button
-        android:id="@+id/btn_map2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginBottom="73dp"
-        android:background="@drawable/button_background"
-        android:text="지도"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <ImageButton
         android:id="@+id/btn_chinese"
         android:layout_width="80dp"
@@ -123,10 +109,9 @@
         android:id="@+id/btn_Anything"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="168dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btn_history"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

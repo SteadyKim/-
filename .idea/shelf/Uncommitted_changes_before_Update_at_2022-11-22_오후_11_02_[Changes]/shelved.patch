@@ -1,0 +1,582 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <!--gps 위치 권한 허용 -->\r\n    <uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />\r\n    <uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />\r\n\r\n    <!-- 인터넷 사용 권한 설정 Kakao-->\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.Kotlinproject\"\r\n        tools:targetApi=\"31\">\r\n\r\n        <activity\r\n            android:name=\".MapsActivity\"\r\n            android:exported=\"false\">\r\n            <meta-data\r\n                android:name=\"android.app.lib_name\"\r\n                android:value=\"\" />\r\n        </activity>\r\n\r\n        <meta-data\r\n            android:name=\"com.google.android.geo.API_KEY\"\r\n            android:value=\"AIzaSyA0T7NcQ4kTlz7zJDU4Uxdeuv9pvCBq71A\" />\r\n\r\n        <activity\r\n            android:name=\".ResultActivity\"\r\n            android:exported=\"false\">\r\n            <meta-data\r\n                android:name=\"android.app.lib_name\"\r\n                android:value=\"\" />\r\n        </activity>\r\n        <activity\r\n            android:name=\".ChartActivity\"\r\n            android:exported=\"false\">\r\n            <meta-data\r\n                android:name=\"android.app.lib_name\"\r\n                android:value=\"\" />\r\n        </activity>\r\n        <activity\r\n            android:name=\".MainActivity\"\r\n            android:exported=\"true\">\r\n<!--            <intent-filter>-->\r\n<!--                <action android:name=\"android.intent.action.MAIN\" />-->\r\n\r\n<!--                <category android:name=\"android.intent.category.LAUNCHER\" />-->\r\n<!--            </intent-filter>-->\r\n\r\n            <meta-data\r\n                android:name=\"android.app.lib_name\"\r\n                android:value=\"\" />\r\n        </activity>\r\n        <activity\r\n            android:name=\".SelectActivity\"\r\n            android:exported=\"true\" />\r\n\r\n        <activity android:name=\".Main2Activity\"\r\n            android:exported=\"true\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity\r\n            android:name=\".HistoryActivity\"\r\n            android:exported=\"true\" >\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.VIEW\" />\r\n                <category android:name=\"android.intent.category.DEFAULT\" />\r\n                <category android:name=\"android.intent.category.BROWSABLE\" />\r\n\r\n                <!-- \"kakao${YOUR_NATIVE_APP_KEY}://kakaolink\" 형식의 앱 실행 스킴을 설정하는데 사용 -->\r\n                <data android:host=\"kakaolink\"\r\n                    android:scheme=\"kakaoa3371d68064ad62c0ef12f967df3741c\" />\r\n            </intent-filter>\r\n\r\n        </activity>\r\n\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision f4e10aa03ea24ca189393d096f8d39d8246ca9ab)
++++ b/app/src/main/AndroidManifest.xml	(date 1669039042742)
+@@ -2,11 +2,9 @@
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools">
+ 
+-    <!--gps 위치 권한 허용 -->
++    <!-- gps 위치 권한 허용 -->
+     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+-
+-    <!-- 인터넷 사용 권한 설정 Kakao-->
++    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 인터넷 사용 권한 설정 Kakao -->
+     <uses-permission android:name="android.permission.INTERNET" />
+ 
+     <application
+@@ -20,14 +18,17 @@
+         android:theme="@style/Theme.Kotlinproject"
+         tools:targetApi="31">
+ 
+-        <activity
+-            android:name=".MapsActivity"
+-            android:exported="false">
+-            <meta-data
+-                android:name="android.app.lib_name"
+-                android:value="" />
+-        </activity>
+-
++        <!--
++             TODO: Before you run your application, you need a Google Maps API key.
++
++             To get one, follow the directions here:
++
++                https://developers.google.com/maps/documentation/android-sdk/get-api-key
++
++             Once you have your API key (it starts with "AIza"), define a new property in your
++             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
++             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
++        -->
+         <meta-data
+             android:name="com.google.android.geo.API_KEY"
+             android:value="AIzaSyA0T7NcQ4kTlz7zJDU4Uxdeuv9pvCBq71A" />
+@@ -49,11 +50,13 @@
+         <activity
+             android:name=".MainActivity"
+             android:exported="true">
+-<!--            <intent-filter>-->
+-<!--                <action android:name="android.intent.action.MAIN" />-->
++
++            <!-- <intent-filter> -->
++            <!-- <action android:name="android.intent.action.MAIN" /> -->
+ 
+-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+-<!--            </intent-filter>-->
++
++            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
++            <!-- </intent-filter> -->
+ 
+             <meta-data
+                 android:name="android.app.lib_name"
+@@ -62,8 +65,8 @@
+         <activity
+             android:name=".SelectActivity"
+             android:exported="true" />
+-
+-        <activity android:name=".Main2Activity"
++        <activity
++            android:name=".Main2Activity"
+             android:exported="true">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+@@ -73,19 +76,19 @@
+         </activity>
+         <activity
+             android:name=".HistoryActivity"
+-            android:exported="true" >
++            android:exported="true">
+             <intent-filter>
+                 <action android:name="android.intent.action.VIEW" />
++
+                 <category android:name="android.intent.category.DEFAULT" />
+                 <category android:name="android.intent.category.BROWSABLE" />
+ 
+                 <!-- "kakao${YOUR_NATIVE_APP_KEY}://kakaolink" 형식의 앱 실행 스킴을 설정하는데 사용 -->
+-                <data android:host="kakaolink"
++                <data
++                    android:host="kakaolink"
+                     android:scheme="kakaoa3371d68064ad62c0ef12f967df3741c" />
+             </intent-filter>
+-
+         </activity>
+-
+     </application>
+ 
+ </manifest>
+\ No newline at end of file
+Index: app/src/main/java/com/example/kotlinproject/SelectFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.kotlinproject\r\n\r\nimport android.os.Bundle\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.navigation.fragment.findNavController\r\nimport com.example.kotlinproject.databinding.FragmentSelectBinding\r\nimport com.example.kotlinproject.db.RandomFood\r\nimport com.example.kotlinproject.db.RandomFood.Companion.ANYTHINGFOOD\r\nimport com.example.kotlinproject.db.RandomFood.Companion.ASIANFOOD\r\nimport com.example.kotlinproject.db.RandomFood.Companion.CHINESEFOOD\r\nimport com.example.kotlinproject.db.RandomFood.Companion.JAPANESEFOOD\r\nimport com.example.kotlinproject.db.RandomFood.Companion.KOREANFOOD\r\nimport com.example.kotlinproject.db.RandomFood.Companion.MEATFOOD\r\nimport com.example.kotlinproject.db.RandomFood.Companion.NOODLEFOOD\r\nimport com.example.kotlinproject.db.RandomFood.Companion.RICEFOOD\r\nimport com.example.kotlinproject.db.RandomFood.Companion.WESTERNFOOD\r\n\r\nclass SelectFragment : Fragment() {\r\n    var binding : FragmentSelectBinding? = null\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n        binding = FragmentSelectBinding.inflate(inflater)\r\n        return binding?.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n        initFoodBtnListener()\r\n\r\n    }\r\n\r\n    private fun initFoodBtnListener() {\r\n        binding?.btnAnything?.setOnClickListener {\r\n            val anythingFood = RandomFood.getAnyThing()\r\n            val bundle = Bundle().apply {\r\n                putStringArrayList(ANYTHINGFOOD, anythingFood)\r\n            }\r\n            findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)\r\n        }\r\n\r\n        binding?.btnKorean?.setOnClickListener {\r\n            val koreanFood = RandomFood.getKoreanFood()\r\n            val bundle = Bundle().apply {\r\n                putStringArrayList(KOREANFOOD, koreanFood)\r\n            }\r\n            findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)\r\n        }\r\n\r\n        binding?.btnChinese?.setOnClickListener {\r\n            val chineseFood = RandomFood.getChineseFood()\r\n            val bundle = Bundle().apply {\r\n                putStringArrayList(CHINESEFOOD, chineseFood)\r\n            }\r\n            findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)\r\n        }\r\n\r\n        binding?.btnWestern?.setOnClickListener {\r\n            val westernFood = RandomFood.getWesternFood()\r\n            val bundle = Bundle().apply {\r\n                putStringArrayList(WESTERNFOOD, westernFood)\r\n            }\r\n            findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)\r\n        }\r\n\r\n        binding?.btnAsian?.setOnClickListener {\r\n            val asianFood = RandomFood.getAsianFood()\r\n            val bundle = Bundle().apply {\r\n                putStringArrayList(ASIANFOOD, asianFood)\r\n            }\r\n            findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)\r\n        }\r\n\r\n        binding?.btnJapanese?.setOnClickListener {\r\n            val japanenseFood = RandomFood.getJapaneseFood()\r\n            val bundle = Bundle().apply {\r\n                putStringArrayList(JAPANESEFOOD, japanenseFood)\r\n            }\r\n            findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)\r\n        }\r\n\r\n        binding?.btnNoodle?.setOnClickListener {\r\n            val noodleFood = RandomFood.getNoodleFood()\r\n            val bundle = Bundle().apply {\r\n                putStringArrayList(NOODLEFOOD, noodleFood)\r\n            }\r\n            findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)\r\n        }\r\n\r\n        binding?.btnMeat?.setOnClickListener {\r\n            val meatFood = RandomFood.getMeatFood()\r\n            val bundle = Bundle().apply {\r\n                putStringArrayList(MEATFOOD, meatFood)\r\n            }\r\n            findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)\r\n        }\r\n\r\n        binding?.btnRice?.setOnClickListener {\r\n            val riceFood = RandomFood.getRiceFood()\r\n            val bundle = Bundle().apply {\r\n                putStringArrayList(RICEFOOD, riceFood)\r\n            }\r\n            findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)\r\n        }\r\n    }\r\n\r\n    override fun onDestroyView() {\r\n        super.onDestroyView()\r\n        binding = null\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/kotlinproject/SelectFragment.kt b/app/src/main/java/com/example/kotlinproject/SelectFragment.kt
+--- a/app/src/main/java/com/example/kotlinproject/SelectFragment.kt	(revision f4e10aa03ea24ca189393d096f8d39d8246ca9ab)
++++ b/app/src/main/java/com/example/kotlinproject/SelectFragment.kt	(date 1669028397763)
+@@ -17,14 +17,13 @@
+ import com.example.kotlinproject.db.RandomFood.Companion.NOODLEFOOD
+ import com.example.kotlinproject.db.RandomFood.Companion.RICEFOOD
+ import com.example.kotlinproject.db.RandomFood.Companion.WESTERNFOOD
++import com.google.android.gms.maps.GoogleMap
++import com.google.android.gms.maps.OnMapReadyCallback
+ 
+-class SelectFragment : Fragment() {
++class SelectFragment : Fragment(){
+     var binding : FragmentSelectBinding? = null
+ 
+-    override fun onCreateView(
+-        inflater: LayoutInflater, container: ViewGroup?,
+-        savedInstanceState: Bundle?
+-    ): View? {
++    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+         binding = FragmentSelectBinding.inflate(inflater)
+         return binding?.root
+     }
+@@ -50,6 +49,7 @@
+             val bundle = Bundle().apply {
+                 putStringArrayList(KOREANFOOD, koreanFood)
+             }
++
+             findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)
+         }
+ 
+Index: app/src/main/java/com/example/kotlinproject/MapFragment.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/kotlinproject/MapFragment.kt b/app/src/main/java/com/example/kotlinproject/MapFragment.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/example/kotlinproject/MapFragment.kt	(revision f4e10aa03ea24ca189393d096f8d39d8246ca9ab)
++++ /dev/null	(revision f4e10aa03ea24ca189393d096f8d39d8246ca9ab)
+@@ -1,32 +0,0 @@
+-package com.example.kotlinproject
+-
+-import android.os.Bundle
+-import androidx.fragment.app.Fragment
+-import android.view.LayoutInflater
+-import android.view.View
+-import android.view.ViewGroup
+-import com.example.kotlinproject.databinding.FragmentMapBinding
+-
+-// TODO: Rename parameter arguments, choose names that match
+-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+-private const val ARG_PARAM1 = "param1"
+-private const val ARG_PARAM2 = "param2"
+-
+-/**
+- * A simple [Fragment] subclass.
+- * Use the [MapFragment.newInstance] factory method to
+- * create an instance of this fragment.
+- */
+-class MapFragment : Fragment() {
+-
+-    var binding: FragmentMapBinding? = null
+-
+-    override fun onCreateView(
+-        inflater: LayoutInflater, container: ViewGroup?,
+-        savedInstanceState: Bundle?
+-    ): View? {
+-        binding = FragmentMapBinding.inflate(inflater)
+-        return binding?.root
+-    }
+-
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/example/kotlinproject/MapsActivity.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/kotlinproject/MapsActivity.kt b/app/src/main/java/com/example/kotlinproject/MapsActivity.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/example/kotlinproject/MapsActivity.kt	(revision f4e10aa03ea24ca189393d096f8d39d8246ca9ab)
++++ /dev/null	(revision f4e10aa03ea24ca189393d096f8d39d8246ca9ab)
+@@ -1,215 +0,0 @@
+-package com.example.kotlinproject
+-
+-import android.annotation.SuppressLint
+-import android.content.ContentValues.TAG
+-import android.content.Intent
+-import android.content.IntentSender
+-import android.content.pm.PackageManager
+-import android.content.pm.PackageManager.PERMISSION_GRANTED
+-import android.location.Location
+-import android.net.Uri
+-import androidx.appcompat.app.AppCompatActivity
+-import android.os.Bundle
+-import android.os.Looper
+-import android.provider.Settings
+-import android.util.Log
+-import android.widget.Toast
+-import androidx.core.app.ActivityCompat
+-import androidx.core.content.ContextCompat
+-
+-import com.google.android.gms.maps.CameraUpdateFactory
+-import com.google.android.gms.maps.GoogleMap
+-import com.google.android.gms.maps.OnMapReadyCallback
+-import com.google.android.gms.maps.SupportMapFragment
+-import com.google.android.gms.maps.model.LatLng
+-import com.google.android.gms.maps.model.MarkerOptions
+-import com.example.kotlinproject.databinding.ActivityMapsBinding
+-import com.google.android.gms.common.api.ResolvableApiException
+-import com.google.android.gms.location.*
+-import com.google.android.gms.location.R
+-import com.google.android.gms.maps.model.CameraPosition
+-import com.google.android.gms.maps.model.Marker
+-import com.google.android.gms.tasks.Task
+-import com.google.android.material.snackbar.Snackbar
+-import io.grpc.InternalChannelz.id
+-
+-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+-
+-    val permissions = Array<String>(2){
+-        android.Manifest.permission.ACCESS_COARSE_LOCATION
+-        android.Manifest.permission.ACCESS_FINE_LOCATION
+-    }
+-
+-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+-    private lateinit var locationRequest: LocationRequest
+-    private lateinit var locationCallback: LocationCallback
+-    private lateinit var mMap: GoogleMap
+-    private lateinit var binding: ActivityMapsBinding
+-
+-    var currentMarker:Marker? = null
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-
+-        binding = ActivityMapsBinding.inflate(layoutInflater)
+-        setContentView(binding.root)
+-
+-        val stringExtra = intent.getStringExtra("food")
+-//        println("stringExtra = ${stringExtra}")
+-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+-
+-        if(isPermitted()) startProcess()
+-        else getPermission()
+-    }
+-
+-    fun isPermitted() : Boolean {
+-        for (perm in permissions) {
+-            if (ContextCompat.checkSelfPermission(this, perm) != PERMISSION_GRANTED)
+-                return false
+-        }
+-        return true
+-    }
+-
+-    fun startProcess(){
+-        Log.d(TAG,"Start 실행")
+-        val mapFragment = supportFragmentManager.findFragmentById(com.example.kotlinproject.R.id.map)
+-                as SupportMapFragment
+-        mapFragment.getMapAsync(this)
+-    }
+-
+-    override fun onMapReady(googleMap: GoogleMap) {
+-        mMap = googleMap
+-        showDefaultLocation()
+-        setLocationRequestSettings()
+-        locationUpdate()
+-        Log.d(TAG,"다 실행")
+-    }
+-
+-    fun locationUpdate(){
+-        locationCallback = object : LocationCallback(){
+-            override fun onLocationResult(locationResult: LocationResult) {
+-                locationResult.let{
+-                    for ((i, location) in it.locations.withIndex()){
+-                        showCurrentLocation(location)
+-                    }
+-                }
+-            }
+-        }
+-        @SuppressLint("MissingPermission")
+-        if(isPermitted()) {
+-            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
+-        }
+-    }
+-
+-    fun showCurrentLocation(location: Location){
+-        val currentLocation = LatLng(location.latitude, location.longitude)
+-        val markerOption = MarkerOptions().position(currentLocation).title("현재 위치입니다")
+-        val cameraOption= CameraPosition.Builder().target(currentLocation).zoom(15.0f).build()
+-        val camera = CameraUpdateFactory.newCameraPosition(cameraOption)
+-        mMap.clear()
+-        mMap.addMarker(markerOption)
+-        mMap.moveCamera(camera)
+-    }
+-
+-    fun showDefaultLocation(){
+-        val markerTitle = "위치정보 가져올 수 없음"
+-        val markerSnippet = "위치 권한과 GPS 활성 여부를 확인하세요"
+-        val markerOptions = MarkerOptions()
+-        markerOptions.position(LatLng(37.56,126.97))
+-        markerOptions.title(markerTitle)
+-        markerOptions.snippet(markerSnippet)
+-        markerOptions.draggable(true)
+-        currentMarker = mMap.addMarker(markerOptions)
+-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(37.56,126.97),15.0f))
+-    }
+-
+-    fun setLocationRequestSettings() {
+-        locationRequest = LocationRequest.create().apply() {
+-            interval = 10000
+-            fastestInterval = 5000
+-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+-        }
+-        val builder = LocationSettingsRequest.Builder()
+-            .addLocationRequest(locationRequest)
+-        val client: SettingsClient = LocationServices.getSettingsClient(this)
+-        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())
+-        //GPS가 켜져있는 경우 아무 것도 안함
+-        task.addOnFailureListener { exception ->
+-            // GPS가 꺼져있을 경우
+-            if (exception is ResolvableApiException) {
+-                try {
+-                    exception.startResolutionForResult(
+-                        this,
+-                        0
+-                    )
+-                } catch (sendEx: IntentSender.SendIntentException) {
+-                }
+-            }
+-        }
+-    }
+-
+-    fun getPermission(){
+-        ActivityCompat.requestPermissions(this, permissions,0)
+-    }
+-
+-    override fun onRequestPermissionsResult(
+-        requestCode: Int,
+-        permissions: Array<out String>,
+-        grantResults: IntArray
+-    ) {
+-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+-        when (requestCode) {//requestCode가 0일때
+-            0 -> {
+-                if (grantResults.isNotEmpty()) {//요청을 허락했을 때 정보를 갖는다
+-                    var allGranted = true
+-                    //요청한 권한 허용/거부 상태를 한번에 체크한다
+-                    for (grant in grantResults) {
+-                        if (grant != PackageManager.PERMISSION_GRANTED) {
+-                            allGranted = false
+-                            break;
+-                        }
+-                    }
+-                    //요청한 권한을 모두 허용했다면
+-                    if (allGranted) {
+-                        startProcess()
+-                    }
+-                    //요청을 1회 거절하면
+-                    else if (ActivityCompat.shouldShowRequestPermissionRationale(
+-                            this,
+-                            android.Manifest.permission.ACCESS_COARSE_LOCATION
+-                        ) &&
+-                        ActivityCompat.shouldShowRequestPermissionRationale(
+-                            this,
+-                            android.Manifest.permission.ACCESS_FINE_LOCATION
+-                        )
+-                    ) {
+-                        Toast.makeText(this, "주변 음식점 검색을 위해 위치 권한이 허용 되어야 합니다.", Toast.LENGTH_SHORT).show()
+-                        getPermission()
+-                    }
+-                    //요청을 2회 이상 거절하면
+-                    else noticeCantWork()
+-                }
+-            }
+-        }
+-    }
+-
+-    fun noticeCantWork(){
+-        Toast.makeText(this, "설정에서 위치 사용 권한을 허용해 주세요", Toast.LENGTH_SHORT).show()
+-        val snackBar = Snackbar.make(
+-            binding.root,
+-            "음식점 검색을 위한 위치 정보 접근 권한이 필요합니다",
+-            Snackbar.LENGTH_INDEFINITE
+-        )
+-        snackBar.setAction("승인") { gotoSettings() }
+-        snackBar.show()
+-    }
+-
+-    fun gotoSettings(){
+-        val intent = Intent()
+-        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+-        val uri = Uri.fromParts("package", packageName, null)
+-        intent.data = uri
+-        startActivity(intent)
+-    }
+-
+-}
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_maps.xml
+===================================================================
+diff --git a/app/src/main/res/layout/activity_maps.xml b/app/src/main/res/layout/activity_maps.xml
+deleted file mode 100644
+--- a/app/src/main/res/layout/activity_maps.xml	(revision f4e10aa03ea24ca189393d096f8d39d8246ca9ab)
++++ /dev/null	(revision f4e10aa03ea24ca189393d096f8d39d8246ca9ab)
+@@ -1,9 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:map="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@+id/map"
+-    android:name="com.google.android.gms.maps.SupportMapFragment"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context=".MapsActivity" />
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_map.xml
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_map.xml b/app/src/main/res/layout/fragment_map.xml
+deleted file mode 100644
+--- a/app/src/main/res/layout/fragment_map.xml	(revision f4e10aa03ea24ca189393d096f8d39d8246ca9ab)
++++ /dev/null	(revision f4e10aa03ea24ca189393d096f8d39d8246ca9ab)
+@@ -1,9 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:map="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@+id/map"
+-    android:name="com.google.android.gms.maps.SupportMapFragment"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context=".MapsActivity" />
+\ No newline at end of file
+Index: app/src/main/java/com/example/kotlinproject/Main2Activity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.kotlinproject\r\n\r\nimport android.graphics.drawable.AnimationDrawable\r\nimport android.os.Bundle\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport androidx.navigation.fragment.NavHostFragment\r\nimport androidx.navigation.ui.AppBarConfiguration\r\nimport androidx.navigation.ui.setupActionBarWithNavController\r\nimport androidx.navigation.ui.setupWithNavController\r\nimport com.example.kotlinproject.databinding.ActivityMain2Binding\r\n\r\nclass Main2Activity : AppCompatActivity() {\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n\r\n        val binding = ActivityMain2Binding.inflate(layoutInflater)\r\n\r\n        val navController = binding.frgNav.getFragment<NavHostFragment>().navController\r\n//        val appBarConfiguration = AppBarConfiguration (\r\n//            setOf(R.id.entryFragment, R.id.historyFragment, R.id.mapFragment, R.id.selectFragment)\r\n//                )\r\n        binding.bottomNav.setupWithNavController(navController )\r\n        setContentView(binding.root)\r\n\r\n        val animationDrawable = binding.ctrMain.background as AnimationDrawable\r\n        animationDrawable.setEnterFadeDuration(1000)\r\n        animationDrawable.setExitFadeDuration(1000)\r\n        animationDrawable.start()\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/kotlinproject/Main2Activity.kt b/app/src/main/java/com/example/kotlinproject/Main2Activity.kt
+--- a/app/src/main/java/com/example/kotlinproject/Main2Activity.kt	(revision f4e10aa03ea24ca189393d096f8d39d8246ca9ab)
++++ b/app/src/main/java/com/example/kotlinproject/Main2Activity.kt	(date 1669019168100)
+@@ -20,9 +20,10 @@
+ //        val appBarConfiguration = AppBarConfiguration (
+ //            setOf(R.id.entryFragment, R.id.historyFragment, R.id.mapFragment, R.id.selectFragment)
+ //                )
+-        binding.bottomNav.setupWithNavController(navController )
++        binding.bottomNav.setupWithNavController(navController)
+         setContentView(binding.root)
+ 
++        //UI
+         val animationDrawable = binding.ctrMain.background as AnimationDrawable
+         animationDrawable.setEnterFadeDuration(1000)
+         animationDrawable.setExitFadeDuration(1000)
+Index: app/src/main/res/navigation/nav_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<navigation xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/nav_main\"\r\n    app:startDestination=\"@id/entryFragment\">\r\n\r\n    <fragment\r\n        android:id=\"@+id/entryFragment\"\r\n        android:name=\"com.example.kotlinproject.EntryFragment\"\r\n        android:label=\"fragment_entry\"\r\n        tools:layout=\"@layout/fragment_entry\" >\r\n        <action\r\n            android:id=\"@+id/action_entryFragment_to_selectFragment\"\r\n            app:destination=\"@id/selectFragment\" />\r\n    </fragment>\r\n    <fragment\r\n        android:id=\"@+id/selectFragment\"\r\n        android:name=\"com.example.kotlinproject.SelectFragment\"\r\n        android:label=\"fragment_select\"\r\n        tools:layout=\"@layout/fragment_select\" >\r\n        <action\r\n            android:id=\"@+id/action_selectFragment_to_resultFragment\"\r\n            app:destination=\"@id/resultFragment\"\r\n            app:popUpToInclusive=\"false\" />\r\n    </fragment>\r\n    <fragment\r\n        android:id=\"@+id/historyFragment\"\r\n        android:name=\"com.example.kotlinproject.HistoryFragment\"\r\n        android:label=\"fragment_history\"\r\n        tools:layout=\"@layout/fragment_history\" >\r\n        <action\r\n            android:id=\"@+id/action_historyFragment_to_chartFragment\"\r\n            app:destination=\"@id/chartFragment\" />\r\n    </fragment>\r\n    <fragment\r\n        android:id=\"@+id/mapFragment\"\r\n        android:name=\"com.example.kotlinproject.MapFragment\"\r\n        android:label=\"fragment_map\"\r\n        tools:layout=\"@layout/fragment_map\" />\r\n    <fragment\r\n        android:id=\"@+id/resultFragment\"\r\n        android:name=\"com.example.kotlinproject.ResultFragment\"\r\n        android:label=\"fragment_result\"\r\n        tools:layout=\"@layout/fragment_result\" >\r\n        <action\r\n            android:id=\"@+id/action_resultFragment_to_historyFragment\"\r\n            app:destination=\"@id/historyFragment\" />\r\n        <action\r\n            android:id=\"@+id/action_resultFragment_to_mapFragment\"\r\n            app:destination=\"@id/mapFragment\"\r\n            app:popUpToInclusive=\"false\" />\r\n    </fragment>\r\n    <fragment\r\n        android:id=\"@+id/chartFragment\"\r\n        android:name=\"com.example.kotlinproject.ChartFragment\"\r\n        android:label=\"fragment_chart\"\r\n        tools:layout=\"@layout/fragment_chart\" />\r\n</navigation>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/navigation/nav_main.xml b/app/src/main/res/navigation/nav_main.xml
+--- a/app/src/main/res/navigation/nav_main.xml	(revision f4e10aa03ea24ca189393d096f8d39d8246ca9ab)
++++ b/app/src/main/res/navigation/nav_main.xml	(date 1669035068616)
+@@ -35,9 +35,9 @@
+     </fragment>
+     <fragment
+         android:id="@+id/mapFragment"
+-        android:name="com.example.kotlinproject.MapFragment"
++        android:name="com.example.kotlinproject.MapsFragment"
+         android:label="fragment_map"
+-        tools:layout="@layout/fragment_map" />
++        tools:layout="@layout/fragment_maps" />
+     <fragment
+         android:id="@+id/resultFragment"
+         android:name="com.example.kotlinproject.ResultFragment"
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"GRADLE\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"JDK\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision f4e10aa03ea24ca189393d096f8d39d8246ca9ab)
++++ b/.idea/gradle.xml	(date 1669015876283)
+@@ -7,7 +7,7 @@
+         <option name="testRunner" value="GRADLE" />
+         <option name="distributionType" value="DEFAULT_WRAPPED" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+-        <option name="gradleJvm" value="JDK" />
++        <option name="gradleJvm" value="corretto-11" />
+         <option name="modules">
+           <set>
+             <option value="$PROJECT_DIR$" />
+Index: app/src/main/java/com/example/kotlinproject/ResultActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.kotlinproject\r\n\r\n//TODO bundle getPutEn()\r\n//TODO arrayList\r\n// do\r\n\r\nimport android.R.*\r\nimport android.content.Intent\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport android.view.View\r\nimport android.widget.ImageView\r\nimport android.widget.TextView\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport com.example.kotlinproject.databinding.ActivityResultBinding\r\nimport com.example.kotlinproject.db.entity.Foods\r\nimport com.google.firebase.database.DatabaseReference\r\nimport com.google.firebase.database.FirebaseDatabase\r\nimport java.time.LocalDate\r\nimport java.util.*\r\n\r\n\r\nclass ResultActivity : AppCompatActivity() {\r\n\r\n    val database: FirebaseDatabase = FirebaseDatabase.getInstance()\r\n    val databaseReference : DatabaseReference = database.getReference()\r\n    lateinit var binding: ActivityResultBinding\r\n    lateinit var selectedFood : String\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        binding = ActivityResultBinding.inflate(layoutInflater);\r\n\r\n        setContentView(binding.root)\r\n\r\n        doResult()\r\n\r\n        binding.btnRedo.setOnClickListener {\r\n            doResult()\r\n        }\r\n\r\n        binding.btnMap.setOnClickListener {\r\n            var random_uuid = UUID.randomUUID()\r\n            val today: LocalDate = LocalDate.now()\r\n            val food = Foods(random_uuid.toString(), selectedFood, today.toString())\r\n            databaseReference.child(\"Foods\").push().setValue(food)\r\n\r\n            //TODO bundle에 담아서 selectedFood 이름 String으로 MapsActivity에 보낸다.\r\n            val intent = Intent(this@ResultActivity, MapsActivity::class.java )\r\n            intent.putExtra(\"food\", selectedFood)\r\n            startActivity(intent)\r\n        }\r\n\r\n\r\n    }\r\n\r\n\r\n    private fun doResult() {\r\n        val anything = intent.getStringArrayListExtra(\"anything\")\r\n        val korean = intent.getStringArrayListExtra(\"korean\")\r\n        val chinese = intent.getStringArrayListExtra(\"chinese\")\r\n        val western = intent.getStringArrayListExtra(\"western\")\r\n        val asian = intent.getStringArrayListExtra(\"asian\")\r\n        val japanese = intent.getStringArrayListExtra(\"japanese\")\r\n        val noodle = intent.getStringArrayListExtra(\"noodle\")\r\n        val meat = intent.getStringArrayListExtra(\"meat\")\r\n        val rice = intent.getStringArrayListExtra(\"rice\")\r\n\r\n\r\n        setDrawable(anything, korean, chinese, western, asian, japanese, noodle, meat, rice)\r\n    }\r\n\r\n    private fun setDrawable(\r\n        anything: ArrayList<String>?,\r\n        korean: ArrayList<String>?,\r\n        chinese: ArrayList<String>?,\r\n        western: ArrayList<String>?,\r\n        asian: ArrayList<String>?,\r\n        japanese: ArrayList<String>?,\r\n        noodle: ArrayList<String>?,\r\n        meat: ArrayList<String>?,\r\n        rice: ArrayList<String>?\r\n    ) {\r\n        if (intent.hasExtra(\"anything\")) {\r\n\r\n            if (anything != null) {\r\n                var randomNumber = (1..anything.size).random()\r\n\r\n                selectedFood = anything[randomNumber-1]\r\n                var randomResource = when (randomNumber) {\r\n                    1 -> R.drawable.select_bibim_bap\r\n                    2 -> R.drawable.select_buchim_gae\r\n                    3 -> R.drawable.select_cheong_guk_jang\r\n                    4 -> R.drawable.select_chicken\r\n                    5 -> R.drawable.select_dak_bal\r\n                    6 -> R.drawable.select_ddek_bokki\r\n                    7 -> R.drawable.select_do_si_rak\r\n                    8 -> R.drawable.select_doen_jang_jjigae\r\n                    9 -> R.drawable.select_don_gas\r\n                    10 -> R.drawable.select_galbitang\r\n\r\n                    11 -> R.drawable.select_gim_bap\r\n                    12 -> R.drawable.select_gob_chang\r\n                    13 -> R.drawable.select_gug_bab\r\n                    14 -> R.drawable.select_haejang_gug\r\n                    15 -> R.drawable.select_hamburger\r\n                    16 -> R.drawable.select_hotdog\r\n                    17 -> R.drawable.select_jajjang\r\n                    18 -> R.drawable.select_jjambong\r\n                    19 -> R.drawable.select_jukkumi\r\n\r\n                    20 -> R.drawable.select_kalgugsu\r\n                    21 -> R.drawable.select_man_do\r\n                    22 -> R.drawable.select_mara_tang\r\n                    23 -> R.drawable.select_omurice\r\n                    24 -> R.drawable.select_pasta\r\n                    25 -> R.drawable.select_pizza\r\n                    26 -> R.drawable.select_ramen\r\n                    27 -> R.drawable.select_sam_gye_tang\r\n                    28 -> R.drawable.select_sam_gyeob_sal\r\n                    29 -> R.drawable.select_sandwich\r\n\r\n                    30 -> R.drawable.select_sashimi\r\n                    31 -> R.drawable.select_soyed_crab\r\n                    32 -> R.drawable.select_ssal_guksu\r\n\r\n                    33 -> R.drawable.select_sundaebokk_eum\r\n                    34 -> R.drawable.select_yang_kko_chi\r\n                    35 -> R.drawable.select_yug_hoe\r\n                    else -> R.drawable.select_jeyugbokk_eum\r\n                }\r\n\r\n                var resultImage: ImageView = binding.imgResult\r\n                resultImage.setImageResource(randomResource)\r\n            }\r\n        }\r\n\r\n        if (intent.hasExtra(\"korean\")) {\r\n            if (korean != null) {\r\n                var randomNumber = (1..korean.size).random()\r\n                selectedFood = korean[randomNumber-1]\r\n\r\n                var randomResource = when (randomNumber) {\r\n                    1 -> R.drawable.select_bibim_bap\r\n                    2 -> R.drawable.select_buchim_gae\r\n                    3 -> R.drawable.select_cheong_guk_jang\r\n                    4 -> R.drawable.select_dak_bal\r\n                    5 -> R.drawable.select_ddek_bokki\r\n                    6 -> R.drawable.select_do_si_rak\r\n                    7 -> R.drawable.select_doen_jang_jjigae\r\n                    8 -> R.drawable.select_galbitang\r\n                    9 -> R.drawable.select_gim_bap\r\n                    10 -> R.drawable.select_gob_chang\r\n\r\n                    11 -> R.drawable.select_gug_bab\r\n                    12 -> R.drawable.select_haejang_gug\r\n                    13 -> R.drawable.select_jeyugbokk_eum\r\n                    14 -> R.drawable.select_jukkumi\r\n                    15 -> R.drawable.select_kalgugsu\r\n                    16 -> R.drawable.select_sam_gye_tang\r\n                    17 -> R.drawable.select_galbitang\r\n                    18 -> R.drawable.select_sam_gyeob_sal\r\n                    else -> R.drawable.select_sundaebokk_eum\r\n                }\r\n                var resultImage: ImageView = binding.imgResult\r\n                resultImage.setImageResource(randomResource)\r\n            }\r\n        }\r\n        if (intent.hasExtra(\"chinese\")) {\r\n            if (chinese != null) {\r\n                var randomNumber = (1..chinese.size).random()\r\n                selectedFood = chinese[randomNumber-1]\r\n\r\n                var randomResource = when (randomNumber) {\r\n                    1 -> R.drawable.select_gob_chang\r\n                    2 -> R.drawable.select_jajjang\r\n                    3 -> R.drawable.select_jjambong\r\n                    4 -> R.drawable.select_man_do\r\n                    5 -> R.drawable.select_mara_tang\r\n                    else -> R.drawable.select_yang_kko_chi\r\n                }\r\n                var resultImage: ImageView = binding.imgResult\r\n                resultImage.setImageResource(randomResource)\r\n            }\r\n        }\r\n\r\n        if (intent.hasExtra(\"western\")) {\r\n            if (western != null) {\r\n                var randomNumber = (1..western.size).random()\r\n                selectedFood = western[randomNumber-1]\r\n\r\n                var randomResource = when (randomNumber) {\r\n                    1 -> R.drawable.select_don_gas\r\n                    2 -> R.drawable.select_hamburger\r\n                    3 -> R.drawable.select_hotdog\r\n                    4 -> R.drawable.select_omurice\r\n                    5 -> R.drawable.select_pasta\r\n                    6 -> R.drawable.select_pizza\r\n                    else -> R.drawable.select_sandwich\r\n\r\n                }\r\n                var resultImage: ImageView = binding.imgResult\r\n                resultImage.setImageResource(randomResource)\r\n            }\r\n        }\r\n        //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+--+-+-+-+-+-+-+-+\r\n        if (intent.hasExtra(\"asian\")) {\r\n            if (asian != null) {\r\n                var randomNumber = (1..asian.size).random()\r\n                selectedFood = asian[randomNumber-1]\r\n\r\n                var randomResource = when (randomNumber) {\r\n                    1 -> R.drawable.select_bibim_bap\r\n                    2 -> R.drawable.select_buchim_gae\r\n                    3 -> R.drawable.select_chicken\r\n                    4 -> R.drawable.select_dak_bal\r\n                    5 -> R.drawable.select_do_si_rak\r\n                    6 -> R.drawable.select_gim_bap\r\n                    7 -> R.drawable.select_gob_chang\r\n                    8 -> R.drawable.select_jajjang\r\n                    9 -> R.drawable.select_jukkumi\r\n                    10 -> R.drawable.select_kalgugsu\r\n\r\n                    11 -> R.drawable.select_man_do\r\n                    12 -> R.drawable.select_mara_tang\r\n                    13 -> R.drawable.select_ramen\r\n                    14 -> R.drawable.select_sam_gyeob_sal\r\n                    15 -> R.drawable.select_soyed_crab\r\n                    16 -> R.drawable.select_ssal_guksu\r\n                    17 -> R.drawable.select_jjambong\r\n                    else -> R.drawable.select_yang_kko_chi\r\n                }\r\n                var resultImage: ImageView = binding.imgResult\r\n                resultImage.setImageResource(randomResource)\r\n            }\r\n        }\r\n        if (intent.hasExtra(\"japanese\")) {\r\n            if (japanese != null) {\r\n                var randomNumber = (1..japanese.size).random()\r\n                selectedFood = japanese[randomNumber-1]\r\n\r\n\r\n                var randomResource = when (randomNumber) {\r\n                    1 -> R.drawable.select_don_gas\r\n                    2 -> R.drawable.select_ramen\r\n                    3 -> R.drawable.select_sashimi\r\n                    else -> R.drawable.select_soyed_crab\r\n                }\r\n                var resultImage: ImageView = binding.imgResult\r\n                resultImage.setImageResource(randomResource)\r\n            }\r\n        }\r\n        if (intent.hasExtra(\"noodle\")) {\r\n            if (noodle != null) {\r\n                var randomNumber = (1..noodle.size).random()\r\n                selectedFood = noodle[randomNumber-1]\r\n\r\n\r\n                var randomResource = when (randomNumber) {\r\n                    1 -> R.drawable.select_jajjang\r\n                    2 -> R.drawable.select_jjambong\r\n                    3 -> R.drawable.select_kalgugsu\r\n                    4 -> R.drawable.select_mara_tang\r\n                    5 -> R.drawable.select_pasta\r\n                    6 -> R.drawable.select_ramen\r\n                    else -> R.drawable.select_ssal_guksu\r\n                }\r\n                var resultImage: ImageView = binding.imgResult\r\n                resultImage.setImageResource(randomResource)\r\n            }\r\n        }\r\n        if (intent.hasExtra(\"meat\")) {\r\n            if (meat != null) {\r\n                var randomNumber = (1..meat.size).random()\r\n                selectedFood = meat[randomNumber-1]\r\n\r\n                var randomResource = when (randomNumber) {\r\n                    1 -> R.drawable.select_chicken\r\n                    2 -> R.drawable.select_dak_bal\r\n                    3 -> R.drawable.select_jeyugbokk_eum\r\n                    4 -> R.drawable.select_sam_gyeob_sal\r\n                    5 -> R.drawable.select_yang_kko_chi\r\n                    else -> R.drawable.select_yug_hoe\r\n                }\r\n                var resultImage: ImageView = binding.imgResult\r\n                resultImage.setImageResource(randomResource)\r\n            }\r\n        }\r\n        if (intent.hasExtra(\"rice\")) {\r\n            if (rice != null) {\r\n                var randomNumber = (1..rice.size).random()\r\n                selectedFood = rice[randomNumber-1]\r\n\r\n                var randomResource = when (randomNumber) {\r\n                    1 -> R.drawable.select_bibim_bap\r\n                    2 -> R.drawable.select_cheong_guk_jang\r\n                    3 -> R.drawable.select_do_si_rak\r\n                    4 -> R.drawable.select_galbitang\r\n                    5 -> R.drawable.select_gim_bap\r\n                    6 -> R.drawable.select_haejang_gug\r\n                    7 -> R.drawable.select_gug_bab\r\n                    8 -> R.drawable.select_omurice\r\n                    else -> R.drawable.select_sam_gye_tang\r\n                }\r\n                var resultImage: ImageView = binding.imgResult\r\n                resultImage.setImageResource(randomResource)\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/kotlinproject/ResultActivity.kt b/app/src/main/java/com/example/kotlinproject/ResultActivity.kt
+--- a/app/src/main/java/com/example/kotlinproject/ResultActivity.kt	(revision f4e10aa03ea24ca189393d096f8d39d8246ca9ab)
++++ b/app/src/main/java/com/example/kotlinproject/ResultActivity.kt	(date 1669039042751)
+@@ -46,7 +46,7 @@
+             databaseReference.child("Foods").push().setValue(food)
+ 
+             //TODO bundle에 담아서 selectedFood 이름 String으로 MapsActivity에 보낸다.
+-            val intent = Intent(this@ResultActivity, MapsActivity::class.java )
++            //val intent = Intent(this@ResultActivity, MapsActivity::class.java )
+             intent.putExtra("food", selectedFood)
+             startActivity(intent)
+         }
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id 'com.android.application'\r\n    id 'org.jetbrains.kotlin.android'\r\n    id 'kotlin-kapt'\r\n\r\n    // Add the Google services Gradle plugin\r\n    id 'com.google.gms.google-services'\r\n}\r\n\r\nandroid {\r\n    namespace 'com.example.kotlinproject'\r\n    compileSdk 32\r\n\r\n    defaultConfig {\r\n        applicationId \"com.example.kotlinproject\"\r\n        minSdk 26\r\n        targetSdk 32\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n    kotlinOptions {\r\n        jvmTarget = '1.8'\r\n    }\r\n\r\n    buildFeatures { // 뷰바인딩\r\n        viewBinding = true\r\n    }\r\n}\r\n\r\ndependencies {\r\n    implementation 'com.google.firebase:firebase-database-ktx:20.1.0'\r\n    implementation 'com.google.android.gms:play-services-maps:18.1.0'\r\n    implementation 'com.google.android.gms:play-services-location:18.0.0'\r\n    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'\r\n    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'\r\n    def room_version = \"2.4.3\"\r\n\r\n    implementation(\"androidx.room:room-runtime:$room_version\")\r\n    annotationProcessor(\"androidx.room:room-compiler:$room_version\")\r\n\r\n    // To use Kotlin annotation processing tool (kapt)\r\n    kapt(\"androidx.room:room-compiler:$room_version\")\r\n\r\n\r\n    implementation \"androidx.recyclerview:recyclerview:1.1.0\"\r\n\r\n    implementation 'androidx.core:core-ktx:1.7.0'\r\n    implementation 'androidx.appcompat:appcompat:1.5.1'\r\n    implementation 'com.google.android.material:material:1.6.1'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'\r\n    testImplementation 'junit:junit:4.13.2'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.3'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'\r\n    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'\r\n\r\n    // Import the Firebase BoM\r\n    implementation platform('com.google.firebase:firebase-bom:31.0.2')\r\n\r\n    // When using the BoM, you don't specify versions in Firebase library dependencies\r\n\r\n    // Add the dependency for the Firebase SDK for Google Analytics\r\n    implementation 'com.google.firebase:firebase-analytics-ktx'\r\n    //추가된 sdk\r\n    // TODO: Add the dependencies for any other Firebase products you want to use\r\n    // See https://firebase.google.com/docs/android/setup#available-libraries\r\n    // For example, add the dependencies for Firebase Authentication and Cloud Firestore\r\n    implementation 'com.google.firebase:firebase-auth-ktx'\r\n    implementation 'com.google.firebase:firebase-firestore-ktx'\r\n\r\n    // 카카오톡\r\n    implementation \"com.kakao.sdk:v2-share:2.11.2\" // 메시지(카카오톡 공유)\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle b/app/build.gradle
+--- a/app/build.gradle	(revision f4e10aa03ea24ca189393d096f8d39d8246ca9ab)
++++ b/app/build.gradle	(date 1669029860063)
+@@ -5,6 +5,7 @@
+ 
+     // Add the Google services Gradle plugin
+     id 'com.google.gms.google-services'
++    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+ }
+ 
+ android {
+Index: app/src/main/java/com/example/kotlinproject/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.kotlinproject\r\n\r\nimport android.content.Intent\r\nimport android.graphics.drawable.AnimationDrawable\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.widget.LinearLayout\r\nimport androidx.constraintlayout.widget.ConstraintLayout\r\nimport com.example.kotlinproject.databinding.ActivityMainBinding\r\n\r\nclass   MainActivity : AppCompatActivity() {\r\n\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n\r\n        // 1. 바인딩 초기화\r\n        val binding = ActivityMainBinding.inflate(layoutInflater);\r\n\r\n        //2. 레이아웃(root뷰) 표시\r\n        setContentView(binding.root)\r\n\r\n        binding.btnStart.setOnClickListener {\r\n            val nextIntent = Intent(this@MainActivity, SelectActivity::class.java)\r\n            startActivity(nextIntent)\r\n        }\r\n        //UI\r\n        val constraintLayout: LinearLayout = findViewById(R.id.mainLayout)\r\n        val animationDrawable: AnimationDrawable = constraintLayout.background as AnimationDrawable\r\n        animationDrawable.setEnterFadeDuration(1500)\r\n        animationDrawable.setExitFadeDuration(2000)\r\n        animationDrawable.start()\r\n    }\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/kotlinproject/MainActivity.kt b/app/src/main/java/com/example/kotlinproject/MainActivity.kt
+--- a/app/src/main/java/com/example/kotlinproject/MainActivity.kt	(revision f4e10aa03ea24ca189393d096f8d39d8246ca9ab)
++++ b/app/src/main/java/com/example/kotlinproject/MainActivity.kt	(date 1669017176714)
+@@ -25,7 +25,7 @@
+             startActivity(nextIntent)
+         }
+         //UI
+-        val constraintLayout: LinearLayout = findViewById(R.id.mainLayout)
++        val constraintLayout: LinearLayout = binding.mainLayout
+         val animationDrawable: AnimationDrawable = constraintLayout.background as AnimationDrawable
+         animationDrawable.setEnterFadeDuration(1500)
+         animationDrawable.setExitFadeDuration(2000)
+Index: app/src/main/java/com/example/kotlinproject/SelectActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.kotlinproject\r\n\r\nimport android.content.Intent\r\nimport android.os.Bundle\r\nimport android.view.View\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport com.example.kotlinproject.databinding.ActivitySelectBinding\r\nimport com.example.kotlinproject.enum.FoodNames\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.BIBIM_BAP\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.BUCHIM_GAE\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.CHEONGGUCK_JANG\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.CHICKEN\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.DAK_BAL\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.DDEK_BOKKI\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.DOEN_JANG_JJIGAE\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.DON_GAS\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.DO_SI_RAK\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.GALBITANG\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.GIM_BAP\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.GOB_CHANG\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.GUG_BAB\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.HAEJANG_GUG\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.HAMBURGER\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.HOTDOG\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.JAJJANG\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.JEYUGBOKK_EUM\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.JJAMBONG\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.JUKKUMI\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.KALGUGSU\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.MAN_DO\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.MARA_TANG\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.OMURICE\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.PASTA\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.PIZZA\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.RAMEN\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.SAM_GYEOB_SAL\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.SAM_GYE_TANG\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.SANDWICH\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.SASHIMI\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.SOYED_CRAB\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.SSAL_GUKSU\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.SUNDAEBOKK\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.YANG_KKO_CHI\r\nimport com.example.kotlinproject.enum.FoodNames.Companion.YUG_HOE\r\n\r\nclass SelectActivity : AppCompatActivity() {\r\n\r\n\r\n    //2. 레이아웃(root뷰) 표시\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        val binding = ActivitySelectBinding.inflate(layoutInflater);\r\n\r\n        setContentView(binding.root)\r\n\r\n        binding.btnHistory.setOnClickListener {\r\n            val nextIntent = Intent(this@SelectActivity, HistoryActivity::class.java)\r\n            startActivity(nextIntent)\r\n        }\r\n\r\n        binding.btnMap2.setOnClickListener {\r\n            val intent = Intent(this@SelectActivity, MapsActivity::class.java)\r\n            startActivity(intent)\r\n        }\r\n\r\n        val anythingFunction: (View) -> Unit = {\r\n            val intent = Intent(this@SelectActivity, ResultActivity::class.java)\r\n            val anything: ArrayList<String> = ArrayList()\r\n            anything.add(BIBIM_BAP)\r\n            anything.add(BUCHIM_GAE)\r\n            anything.add(CHEONGGUCK_JANG)\r\n            anything.add(CHICKEN)\r\n            anything.add(DAK_BAL)\r\n            anything.add(DDEK_BOKKI)\r\n            anything.add(DO_SI_RAK)\r\n            anything.add(DOEN_JANG_JJIGAE)\r\n            anything.add(DON_GAS)\r\n            anything.add(GALBITANG)\r\n\r\n            anything.add(GIM_BAP)\r\n            anything.add(GOB_CHANG)\r\n            anything.add(GUG_BAB)\r\n            anything.add(HAEJANG_GUG)\r\n            anything.add(HAMBURGER)\r\n            anything.add(HOTDOG)\r\n            anything.add(JAJJANG)\r\n            anything.add(JJAMBONG)\r\n            anything.add(JUKKUMI)\r\n\r\n            anything.add(KALGUGSU)\r\n            anything.add(MAN_DO)\r\n            anything.add(MARA_TANG)\r\n            anything.add(OMURICE)\r\n            anything.add(PASTA)\r\n            anything.add(PIZZA)\r\n            anything.add(RAMEN)\r\n            anything.add(SAM_GYE_TANG)\r\n            anything.add(SAM_GYEOB_SAL)\r\n            anything.add(SANDWICH)\r\n\r\n            anything.add(SASHIMI)\r\n            anything.add(SOYED_CRAB)\r\n            anything.add(SSAL_GUKSU)\r\n\r\n            anything.add(SUNDAEBOKK)\r\n            anything.add(YANG_KKO_CHI)\r\n            anything.add(YUG_HOE)\r\n            anything.add(JEYUGBOKK_EUM)\r\n            intent.putStringArrayListExtra(\"anything\", anything)\r\n            startActivity(intent)\r\n        }\r\n\r\n        val koreanFunction: (View) -> Unit = {\r\n            val intent = Intent(this@SelectActivity, ResultActivity::class.java)\r\n            val korean: ArrayList<String> = ArrayList()\r\n\r\n            korean.add(BIBIM_BAP)\r\n            korean.add(BUCHIM_GAE)\r\n            korean.add(CHEONGGUCK_JANG)\r\n            korean.add(DAK_BAL)\r\n            korean.add(DDEK_BOKKI)\r\n            korean.add(DO_SI_RAK)\r\n            korean.add(DOEN_JANG_JJIGAE)\r\n            korean.add(GALBITANG)\r\n            korean.add(GIM_BAP)\r\n            korean.add(GOB_CHANG)\r\n\r\n            korean.add(GUG_BAB)\r\n            korean.add(HAEJANG_GUG)\r\n            korean.add(JEYUGBOKK_EUM)\r\n            korean.add(JUKKUMI)\r\n            korean.add(KALGUGSU)\r\n            korean.add(GUG_BAB)\r\n            korean.add(SAM_GYE_TANG)\r\n            korean.add(GALBITANG)\r\n            korean.add(SAM_GYEOB_SAL)\r\n            korean.add(SUNDAEBOKK)\r\n            intent.putStringArrayListExtra(\"korean\", korean)\r\n            startActivity(intent)\r\n        }\r\n        val chineseFunction: (View) -> Unit = {\r\n            val intent = Intent(this@SelectActivity, ResultActivity::class.java)\r\n            val chinese: ArrayList<String> = ArrayList()\r\n            chinese.add(GOB_CHANG)\r\n            chinese.add(JAJJANG)\r\n            chinese.add(JJAMBONG)\r\n            chinese.add(MAN_DO)\r\n            chinese.add(MARA_TANG)\r\n            chinese.add(YANG_KKO_CHI)\r\n            intent.putStringArrayListExtra(\"chinese\", chinese)\r\n            startActivity(intent)\r\n        }\r\n\r\n        val westernFunction: (View) -> Unit = {\r\n            val intent = Intent(this@SelectActivity, ResultActivity::class.java)\r\n            val western: ArrayList<String> = ArrayList()\r\n            western.add(DON_GAS)\r\n            western.add(HAMBURGER)\r\n            western.add(HOTDOG)\r\n            western.add(OMURICE)\r\n            western.add(PASTA)\r\n            western.add(PIZZA)\r\n            western.add(SANDWICH)\r\n            intent.putStringArrayListExtra(\"western\", western)\r\n            startActivity(intent)\r\n        }\r\n\r\n        val asianFunction: (View) -> Unit = {\r\n            val intent = Intent(this@SelectActivity, ResultActivity::class.java)\r\n            val asian: ArrayList<String> = ArrayList()\r\n            asian.add(BIBIM_BAP)\r\n            asian.add(BUCHIM_GAE)\r\n            asian.add(CHICKEN)\r\n            asian.add(DAK_BAL)\r\n            asian.add(DO_SI_RAK)\r\n            asian.add(GIM_BAP)\r\n            asian.add(GOB_CHANG)\r\n            asian.add(JAJJANG)\r\n            asian.add(JUKKUMI)\r\n            asian.add(KALGUGSU)\r\n\r\n            asian.add(MAN_DO)\r\n            asian.add(MARA_TANG)\r\n            asian.add(RAMEN)\r\n            asian.add(SAM_GYEOB_SAL)\r\n            asian.add(SOYED_CRAB)\r\n            asian.add(SSAL_GUKSU)\r\n            asian.add(JJAMBONG)\r\n            asian.add(YANG_KKO_CHI)\r\n            intent.putStringArrayListExtra(\"asian\", asian)\r\n            startActivity(intent)\r\n        }\r\n        val japaneseFunction: (View) -> Unit = {\r\n            val intent = Intent(this@SelectActivity, ResultActivity::class.java)\r\n            val japanese: ArrayList<String> = ArrayList()\r\n            japanese.add(DON_GAS)\r\n            japanese.add(RAMEN)\r\n            japanese.add(SASHIMI)\r\n            japanese.add(SOYED_CRAB)\r\n            intent.putStringArrayListExtra(\"japanese\", japanese)\r\n            startActivity(intent)\r\n        }\r\n        val noodleFunction: (View) -> Unit = {\r\n            val intent = Intent(this@SelectActivity, ResultActivity::class.java)\r\n            val noodle: ArrayList<String> = ArrayList()\r\n            noodle.add(JAJJANG)\r\n            noodle.add(JJAMBONG)\r\n            noodle.add(KALGUGSU)\r\n            noodle.add(MARA_TANG)\r\n            noodle.add(PASTA)\r\n            noodle.add(RAMEN)\r\n            noodle.add(SSAL_GUKSU)\r\n            intent.putStringArrayListExtra(\"noodle\", noodle)\r\n            startActivity(intent)\r\n        }\r\n        val meatFunction: (View) -> Unit = {\r\n            val intent = Intent(this@SelectActivity, ResultActivity::class.java)\r\n            val meat: ArrayList<String> = ArrayList()\r\n            meat.add(CHICKEN)\r\n            meat.add(DAK_BAL)\r\n            meat.add(JEYUGBOKK_EUM)\r\n            meat.add(SAM_GYEOB_SAL)\r\n            meat.add(YANG_KKO_CHI)\r\n            meat.add(YUG_HOE)\r\n            intent.putStringArrayListExtra(\"meat\", meat)\r\n            startActivity(intent)\r\n        }\r\n        val riceFunction: (View) -> Unit = {\r\n            val intent = Intent(this@SelectActivity, ResultActivity::class.java)\r\n            val rice: ArrayList<String> = ArrayList()\r\n            rice.add(BIBIM_BAP)\r\n            rice.add(CHEONGGUCK_JANG)\r\n            rice.add(DOEN_JANG_JJIGAE)\r\n            rice.add(DO_SI_RAK)\r\n            rice.add(GALBITANG)\r\n            rice.add(GIM_BAP)\r\n            rice.add(HAEJANG_GUG)\r\n            rice.add(GUG_BAB)\r\n            rice.add(OMURICE)\r\n            rice.add(SAM_GYE_TANG)\r\n            intent.putStringArrayListExtra(\"rice\", rice)\r\n            startActivity(intent)\r\n\r\n        }\r\n        binding.btnAnything.setOnClickListener(anythingFunction)\r\n        binding.btnKorean.setOnClickListener(koreanFunction)\r\n        binding.btnChinese.setOnClickListener(chineseFunction)\r\n        binding.btnWestern.setOnClickListener(westernFunction)\r\n        binding.btnAsian.setOnClickListener(asianFunction)\r\n        binding.btnJapanese.setOnClickListener(japaneseFunction)\r\n        binding.btnNoodle.setOnClickListener(noodleFunction)\r\n        binding.btnMeat.setOnClickListener(meatFunction)\r\n        binding.btnRice.setOnClickListener(riceFunction)\r\n\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/kotlinproject/SelectActivity.kt b/app/src/main/java/com/example/kotlinproject/SelectActivity.kt
+--- a/app/src/main/java/com/example/kotlinproject/SelectActivity.kt	(revision f4e10aa03ea24ca189393d096f8d39d8246ca9ab)
++++ b/app/src/main/java/com/example/kotlinproject/SelectActivity.kt	(date 1669039060529)
+@@ -58,10 +58,10 @@
+             startActivity(nextIntent)
+         }
+ 
+-        binding.btnMap2.setOnClickListener {
+-            val intent = Intent(this@SelectActivity, MapsActivity::class.java)
+-            startActivity(intent)
+-        }
++//        binding.btnMap2.setOnClickListener {
++//            val intent = Intent(this@SelectActivity, MapsActivity::class.java)
++//            startActivity(intent)
++//        }
+ 
+         val anythingFunction: (View) -> Unit = {
+             val intent = Intent(this@SelectActivity, ResultActivity::class.java)
