@@ -79,11 +79,13 @@ class ResultFragment : Fragment() {
             val food = Foods(random_uuid.toString(), selectedFood, today.toString())
             databaseReference.child("Foods").push().setValue(food)
 
+            val bundle = Bundle()
+            bundle.putString("Food", selectedFood)
 
             // 2.내부 DB에 저장
             db = AppDatabase.getInstance(requireContext())
             db?.FoodsDao()?.insertAll(food)
-            findNavController().navigate(R.id.action_resultFragment_to_mapFragment)
+            findNavController().navigate(R.id.action_resultFragment_to_mapFragment, bundle)
         }
 
         //TODO 도혁님 redo 작업 부탁드려요
