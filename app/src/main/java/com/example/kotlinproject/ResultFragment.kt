@@ -96,10 +96,11 @@ class ResultFragment : Fragment() {
         }
 
         binding?.btnShare?.setOnClickListener {
-            KakaoSdk.init(requireContext(), "a3371d68064ad62c0ef12f967df3741c")
-            val defaultFeed = makeKakaoTemplate(selectedFood)
-            //카카오톡 설치 여부 확인
-            startKakaoLink(defaultFeed)
+
+            KakaoLink.init(requireContext())
+            val kakaoFeed = KakaoLink.getKakaoTemplate(selectedFood)
+            KakaoLink.startKakaoLink(kakaoFeed, requireContext())
+
         }
     }
 
