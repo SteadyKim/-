@@ -1,4 +1,4 @@
-package com.example.kotlinproject
+package com.example.kotlinproject.activity
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
@@ -26,12 +26,10 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.example.kotlinproject.databinding.ActivityMapsBinding
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
-import com.google.android.gms.location.R
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
-import io.grpc.InternalChannelz.id
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 

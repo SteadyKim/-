@@ -1,11 +1,8 @@
-package com.example.kotlinproject
+package com.example.kotlinproject.activity
 
 import android.content.Intent
-import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.kotlinproject.databinding.ActivityMainBinding
 
 class   MainActivity : AppCompatActivity() {

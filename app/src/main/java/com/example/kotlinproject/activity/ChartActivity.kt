@@ -1,4 +1,4 @@
-package com.example.kotlinproject
+package com.example.kotlinproject.activity
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +17,6 @@ class ChartActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val binding = ActivityChartBinding.inflate(layoutInflater);
 
         setContentView(binding.root)

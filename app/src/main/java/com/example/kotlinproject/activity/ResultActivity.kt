@@ -1,17 +1,14 @@
-package com.example.kotlinproject
+package com.example.kotlinproject.activity
 
 //TODO bundle getPutEn()
 //TODO arrayList
 // do
 
-import android.R.*
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.kotlinproject.R
 import com.example.kotlinproject.databinding.ActivityResultBinding
 import com.example.kotlinproject.db.entity.Foods
 import com.google.firebase.database.DatabaseReference

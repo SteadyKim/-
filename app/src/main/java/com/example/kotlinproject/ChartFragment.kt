@@ -17,14 +17,36 @@ import com.google.firebase.database.*
 
 class ChartFragment : Fragment() {
     var db: AppDatabase? = null
-//    val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-//    val databaseReference : DatabaseReference = database.getReference()
+    val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+    val databaseReference : DatabaseReference = database.getReference()
 
     var foodsList = ArrayList<Foods>()
     var pieChart: PieChart? = null
     var binding : FragmentChartBinding? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+//        databaseReference.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//
+//                val savedFoodsSnapShot = snapshot.child("Foods").children
+//                if (foodsList.isEmpty()) {
+//                    for (savedFoodSnapshot in savedFoodsSnapShot) {
+//                        val savedFood = savedFoodSnapshot.getValue(Foods::class.java)
+//                        foodsList.add(savedFood!!)
+//
+//                    }
+//                    println("data11: foodsList = ${foodsList.size}")
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                TODO("Not yet implemented")
+//            }
+//
+//        })
+//
         arguments?.let {
         }
 
@@ -43,20 +65,18 @@ class ChartFragment : Fragment() {
         //DB 초기화
         db = AppDatabase.getInstance(requireContext())
 
-        //이전에 저장한 내용 모두 불러와서 추가하기 - Room 사용
+
+//        이전에 저장한 내용 모두 불러와서 추가하기 - Room 사용
         val savedFoods = db!!.FoodsDao().getAll()
         if (savedFoods.isNotEmpty()) {
-            // 생명주기상 onViewCreated 시 recyclerView에 계속 추가되는 오류 해결하기
+//             생명주기상 onViewCreated 시 recyclerView에 계속 추가되는 오류 해결하기
             if (foodsList.isEmpty()) {
                 foodsList.addAll(savedFoods)
             }
         }
 
-//        val initFireBaseThread =  FireBaseThread(foodsList, databaseReference)
-//        initFireBaseThread.start()
-//        initFireBaseThread.join()
+        println("data22: foodsList = ${foodsList.size}")
 
-        println("data: foodsList = ${foodsList.size}")
         if(foodsList.isEmpty()) {
             binding?.chartPie?.visibility = View.INVISIBLE
             binding?.txtInfo?.visibility = View.VISIBLE

@@ -13,7 +13,7 @@ import com.example.kotlinproject.recyclerview.RecyclerViewAdapter
 import com.google.firebase.database.*
 
 
-class HistoryFragment : Fragment() {
+class HistoryFragmentMvvm : Fragment() {
     //Room 관련 변수
     var db: AppDatabase? = null
     var foodsList = ArrayList<Foods>()

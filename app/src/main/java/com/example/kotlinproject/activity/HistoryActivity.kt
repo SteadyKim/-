@@ -1,24 +1,13 @@
-package com.example.kotlinproject
+package com.example.kotlinproject.activity
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlinproject.databinding.ActivityHistoryBinding
 import com.example.kotlinproject.db.AppDatabase
 import com.example.kotlinproject.db.entity.Foods
-import com.example.kotlinproject.enum.FoodNames
 import com.example.kotlinproject.recyclerview.RecyclerViewAdapter
 import com.google.firebase.database.*
-import com.kakao.sdk.common.KakaoSdk
-import com.kakao.sdk.common.util.KakaoCustomTabsClient
-import com.kakao.sdk.common.util.Utility
-import com.kakao.sdk.share.ShareClient
-import com.kakao.sdk.share.WebSharerClient
-import com.kakao.sdk.template.model.*
-import java.time.LocalDate
-import java.util.*
 
 
 class HistoryActivity : AppCompatActivity() {

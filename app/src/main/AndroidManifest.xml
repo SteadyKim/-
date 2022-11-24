@@ -21,7 +21,7 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".activity.MapsActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -33,21 +33,21 @@
             android:value="AIzaSyA0T7NcQ4kTlz7zJDU4Uxdeuv9pvCBq71A" />
 
         <activity
-            android:name=".ResultActivity"
+            android:name=".activity.ResultActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ChartActivity"
+            android:name=".activity.ChartActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
@@ -60,7 +60,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".SelectActivity"
+            android:name=".activity.SelectActivity"
             android:exported="true" />
 
         <activity android:name=".Main2Activity"
@@ -72,7 +72,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HistoryActivity"
+            android:name=".activity.HistoryActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
