@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.example.kotlinproject.databinding.FragmentChartBinding
 import com.example.kotlinproject.db.AppDatabase
 import com.example.kotlinproject.db.entity.Foods
@@ -17,11 +18,11 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.google.firebase.database.*
 
-class ChartFragment : Fragment() {
+class ChartFragmentMvvm : Fragment() {
     var db: AppDatabase? = null
     val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     val databaseReference : DatabaseReference = database.getReference()
-    val viewModel: MyViewModel by activityViewModels()
+
     var foodsList = ArrayList<Foods>()
     var pieChart: PieChart? = null
     var binding : FragmentChartBinding? = null
@@ -37,44 +38,10 @@ class ChartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         //DB 초기화
         db = AppDatabase.getInstance(requireContext())
-
-        /**
-         * View와 ViewModel이 만나는 지점
-         */
-        viewModel.foodList.observe(viewLifecycleOwner) {
-            foodsList = viewModel.foodList.value ?: ArrayList<Foods>()
-
-            if(foodsList.isEmpty()) {
-                binding?.chartPie?.visibility = View.INVISIBLE
-                binding?.txtInfo?.visibility = View.VISIBLE
-            }
-            else {
-                pieChart = binding?.chartPie
-
-                val foodMap = mutableMapOf<String, Int>()
-                for (food in foodsList) {
-                    if(foodMap.containsKey(food.name)) {
-                        val tmp = foodMap[food.name]
-
-                        if (tmp != null) {
-                            foodMap[food.name] = tmp + 1
-                        }
-                    }else {
-                        foodMap[food.name] = 1
-                    }
-                }
-                val pieChartDataList: ArrayList<PieEntry> = makePieChartDataList(foodMap)
-
-                initPieChart(pieChartDataList)
-
-                binding?.chartPie?.visibility = View.VISIBLE
-                binding?.txtInfo?.visibility = View.INVISIBLE
-            }
-        }
-    }
-
 
 
 ////        이전에 저장한 내용 모두 불러와서 추가하기 - Room 사용
@@ -87,8 +54,35 @@ class ChartFragment : Fragment() {
 //        }
 
 
+        if(foodsList.isEmpty()) {
+            binding?.chartPie?.visibility = View.INVISIBLE
+            binding?.txtInfo?.visibility = View.VISIBLE
+        }
+        else {
+            pieChart = binding?.chartPie
 
-    private fun makePieChartDataList(foodMap: MutableMap<String, Int>): ArrayList<PieEntry> {
+            val foodMap = mutableMapOf<String, Int>()
+            for (food in foodsList) {
+                if(foodMap.containsKey(food.name)) {
+                    val tmp = foodMap[food.name]
+
+                    if (tmp != null) {
+                        foodMap[food.name] = tmp + 1
+                    }
+                }else {
+                    foodMap[food.name] = 1
+                }
+            }
+            val list: ArrayList<PieEntry> = makePieDateList(foodMap)
+
+            initPieChart(list)
+
+            binding?.chartPie?.visibility = View.VISIBLE
+            binding?.txtInfo?.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun makePieDateList(foodMap: MutableMap<String, Int>): ArrayList<PieEntry> {
         // 정렬하기
         val sortedFoodMap = foodMap.toList().sortedByDescending { it.second }.toMap().toMutableMap()
         var sumi = 0

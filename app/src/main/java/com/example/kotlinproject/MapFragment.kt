@@ -37,7 +37,7 @@ import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
+//TODO fragment manager 문제 해결 필요
 class MapFragment : Fragment() {
 
     private val callback = OnMapReadyCallback { googleMap ->

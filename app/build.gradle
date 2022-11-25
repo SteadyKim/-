@@ -3,19 +3,18 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
 
-
     // Add the Google services Gradle plugin
     id 'com.google.gms.google-services'
 }
 
 android {
     namespace 'com.example.kotlinproject'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.kotlinproject"
         minSdk 26
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
