@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.kotlinproject.databinding.FragmentHistoryBinding
 import com.example.kotlinproject.db.AppDatabase
 import com.example.kotlinproject.db.entity.Foods
 import com.example.kotlinproject.recyclerview.RecyclerViewAdapter
+import com.example.kotlinproject.viewmodel.MyViewModel
 import com.google.firebase.database.*
 
 
@@ -18,10 +20,8 @@ class HistoryFragment : Fragment() {
     var db: AppDatabase? = null
     var foodsList = ArrayList<Foods>()
     var adapter: RecyclerViewAdapter? = null
-    //fireBase 변수
-    val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    val databaseReference : DatabaseReference = database.getReference()
-    lateinit var mySnapShot : DataSnapshot
+    // viewModel
+    val viewModel: MyViewModel by activityViewModels()
 
     var binding: FragmentHistoryBinding? = null
 
@@ -42,20 +42,27 @@ class HistoryFragment : Fragment() {
 
         //DB 초기화
         db = AppDatabase.getInstance(requireContext())
-        /**
-         * Firebase초기화
-         */
-        initFirebase()
+        // Adapter 초기화
+        adapter = RecyclerViewAdapter(foodsList)
 
-        //이전에 저장한 내용 모두 불러와서 추가하기 - Room 사용
-//        val savedFoods = db!!.FoodsDao().getAll()
-//        if (savedFoods.isNotEmpty()) {
-//            // 생명주기상 onViewCreated 시 recyclerView에 계속 추가되는 오류 해결하기
-//            if (foodsList.isEmpty()) {
-//                foodsList.addAll(savedFoods)
-//            }
-//        }
-        //어댑터, 아이템 클릭 : 아이템 삭제
+        //어댑터 초기화
+        initAdapter()
+
+        /**
+         * Mvvm으로 리팩토링
+         */
+        viewModel.foodList.observe(viewLifecycleOwner) {
+            foodsList = viewModel.foodList.value ?: ArrayList<Foods>()
+            adapter?.notifyDataSetChanged()
+
+        }
+
+        //버튼 클릭시 ChartFragment로 이통
+        initChartBtn(binding)
+
+    }
+
+    private fun initAdapter() {
         adapter = RecyclerViewAdapter(foodsList)
 
         adapter?.setItemClickListener(object : RecyclerViewAdapter.ItemClickListener {
@@ -64,10 +71,14 @@ class HistoryFragment : Fragment() {
                 /**
                  * 콜백 받음
                  */
-                val foods = foodsList[position]
+
+                /**
+                 * Room 내부 DB에서 데이터 지우기
+                 */
+               val foods = foodsList[position]
                 db?.FoodsDao()?.delete(foods = foods) //DB에서 삭제
                 foodsList.removeAt(position) //리스트에서 삭제
-                adapter?.notifyDataSetChanged() //리스트뷰 갱신
+
                 /**
                  * Firebase 데이터 지우기
                  */
@@ -75,26 +86,11 @@ class HistoryFragment : Fragment() {
             }
 
             private fun deleteFirebaseData(foods: Foods) {
-                if (::mySnapShot.isInitialized) {
-                    val foodsSnapShot = mySnapShot.child("Foods")
-
-                    //for 문 돌면서 그 key의 id가 같으면 삭제하기
-                    for (ds in foodsSnapShot.children) {
-                        val key = ds.key.toString()
-                        val selectedId = ds.getValue(Foods::class.java)?.id
-                        if (foods.id == selectedId) {
-                            databaseReference.child("Foods").child(key).removeValue()
-                            break
-                        }
-                    }
-                }
+                viewModel.deleteFood(foods)
             }
         })
 
-
-        //버튼 클릭시 ChartActivity로 이통
-        initChartBtn(binding)
-
+        binding?.mRecyclerView?.adapter = adapter
     }
 
 
@@ -106,71 +102,6 @@ class HistoryFragment : Fragment() {
             }
             findNavController().navigate(R.id.action_historyFragment_to_chartFragment, bundle)
         }
-    }
-
-    private fun initFirebase() {
-        databaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                //late init
-                mySnapShot = snapshot
-                getFoodList()
-                initAdapter()
-            }
-
-            private fun initAdapter() {
-                adapter = RecyclerViewAdapter(foodsList)
-
-                adapter?.setItemClickListener(object : RecyclerViewAdapter.ItemClickListener {
-
-                    override fun onDeleteClick(position: Int) {
-                        /**
-                         * 콜백 받음
-                         */
-                        val foods = foodsList[position]
-                        db?.FoodsDao()?.delete(foods = foods) //DB에서 삭제
-                        foodsList.removeAt(position) //리스트에서 삭제
-                        adapter?.notifyDataSetChanged() //리스트뷰 갱신
-                        /**
-                         * Firebase 데이터 지우기
-                         */
-                        deleteFirebaseData(foods)
-                    }
-
-                    private fun deleteFirebaseData(foods: Foods) {
-                        if (::mySnapShot.isInitialized) {
-                            val foodsSnapShot = mySnapShot.child("Foods")
-
-                            //for 문 돌면서 그 key의 id가 같으면 삭제하기
-                            for (ds in foodsSnapShot.children) {
-                                val key = ds.key.toString()
-                                val selectedId = ds.getValue(Foods::class.java)?.id
-                                if (foods.id == selectedId) {
-                                    databaseReference.child("Foods").child(key).removeValue()
-                                    break
-                                }
-                            }
-                        }
-                    }
-                })
-
-                binding?.mRecyclerView?.adapter = adapter
-            }
-
-
-            private fun getFoodList() {
-                val savedFoodsSnapShot = mySnapShot.child("Foods").children
-                if (foodsList.isEmpty()) {
-                    for (savedFoodSnapshot in savedFoodsSnapShot) {
-                        val savedFood = savedFoodSnapshot.getValue(Foods::class.java)
-                        foodsList.add(savedFood!!)
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-        })
     }
 
     override fun onDestroyView() {

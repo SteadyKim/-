@@ -15,12 +15,8 @@ import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.google.firebase.database.*
 
 class ChartFragment : Fragment() {
-    var db: AppDatabase? = null
-    val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    val databaseReference : DatabaseReference = database.getReference()
     val viewModel: MyViewModel by activityViewModels()
     var foodsList = ArrayList<Foods>()
     var pieChart: PieChart? = null
@@ -37,8 +33,6 @@ class ChartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //DB 초기화
-        db = AppDatabase.getInstance(requireContext())
 
         /**
          * View와 ViewModel이 만나는 지점

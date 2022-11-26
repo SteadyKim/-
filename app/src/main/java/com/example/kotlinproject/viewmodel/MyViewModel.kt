@@ -19,6 +19,13 @@ class MyViewModel : ViewModel() {
     init {
         repository.observeFoods(_foodList)
     }
-    //TODO 바뀌면 MVVM 실습 10:13 보고 하기
+
+    fun deleteFood(foods: Foods) {
+        repository.deleteFoods(foods)
+    }
+
+    fun addFirebaseData(food: Foods) {
+        repository.addFirebaseData(food)
+    }
 }
 
