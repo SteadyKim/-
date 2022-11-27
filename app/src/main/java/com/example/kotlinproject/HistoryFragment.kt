@@ -1,12 +1,14 @@
 package com.example.kotlinproject
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinproject.databinding.FragmentHistoryBinding
 import com.example.kotlinproject.db.AppDatabase
 import com.example.kotlinproject.db.entity.Foods
@@ -43,18 +45,15 @@ class HistoryFragment : Fragment() {
         //DB 초기화
         db = AppDatabase.getInstance(requireContext())
         // Adapter 초기화
-        adapter = RecyclerViewAdapter(foodsList)
 
         //어댑터 초기화
         initAdapter()
-
         /**
          * Mvvm으로 리팩토링
          */
         viewModel.foodList.observe(viewLifecycleOwner) {
             foodsList = viewModel.foodList.value ?: ArrayList<Foods>()
-            adapter?.notifyDataSetChanged()
-
+            binding?.rvFood?.adapter?.notifyDataSetChanged()
         }
 
         //버튼 클릭시 ChartFragment로 이통
@@ -63,7 +62,8 @@ class HistoryFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        adapter = RecyclerViewAdapter(foodsList)
+        binding?.rvFood?.layoutManager = LinearLayoutManager(context)
+        adapter = RecyclerViewAdapter(viewModel.foodList)
 
         adapter?.setItemClickListener(object : RecyclerViewAdapter.ItemClickListener {
 
@@ -90,7 +90,7 @@ class HistoryFragment : Fragment() {
             }
         })
 
-        binding?.mRecyclerView?.adapter = adapter
+        binding?.rvFood?.adapter = adapter
     }
 
 

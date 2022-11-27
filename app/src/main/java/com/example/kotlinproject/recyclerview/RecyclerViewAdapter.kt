@@ -1,7 +1,9 @@
 package com.example.kotlinproject.recyclerview
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinproject.R
 import com.example.kotlinproject.databinding.ItemFoodsBinding
@@ -44,7 +46,7 @@ import com.example.kotlinproject.enum.FoodNames.Companion.SUNDAEBOKK
 import com.example.kotlinproject.enum.FoodNames.Companion.YANG_KKO_CHI
 import com.example.kotlinproject.enum.FoodNames.Companion.YUG_HOE
 
-class RecyclerViewAdapter(private var itemList : MutableList<Foods>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>()  {
+class RecyclerViewAdapter(val foodList : LiveData<ArrayList<Foods>>) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>()  {
 
     interface ItemClickListener {
         fun onDeleteClick(position: Int)
@@ -57,10 +59,9 @@ class RecyclerViewAdapter(private var itemList : MutableList<Foods>) : RecyclerV
     }
 
     override fun getItemCount(): Int {
-        return itemList.size
-
+        val size = foodList.value?.size ?: 0
+        return size
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemFoodsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
@@ -68,9 +69,9 @@ class RecyclerViewAdapter(private var itemList : MutableList<Foods>) : RecyclerV
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = itemList[position]
-        holder.bind(item)
-
+        foodList.value?.let {
+            holder.bind(it[position])
+        }
 //        holder.apply {
 //            bind(item)
 //        }

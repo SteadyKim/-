@@ -52,10 +52,10 @@ class SelectActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.btnHistory.setOnClickListener {
-            val nextIntent = Intent(this@SelectActivity, HistoryActivity::class.java)
-            startActivity(nextIntent)
-        }
+//        binding.btnHistory.setOnClickListener {
+//            val nextIntent = Intent(this@SelectActivity, HistoryActivity::class.java)
+//            startActivity(nextIntent)
+//        }
 
         binding.btnMap2.setOnClickListener {
             val intent = Intent(this@SelectActivity, MapsActivity::class.java)

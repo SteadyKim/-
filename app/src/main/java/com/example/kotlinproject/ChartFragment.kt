@@ -70,18 +70,6 @@ class ChartFragment : Fragment() {
     }
 
 
-
-////        이전에 저장한 내용 모두 불러와서 추가하기 - Room 사용
-//        val savedFoods = db!!.FoodsDao().getAll()
-//        if (savedFoods.isNotEmpty()) {
-////             생명주기상 onViewCreated 시 recyclerView에 계속 추가되는 오류 해결하기
-//            if (foodsList.isEmpty()) {
-//                foodsList.addAll(savedFoods)
-//            }
-//        }
-
-
-
     private fun makePieChartDataList(foodMap: MutableMap<String, Int>): ArrayList<PieEntry> {
         // 정렬하기
         val sortedFoodMap = foodMap.toList().sortedByDescending { it.second }.toMap().toMutableMap()

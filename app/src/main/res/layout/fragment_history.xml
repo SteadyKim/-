@@ -33,7 +33,7 @@
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mRecyclerView"
+        android:id="@+id/rv_food"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
