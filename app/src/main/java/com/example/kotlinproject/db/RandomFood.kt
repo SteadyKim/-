@@ -118,9 +118,7 @@ class RandomFood {
                korean.add(JEYUGBOKK_EUM)
                korean.add(JUKKUMI)
                korean.add(KALGUGSU)
-               korean.add(GUG_BAB)
                korean.add(SAM_GYE_TANG)
-               korean.add(GALBITANG)
                korean.add(SAM_GYEOB_SAL)
                korean.add(SUNDAEBOKK)
 
