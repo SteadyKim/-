@@ -1,26 +1,35 @@
 package com.example.kotlinproject
 
 
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
+import android.net.Uri
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
 import android.os.Looper
+import android.provider.Settings
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.launch
+import androidx.activity.result.registerForActivityResult
 
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.setFragmentResultListener
+import com.bumptech.glide.Glide
 import com.example.kotlinproject.databinding.FragmentMapBinding
 import com.example.kotlinproject.restaurant.RestaurantData
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 
@@ -33,12 +42,33 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.Task
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.FetchPhotoRequest
+import com.google.android.libraries.places.api.net.FetchPhotoResponse
+import com.google.android.libraries.places.api.net.FetchPlaceRequest
+import com.google.android.libraries.places.api.net.FetchPlaceResponse
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-//TODO fragment manager 문제 해결 필요
-class MapFragment : Fragment() {
+import java.net.URI
+import kotlin.math.log
+
+class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener {
+
+
+
+    private lateinit var mMap: GoogleMap
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationRequest: LocationRequest
+    private lateinit var locationCallback: LocationCallback
+    private lateinit var currentLatLng: LatLng
+    private var binding: FragmentMapBinding? = null
+    private val permissions = Array(2){
+        android.Manifest.permission.ACCESS_COARSE_LOCATION
+        ACCESS_FINE_LOCATION
+    }
 
     private val callback = OnMapReadyCallback { googleMap ->
         mMap = googleMap
@@ -47,15 +77,6 @@ class MapFragment : Fragment() {
         locationUpdate()
     }
 
-    private lateinit var mMap: GoogleMap
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var locationRequest: LocationRequest
-    private lateinit var locationCallback: LocationCallback
-    var binding: FragmentMapBinding? = null
-    val permissions = Array(2){
-        android.Manifest.permission.ACCESS_COARSE_LOCATION
-        android.Manifest.permission.ACCESS_FINE_LOCATION
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -67,7 +88,9 @@ class MapFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Define a Place ID.
 
+        binding?.cardView?.visibility =View.GONE
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         if(isPermitted()) startProcess()
         else getPermission()
@@ -93,70 +116,87 @@ class MapFragment : Fragment() {
 //            if
 //        }
         //deprecated code, register..로 추후 변경
-        requestPermissions(permissions,0)
-    }
-
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {//requestCode가 0일때
-            0 -> {
-                if (grantResults.isNotEmpty()) {//요청을 허락했을 때 정보를 갖는다
-                    var allGranted = true
-                    //요청한 권한 허용/거부 상태를 한번에 체크한다
-                    for (grant in grantResults) {
-                        if (grant != PackageManager.PERMISSION_GRANTED) {
-                            allGranted = false
-                            break
-                        }
-                    }
-                    //요청한 권한을 모두 허용했다면
-                    if (allGranted) {
-                        Log.d(TAG,"start실행")
-                        startProcess()
-                    }
-                    //요청을 1회 거절하면
-                    else if (ActivityCompat.shouldShowRequestPermissionRationale(
-                            requireActivity(),
-                            android.Manifest.permission.ACCESS_COARSE_LOCATION
-                        ) &&
-                        ActivityCompat.shouldShowRequestPermissionRationale(
-                            requireActivity(),
-                            android.Manifest.permission.ACCESS_FINE_LOCATION
-                        )
-                    ) {
-                        Toast.makeText(requireActivity(), "주변 음식점 검색을 위해 위치 권한이 허용 되어야 합니다.", Toast.LENGTH_SHORT).show()
-                        getPermission()
-                    }
-                    //요청을 2회 이상 거절하면
-                    else noticeCantWork()
-                }
+//        requestPermissions(permissions,0)
+        val requestLocation = registerForActivityResult(ActivityResultContracts.RequestPermission(),
+        ACCESS_FINE_LOCATION){ isGranted ->
+            if(isGranted) {
+                startProcess()
             }
+            else if (
+                ActivityCompat.shouldShowRequestPermissionRationale(
+                    requireActivity(),
+                    ACCESS_FINE_LOCATION
+                )
+            ) {
+                Toast.makeText(requireActivity(), "주변 음식점 검색을 위해 위치 권한이 허용 되어야 합니다.", Toast.LENGTH_SHORT).show()
+            }
+            //요청을 2회 이상 거절하면
+            else noticeCantWork()
         }
+        requestLocation.launch()
     }
+
+
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<out String>,
+//        grantResults: IntArray
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        when (requestCode) {//requestCode가 0일때
+//            0 -> {
+//                if (grantResults.isNotEmpty()) {//요청을 허락했을 때 정보를 갖는다
+//                    var allGranted = true
+//                    //요청한 권한 허용/거부 상태를 한번에 체크한다
+//                    for (grant in grantResults) {
+//                        if (grant != PackageManager.PERMISSION_GRANTED) {
+//                            allGranted = false
+//                            break
+//                        }
+//                    }
+//                    //요청한 권한을 모두 허용했다면
+//                    if (allGranted) {
+//                        Log.d(TAG,"start실행")
+//                        startProcess()
+//                    }
+//                    //요청을 1회 거절하면
+//                    else if (ActivityCompat.shouldShowRequestPermissionRationale(
+//                            requireActivity(),
+//                            android.Manifest.permission.ACCESS_COARSE_LOCATION
+//                        ) &&
+//                        ActivityCompat.shouldShowRequestPermissionRationale(
+//                            requireActivity(),
+//                            android.Manifest.permission.ACCESS_FINE_LOCATION
+//                        )
+//                    ) {
+//                        Toast.makeText(requireActivity(), "주변 음식점 검색을 위해 위치 권한이 허용 되어야 합니다.", Toast.LENGTH_SHORT).show()
+//                        getPermission()
+//                    }
+//                    //요청을 2회 이상 거절하면
+//                    else noticeCantWork()
+//                }
+//            }
+//        }
+//    }
 
     private fun noticeCantWork(){
         Toast.makeText(requireActivity(), "설정에서 위치 사용 권한을 허용해 주세요", Toast.LENGTH_SHORT).show()
-//        val snackBar = Snackbar.make(
-//            binding.root,
-//            "음식점 검색을 위한 위치 정보 접근 권한이 필요합니다",
-//            Snackbar.LENGTH_INDEFINITE
-//        )
-//        snackBar.setAction("승인") {}
-//        snackBar.show()
+        val snackBar = binding?.root?.let {
+            Snackbar.make(it,"음식점 검색을 위한 위치 정보 접근 권한이 필요합니다",
+                Snackbar.LENGTH_INDEFINITE
+            )
+        }
+        snackBar?.setAction("승인") {gotoSettings()}
+        snackBar?.show()
     }
 
-//    fun gotoSettings(){
-//        val intent = Intent()
-//        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-//        val uri = Uri.fromParts("package")
-//        intent.data = uri
-//        startActivity(intent)
-//    }
+    fun gotoSettings(){
+        val intent = Intent()
+        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+        val uri = Uri.fromParts("package", activity?.packageName, null)
+        intent.data = uri
+        startActivity(intent)
+    }
 
     private fun showDefaultLocation(){
         val markerOptions = MarkerOptions()
@@ -197,11 +237,10 @@ class MapFragment : Fragment() {
     private fun locationUpdate(){
         locationCallback = object : LocationCallback(){
             override fun onLocationResult(locationResult: LocationResult) {
-                locationResult.let{
-                    for (location in it.locations){
-                        showCurrentLocation(location)
-                        getRestaurant(location)
-                    }
+                locationResult.run{
+                    currentLatLng=LatLng(this.locations[0].latitude,this.locations[0].longitude)
+                    showCurrentLocation(this.locations[0])
+                    getRestaurant(this.locations[0])
                 }
             }
         }
@@ -222,12 +261,12 @@ class MapFragment : Fragment() {
     }
 
     private fun getRestaurant(location: Location) {
-
         var keyword:String? = null
-        setFragmentResultListener("Food"){ key, bundle ->
-            keyword=bundle.getString(key)
-        }
-        Log.d(TAG,"$keyword 받음")
+//        setFragmentResultListener("Food"){ key, bundle ->
+//            keyword=bundle.getString(key)
+//        }
+        keyword = arguments?.getString("Food")
+        Log.d(TAG,"$keyword 성공")
         RetrofitObject.getApiService().getRestaurant(getURL(location, keyword))
             .enqueue(object : Callback<RestaurantData> {
                 override fun onResponse(
@@ -238,31 +277,69 @@ class MapFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<RestaurantData>, t: Throwable) {
-                    Toast.makeText(requireActivity(), "주변에 식당이 없습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), "api request 실패.", Toast.LENGTH_SHORT).show()
                 }
             })
     }
 
     private fun showRestaurant(data: RestaurantData) {
+        Log.d(TAG,"결과 ${data.results.size}개 성공")
         for (res in data.results){
             val position = LatLng(res.geometry.location.lat, res.geometry.location.lng)
-            val snippet = res.formatted_address
-            val marker = MarkerOptions().position(position).snippet(snippet).title(res.name)
-            mMap.addMarker(marker)
+            val markerOptions = MarkerOptions().position(position)
+            val marker = mMap.addMarker(markerOptions)
+            val openNow = if(res.opening_hours==null) null else res.opening_hours.open_now
+            marker?.tag = "${res.name}/${res.rating}/${res.user_ratings_total}/${res.formatted_address}/${openNow}"
         }
+        mMap.setOnMarkerClickListener(this)
+        mMap.setOnMapClickListener(this)
         fusedLocationClient.removeLocationUpdates(locationCallback)
+    }
+
+    override fun onMarkerClick(marker: Marker): Boolean {
+        if(marker.position == currentLatLng){
+            marker.title="현재 위치"
+            marker.snippet="현재 계신 위치 입니다"
+            marker.showInfoWindow()
+            return true
+        }
+        binding?.cardView?.visibility = View.VISIBLE
+        val arr = marker.tag.toString().split("/")
+        binding?.name?.text = arr[0]
+        binding?.rating?.text=arr[1]
+        binding?.ratingBar?.rating = arr[1].toFloat()
+        val review = arr[2]+"개의 리뷰"
+        binding?.ratingTotal?.text=review
+        binding?.address?.text =arr[3]
+        binding?.openNow?.text = when(arr[4]) {
+            "true" -> "현재 영업 중"
+            "false" ->"영업 중이지 않음"
+            else -> "영업 중인지 알 수 없음"
+        }
+    return true
+    }
+
+    override fun onMapClick(latLng: LatLng) {
+        binding?.cardView?.visibility=View.GONE
     }
 
     //동적 URL 생성
     private fun getURL(location: Location, keyword: String?): String {
-        val url = "maps/api/place/textsearch/json?location=" +
-                "${location.latitude},${location.longitude}" +
-                "&query=${keyword}&key=${API_KEY}&radius=500&type=restaurant"
+        val url = "maps/api/place/textsearch/json?query=${keyword}" +
+                "&location=${location.latitude},${location.longitude}" +
+                "&radius=5000&key=${API_KEY}&type=restaurant&language=ko"
         return url
+    }
+    private fun getURL(photoReference: String): String{
+        val url = "${BASE_URL}maps/api/place/photo?maxwidth=200&" +
+                "potho_reference=$photoReference&key=${API_KEY}"
+    return url
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding=null
     }
+
+
 }
