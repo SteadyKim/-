@@ -4,32 +4,45 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/btn_chart"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/mRecyclerView"
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="5dp"
+        android:id="@+id/cdv_chart"
+        android:layout_width="98dp"
+        android:layout_height="118dp"
+        android:layout_below="@+id/rv_food"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="178dp"
-        android:layout_marginTop="69dp"
-        android:layout_marginEnd="172dp"
-        android:layout_marginBottom="62dp"
-        app:srcCompat="@drawable/btn_chart" />
+        android:layout_marginStart="162dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="103dp"
+        android:background="@drawable/btn_chart"
+        app:srcCompat="@drawable/btn_chart">
+        <ImageButton
+            android:layout_margin="2.5dp"
+            android:id="@+id/btn_chart"
+            android:scaleType="fitXY"
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/btn_chart"
+            />
+    </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/textView13"
-        android:layout_width="132dp"
+        android:id="@+id/txt_graph"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="149dp"
-        android:layout_marginEnd="129dp"
-        android:layout_marginBottom="34dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginEnd="130dp"
+        android:layout_marginBottom="72dp"
         android:text="그래프로 통계보기"
-        android:textSize="16sp"
+        android:textAlignment="center"
+        android:textSize="13sp"
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView

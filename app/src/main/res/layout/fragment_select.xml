@@ -233,12 +233,9 @@
         android:text="아무거나"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.708" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_Anything"
+        app:layout_constraintStart_toStartOf="@+id/btn_Anything"
+        app:layout_constraintTop_toBottomOf="@+id/btn_Anything" />
 
     <TextView
         android:id="@+id/textView"
@@ -247,12 +244,10 @@
         android:text="한식"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.175"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.241" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_korean"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="@+id/btn_korean"
+        app:layout_constraintTop_toBottomOf="@+id/btn_korean" />
 
     <TextView
         android:id="@+id/textView4"
@@ -261,12 +256,9 @@
         android:text="중식"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.241" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_chinese"
+        app:layout_constraintStart_toStartOf="@+id/btn_chinese"
+        app:layout_constraintTop_toBottomOf="@+id/btn_chinese" />
 
     <TextView
         android:id="@+id/textView5"
@@ -275,12 +267,9 @@
         android:text="양식"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.829"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.241" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_western"
+        app:layout_constraintStart_toStartOf="@+id/btn_western"
+        app:layout_constraintTop_toBottomOf="@+id/btn_western" />
 
     <TextView
         android:id="@+id/textView6"
@@ -289,12 +278,10 @@
         android:text="아시안"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.295"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.382" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_asian"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="@+id/btn_asian"
+        app:layout_constraintTop_toBottomOf="@+id/btn_asian" />
 
     <TextView
         android:id="@+id/textView7"
@@ -303,12 +290,9 @@
         android:text="면"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.169"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.507" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_noodle"
+        app:layout_constraintStart_toStartOf="@+id/btn_noodle"
+        app:layout_constraintTop_toBottomOf="@+id/btn_noodle" />
 
     <TextView
         android:id="@+id/textView8"
@@ -317,12 +301,9 @@
         android:text="고기"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.538"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.507" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_meat"
+        app:layout_constraintStart_toStartOf="@+id/btn_meat"
+        app:layout_constraintTop_toBottomOf="@+id/btn_meat" />
 
     <TextView
         android:id="@+id/textView9"
@@ -331,12 +312,9 @@
         android:text="밥"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.861"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.507" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_rice"
+        app:layout_constraintStart_toStartOf="@+id/btn_rice"
+        app:layout_constraintTop_toBottomOf="@+id/btn_rice" />
 
     <TextView
         android:id="@+id/textView10"
@@ -345,11 +323,9 @@
         android:text="일식"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.692"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.382" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_japanese"
+        app:layout_constraintHorizontal_bias="0.433"
+        app:layout_constraintStart_toStartOf="@+id/btn_japanese"
+        app:layout_constraintTop_toBottomOf="@+id/btn_japanese" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
