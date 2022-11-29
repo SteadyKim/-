@@ -7,16 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.kotlinproject.databinding.FragmentSelectBinding
-import com.example.kotlinproject.db.RandomFood
-import com.example.kotlinproject.db.RandomFood.Companion.ANYTHINGFOOD
-import com.example.kotlinproject.db.RandomFood.Companion.ASIANFOOD
-import com.example.kotlinproject.db.RandomFood.Companion.CHINESEFOOD
-import com.example.kotlinproject.db.RandomFood.Companion.JAPANESEFOOD
-import com.example.kotlinproject.db.RandomFood.Companion.KOREANFOOD
-import com.example.kotlinproject.db.RandomFood.Companion.MEATFOOD
-import com.example.kotlinproject.db.RandomFood.Companion.NOODLEFOOD
-import com.example.kotlinproject.db.RandomFood.Companion.RICEFOOD
-import com.example.kotlinproject.db.RandomFood.Companion.WESTERNFOOD
+import com.example.kotlinproject.utils.RandomFood
+import com.example.kotlinproject.utils.RandomFood.Companion.ANYTHINGFOOD
+import com.example.kotlinproject.utils.RandomFood.Companion.ASIANFOOD
+import com.example.kotlinproject.utils.RandomFood.Companion.CHINESEFOOD
+import com.example.kotlinproject.utils.RandomFood.Companion.JAPANESEFOOD
+import com.example.kotlinproject.utils.RandomFood.Companion.KOREANFOOD
+import com.example.kotlinproject.utils.RandomFood.Companion.MEATFOOD
+import com.example.kotlinproject.utils.RandomFood.Companion.NOODLEFOOD
+import com.example.kotlinproject.utils.RandomFood.Companion.RICEFOOD
+import com.example.kotlinproject.utils.RandomFood.Companion.WESTERNFOOD
 
 class SelectFragment : Fragment() {
     var binding : FragmentSelectBinding? = null

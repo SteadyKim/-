@@ -1,4 +1,4 @@
-package com.example.kotlinproject.db
+package com.example.kotlinproject.utils
 
 import com.example.kotlinproject.enum.FoodNames
 import com.example.kotlinproject.enum.FoodNames.Companion.BIBIM_BAP

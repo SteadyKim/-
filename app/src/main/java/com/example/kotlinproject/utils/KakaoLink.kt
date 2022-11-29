@@ -1,4 +1,4 @@
-package com.example.kotlinproject
+package com.example.kotlinproject.utils
 
 import android.content.ActivityNotFoundException
 import android.content.ContentValues

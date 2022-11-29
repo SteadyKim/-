@@ -131,41 +131,36 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="5dp"
         android:text="다시하기"
         android:textAllCaps="false"
         android:textColor="#000000"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btn_redo"
+        app:layout_constraintStart_toStartOf="@+id/btn_redo"
         app:layout_constraintTop_toBottomOf="@+id/btn_redo" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="61dp"
         android:text="공유하기"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textView14"
-        app:layout_constraintStart_toEndOf="@+id/textView12"
+        app:layout_constraintEnd_toEndOf="@+id/btn_share"
+        app:layout_constraintStart_toStartOf="@+id/btn_share"
         app:layout_constraintTop_toBottomOf="@+id/btn_share" />
 
     <TextView
         android:id="@+id/textView14"
         android:layout_width="71dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="45dp"
         android:text="식당 찾기"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btn_map"
+        app:layout_constraintStart_toStartOf="@+id/btn_map"
         app:layout_constraintTop_toBottomOf="@+id/btn_map" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
