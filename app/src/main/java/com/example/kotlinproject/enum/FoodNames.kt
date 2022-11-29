@@ -10,7 +10,7 @@ class FoodNames {
         val DDEK_BOKKI = "떡볶이"
         val DO_SI_RAK = "도시락"
         val DOEN_JANG_JJIGAE = "된장찌개"
-        val DON_GAS = "돈까스"
+        val DON_GAS = "돈가스"
         val GALBITANG = "갈비탕"
 
         val GIM_BAP = "김밥"
@@ -20,7 +20,7 @@ class FoodNames {
         val HAMBURGER = "햄버거"
         val HOTDOG = "핫도그"
         val JAJJANG = "짜장면"
-        val JEYUGBOKK_EUM = "제육볶음"     //오타 수정
+        val JEYUGBOKK_EUM = "제육볶음"
         val JJAMBONG = "짬뽕"
         val JUKKUMI = "쭈꾸미"
 
