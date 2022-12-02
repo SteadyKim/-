@@ -34,7 +34,7 @@ class KakaoLink: AppCompatActivity() {
                         FoodNames.CHEONGGUCK_JANG -> "https://user-images.githubusercontent.com/88755733/203728045-61c24621-260b-4591-b4f7-2f52826254bf.png"
                         FoodNames.DAK_BAL -> "https://user-images.githubusercontent.com/88755733/203728269-a553796c-f77c-420c-9474-1dd285a511e5.png"
                         FoodNames.CHICKEN -> "https://user-images.githubusercontent.com/88755733/203728345-11a34913-a151-4b9c-bd00-28714782ec48.png"
-                        FoodNames.DDEK_BOKKI -> "https://user-images.githubusercontent.com/88755733/203728383-6c5041e5-191c-404e-b2e9-bed5fb96a536.png"
+                        FoodNames.DDEK_BOKKI -> "https://user-images.githubusercontent.com/88755733/205280121-a5ddd238-7cd0-4e0b-9594-e3e220250dfa.jpg"
                         FoodNames.DO_SI_RAK -> "https://user-images.githubusercontent.com/88755733/203728412-657b8422-d137-4863-924e-1516c01ca60f.png"
                         FoodNames.DOEN_JANG_JJIGAE -> "https://user-images.githubusercontent.com/88755733/203728459-644bd377-6c5b-4c6e-a824-1951367fd46a.png"
                         FoodNames.DON_GAS -> "https://user-images.githubusercontent.com/88755733/203728499-deea3a89-eeef-45e7-9eac-e67a711f4569.png"
