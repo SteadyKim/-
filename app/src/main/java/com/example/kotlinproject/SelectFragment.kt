@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import com.example.kotlinproject.databinding.FragmentSelectBinding
 import com.example.kotlinproject.utils.RandomFood

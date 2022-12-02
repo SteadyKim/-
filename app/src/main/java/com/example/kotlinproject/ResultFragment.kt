@@ -20,7 +20,9 @@ import com.example.kotlinproject.utils.RandomFood.Companion.NOODLEFOOD
 import com.example.kotlinproject.utils.RandomFood.Companion.RICEFOOD
 import com.example.kotlinproject.utils.RandomFood.Companion.WESTERNFOOD
 import com.example.kotlinproject.db.entity.Foods
+import com.example.kotlinproject.enum.FoodNames
 import com.example.kotlinproject.utils.KakaoLink
+import com.example.kotlinproject.utils.RandomFood
 import com.example.kotlinproject.viewmodel.MyViewModel
 import java.time.LocalDate
 import java.util.*
@@ -33,7 +35,7 @@ class ResultFragment : Fragment() {
     val viewModel: MyViewModel by activityViewModels()
 
     var imageStatus = -1
-    lateinit var selectedFood : String
+    lateinit var selectedFood: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,7 +77,6 @@ class ResultFragment : Fragment() {
             findNavController().navigate(R.id.action_resultFragment_to_mapFragment, bundle)
         }
 
-        //TODO 도혁님 redo 작업 부탁드려요
         binding?.btnRedo?.setOnClickListener {
             setImage()
         }
@@ -94,7 +95,7 @@ class ResultFragment : Fragment() {
     }
 
     private fun setImage() {
-        val anything = arguments?.getStringArrayList(ANYTHINGFOOD)
+        var anything = arguments?.getStringArrayList(ANYTHINGFOOD)
         val korean = arguments?.getStringArrayList(KOREANFOOD)
         val chinese = arguments?.getStringArrayList(CHINESEFOOD)
         val western = arguments?.getStringArrayList(WESTERNFOOD)
@@ -104,6 +105,13 @@ class ResultFragment : Fragment() {
         val meat = arguments?.getStringArrayList(MEATFOOD)
         val rice = arguments?.getStringArrayList(RICEFOOD)
 
+        /**
+         * 아무것도 없는 경우 - 바로 Navi 버튼을 누를 때
+         */
+        if(anything == null && korean == null && chinese == null && western == null &&
+                asian == null && japanese == null && noodle == null && meat == null && rice == null) {
+            anything = RandomFood.getAnyThing()
+        }
         if (anything != null) {
             val index = (1..anything.size).random()
             selectedFood = anything[index - 1]
