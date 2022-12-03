@@ -1,6 +1,8 @@
 package com.example.kotlinproject
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -56,7 +58,8 @@ class ResultFragment : Fragment() {
             setCurrentImage()
         }
         flag++
-
+        Log.d(TAG, "${selectedFood}, 성공")
+        binding?.txtResult?.text=selectedFood
 
         binding?.btnMap?.setOnClickListener {
 
@@ -79,6 +82,7 @@ class ResultFragment : Fragment() {
 
         binding?.btnRedo?.setOnClickListener {
             setImage()
+            binding?.txtResult?.text=selectedFood
         }
 
         binding?.btnShare?.setOnClickListener {
@@ -88,6 +92,7 @@ class ResultFragment : Fragment() {
             KakaoLink.startKakaoLink(kakaoFeed, requireContext())
 
         }
+
     }
 
     private fun setCurrentImage() {
@@ -115,7 +120,7 @@ class ResultFragment : Fragment() {
         if (anything != null) {
             val index = (1..anything.size).random()
             selectedFood = anything[index - 1]
-            binding?.txtResult?.text= selectedFood
+            //binding?.txtResult?.text= selectedFood
             val randomResource = when (index) {
                 1 -> R.drawable.select_bibim_bap
                 2 -> R.drawable.select_buchim_gae
@@ -165,7 +170,7 @@ class ResultFragment : Fragment() {
         if (korean != null) {
             val randomNumber = (1..korean.size).random()
             selectedFood = korean[randomNumber - 1]
-            binding?.txtResult?.text= selectedFood
+            //binding?.txtResult?.text= selectedFood
             val randomResource = when (randomNumber) {
                 1 -> R.drawable.select_bibim_bap
                 2 -> R.drawable.select_buchim_gae
@@ -194,7 +199,7 @@ class ResultFragment : Fragment() {
         if (chinese != null) {
             val randomNumber = (1..chinese.size).random()
             selectedFood = chinese[randomNumber - 1]
-            binding?.txtResult?.text= selectedFood
+            //binding?.txtResult?.text= selectedFood
             val randomResource = when (randomNumber) {
                 1 -> R.drawable.select_jajjang
                 2 -> R.drawable.select_jjambong
@@ -209,7 +214,7 @@ class ResultFragment : Fragment() {
         if (western != null) {
             val randomNumber = (1..western.size).random()
             selectedFood = western[randomNumber - 1]
-            binding?.txtResult?.text= selectedFood
+            //binding?.txtResult?.text= selectedFood
             val randomResource = when (randomNumber) {
                 1 -> R.drawable.select_don_gas
                 2 -> R.drawable.select_hamburger
@@ -227,7 +232,7 @@ class ResultFragment : Fragment() {
         if (asian != null) {
             val randomNumber = (1..asian.size).random()
             selectedFood = asian[randomNumber - 1]
-            binding?.txtResult?.text= selectedFood
+            //binding?.txtResult?.text= selectedFood
             val randomResource = when (randomNumber) {
                 1 -> R.drawable.select_bibim_bap
                 2 -> R.drawable.select_buchim_gae
@@ -256,7 +261,7 @@ class ResultFragment : Fragment() {
         if (japanese != null) {
             val randomNumber = (1..japanese.size).random()
             selectedFood = japanese[randomNumber - 1]
-            binding?.txtResult?.text= selectedFood
+            //binding?.txtResult?.text= selectedFood
             val randomResource = when (randomNumber) {
                 1 -> R.drawable.select_don_gas
                 2 -> R.drawable.select_ramen
@@ -270,7 +275,7 @@ class ResultFragment : Fragment() {
         if (noodle != null) {
             val randomNumber = (1..noodle.size).random()
             selectedFood = noodle[randomNumber - 1]
-            binding?.txtResult?.text= selectedFood
+            //binding?.txtResult?.text= selectedFood
             val randomResource = when (randomNumber) {
                 1 -> R.drawable.select_jajjang
                 2 -> R.drawable.select_jjambong
@@ -287,7 +292,7 @@ class ResultFragment : Fragment() {
         if (meat != null) {
             val randomNumber = (1..meat.size).random()
             selectedFood = meat[randomNumber - 1]
-            binding?.txtResult?.text= selectedFood
+            //binding?.txtResult?.text= selectedFood
             val randomResource = when (randomNumber) {
                 1 -> R.drawable.select_chicken
                 2 -> R.drawable.select_dak_bal
@@ -303,7 +308,7 @@ class ResultFragment : Fragment() {
         if (rice != null) {
             val randomNumber = (1..rice.size).random()
             selectedFood = rice[randomNumber - 1]
-            binding?.txtResult?.text= selectedFood
+            //binding?.txtResult?.text= selectedFood
             val randomResource = when (randomNumber) {
                 1 -> R.drawable.select_bibim_bap
                 2 -> R.drawable.select_cheong_guk_jang

@@ -69,6 +69,9 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
         android.Manifest.permission.ACCESS_COARSE_LOCATION
         ACCESS_FINE_LOCATION
     }
+    val LINK="https://maps.googleapis.com/maps/api/place/photo"+
+    "?maxwidth=200&photo_reference=AW30NDzirzB8gSQcN8C-XGJPPf3pEjPa025o04sLdB8Se-6BtyM6qiGtsOivqnGFZQWCQTezvPFAVkBl36noq8tX5wZBZY2SM2Zxh4o1c1iI4WS-90vyaYUgTH450lq9C8inruL00zSiiVW9Lc_AbuXn1PDmbY45Qzs_U84N5CZ-CBcLE5b4"+
+    "&key=AIzaSyDNfNqFjQEOWNmDG4j7xJfTuU99-zcgc4s"
 
     private val callback = OnMapReadyCallback { googleMap ->
         mMap = googleMap
@@ -289,7 +292,8 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
             val markerOptions = MarkerOptions().position(position)
             val marker = mMap.addMarker(markerOptions)
             val openNow = if(res.opening_hours==null) null else res.opening_hours.open_now
-            marker?.tag = "${res.name}/${res.rating}/${res.user_ratings_total}/${res.formatted_address}/${openNow}"
+            val photoReference = if(res.photos.isNullOrEmpty()) null else res.photos[0].photo_reference
+            marker?.tag = "${res.name}/${res.rating}/${res.user_ratings_total}/${res.formatted_address}/${openNow}/${photoReference}"
         }
         mMap.setOnMarkerClickListener(this)
         mMap.setOnMapClickListener(this)
@@ -303,6 +307,7 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
             marker.showInfoWindow()
             return true
         }
+        //Glide.with(this).load(LINK).into(binding!!.imageView4)
         binding?.cardView?.visibility = View.VISIBLE
         val arr = marker.tag.toString().split("/")
         binding?.name?.text = arr[0]
@@ -316,6 +321,9 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
             "false" ->"영업 중이지 않음"
             else -> "영업 중인지 알 수 없음"
         }
+        Log.d(TAG, "${arr[5]} 성공")
+        Glide.with(this).load(getURL(arr[5])).into(binding!!.imageView4)
+
     return true
     }
 
@@ -332,7 +340,7 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
     }
     private fun getURL(photoReference: String): String{
         val url = "${BASE_URL}maps/api/place/photo?maxwidth=200&" +
-                "potho_reference=$photoReference&key=${API_KEY}"
+                "photo_reference=$photoReference&key=${API_KEY}"
     return url
     }
 
