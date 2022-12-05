@@ -25,11 +25,12 @@ import androidx.activity.result.launch
 import androidx.activity.result.registerForActivityResult
 
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.setFragmentResultListener
 import com.bumptech.glide.Glide
 import com.example.kotlinproject.databinding.FragmentMapBinding
+import com.example.kotlinproject.restaurant.API_KEY
+import com.example.kotlinproject.restaurant.BASE_URL
 import com.example.kotlinproject.restaurant.RestaurantData
-import com.google.android.gms.common.api.ApiException
+import com.example.kotlinproject.restaurant.RetrofitObject
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 
@@ -37,68 +38,60 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.Task
-import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.net.FetchPhotoRequest
-import com.google.android.libraries.places.api.net.FetchPhotoResponse
-import com.google.android.libraries.places.api.net.FetchPlaceRequest
-import com.google.android.libraries.places.api.net.FetchPlaceResponse
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.net.URI
-import kotlin.math.log
 
 class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener {
-
-
 
     private lateinit var mMap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
     private lateinit var currentLatLng: LatLng
-    private var binding: FragmentMapBinding? = null
     private val permissions = Array(2){
         android.Manifest.permission.ACCESS_COARSE_LOCATION
         ACCESS_FINE_LOCATION
     }
-    val LINK="https://maps.googleapis.com/maps/api/place/photo"+
-    "?maxwidth=200&photo_reference=AW30NDzirzB8gSQcN8C-XGJPPf3pEjPa025o04sLdB8Se-6BtyM6qiGtsOivqnGFZQWCQTezvPFAVkBl36noq8tX5wZBZY2SM2Zxh4o1c1iI4WS-90vyaYUgTH450lq9C8inruL00zSiiVW9Lc_AbuXn1PDmbY45Qzs_U84N5CZ-CBcLE5b4"+
-    "&key=AIzaSyDNfNqFjQEOWNmDG4j7xJfTuU99-zcgc4s"
-
     private val callback = OnMapReadyCallback { googleMap ->
+        //googleMap 객체 생성후 defaultLocation 보여준 뒤 setting 하고 현재 위치정보 업데이트
         mMap = googleMap
         showDefaultLocation()
         setLocationRequestSettings()
         locationUpdate()
     }
+    private var binding: FragmentMapBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //binding inflate
         binding = FragmentMapBinding.inflate(inflater)
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Define a Place ID.
-
-        binding?.cardView?.visibility =View.GONE
+        //시작할때 카드뷰 숨기기
+        binding?.CardView?.visibility = View.GONE
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        if(isPermitted()) startProcess()
+        //권한 허용시 startProcess 아니라면 getPermission
+        if(isPermitted()) {
+            startProcess()
+        }
         else getPermission()
     }
 
+    //권한 허용되어 있는지 체크 허용됐으면 true, 안됐으면 false 반환
     private fun isPermitted() : Boolean {
         for (perm in permissions) {
             if (ActivityCompat.checkSelfPermission(requireActivity(), perm) != PackageManager.PERMISSION_GRANTED)
@@ -107,22 +100,18 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
         return true
     }
 
+    //프로세스 시작 mapFragment 생성후 OnMapReadyCallBack 호출
     private fun startProcess(){
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(callback)
     }
 
+    //권한 허용 받는 함수
     private fun getPermission(){
-//        val contract = ActivityResultContracts.RequestPermission()
-//        val activityResultLauncher = registerForActivityResult(contract){
-//            isGranted ->
-//            if
-//        }
-        //deprecated code, register..로 추후 변경
-//        requestPermissions(permissions,0)
         val requestLocation = registerForActivityResult(ActivityResultContracts.RequestPermission(),
         ACCESS_FINE_LOCATION){ isGranted ->
             if(isGranted) {
+                //권한허용시 startProcess
                 startProcess()
             }
             else if (
@@ -131,57 +120,16 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
                     ACCESS_FINE_LOCATION
                 )
             ) {
+                //요청 1회 거절시 알림
                 Toast.makeText(requireActivity(), "주변 음식점 검색을 위해 위치 권한이 허용 되어야 합니다.", Toast.LENGTH_SHORT).show()
             }
-            //요청을 2회 이상 거절하면
+            //요청 2회 이상 거절시 noticeCantWork 호출
             else noticeCantWork()
         }
         requestLocation.launch()
     }
 
-
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        when (requestCode) {//requestCode가 0일때
-//            0 -> {
-//                if (grantResults.isNotEmpty()) {//요청을 허락했을 때 정보를 갖는다
-//                    var allGranted = true
-//                    //요청한 권한 허용/거부 상태를 한번에 체크한다
-//                    for (grant in grantResults) {
-//                        if (grant != PackageManager.PERMISSION_GRANTED) {
-//                            allGranted = false
-//                            break
-//                        }
-//                    }
-//                    //요청한 권한을 모두 허용했다면
-//                    if (allGranted) {
-//                        Log.d(TAG,"start실행")
-//                        startProcess()
-//                    }
-//                    //요청을 1회 거절하면
-//                    else if (ActivityCompat.shouldShowRequestPermissionRationale(
-//                            requireActivity(),
-//                            android.Manifest.permission.ACCESS_COARSE_LOCATION
-//                        ) &&
-//                        ActivityCompat.shouldShowRequestPermissionRationale(
-//                            requireActivity(),
-//                            android.Manifest.permission.ACCESS_FINE_LOCATION
-//                        )
-//                    ) {
-//                        Toast.makeText(requireActivity(), "주변 음식점 검색을 위해 위치 권한이 허용 되어야 합니다.", Toast.LENGTH_SHORT).show()
-//                        getPermission()
-//                    }
-//                    //요청을 2회 이상 거절하면
-//                    else noticeCantWork()
-//                }
-//            }
-//        }
-//    }
-
+    //권한 2회 이상 거절시 동작 할 수 없음 알리고 설정창으로 이동하게 끔 함
     private fun noticeCantWork(){
         Toast.makeText(requireActivity(), "설정에서 위치 사용 권한을 허용해 주세요", Toast.LENGTH_SHORT).show()
         val snackBar = binding?.root?.let {
@@ -189,11 +137,12 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
                 Snackbar.LENGTH_INDEFINITE
             )
         }
-        snackBar?.setAction("승인") {gotoSettings()}
+        snackBar?.setAction("승인"){goSettings()}
         snackBar?.show()
     }
 
-    fun gotoSettings(){
+    //snackBar 클릭시 설정으로 가는 이벤트
+    fun goSettings(){
         val intent = Intent()
         intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
         val uri = Uri.fromParts("package", activity?.packageName, null)
@@ -201,6 +150,7 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
         startActivity(intent)
     }
 
+    //기본 위치를 보여줌
     private fun showDefaultLocation(){
         val markerOptions = MarkerOptions()
         markerOptions.position(LatLng(37.56,126.97))
@@ -210,7 +160,7 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(37.56,126.97),15.0f))
     }
 
-
+    //locationRequest setting하고 gps 사용 여부 확인
     private fun setLocationRequestSettings() {
         locationRequest = LocationRequest.create().apply {
             interval = 10000
@@ -237,22 +187,25 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
         }
     }
 
+    //locationCallback 설정 업데이트, 현재 위치 정보 받아오고 이하 메서드 실행
     private fun locationUpdate(){
         locationCallback = object : LocationCallback(){
             override fun onLocationResult(locationResult: LocationResult) {
                 locationResult.run{
-                    currentLatLng=LatLng(this.locations[0].latitude,this.locations[0].longitude)
-                    showCurrentLocation(this.locations[0])
-                    getRestaurant(this.locations[0])
+                    currentLatLng=LatLng(locations[0].latitude, locations[0].longitude)
+                    showCurrentLocation(locations[0])
+                    getRestaurant(locations[0])
                 }
             }
         }
+        //권한 허가된 경우에만 requestLocaionUpdate 호출
         @SuppressLint("MissingPermission")
         if(isPermitted()) {
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
         }
     }
 
+    //구글맵에 현재 위치를 마커로 표시
     private fun showCurrentLocation(location: Location){
         val currentLocation = LatLng(location.latitude, location.longitude)
         val markerOption = MarkerOptions().position(currentLocation).title("현재 위치입니다")
@@ -263,13 +216,9 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
         mMap.moveCamera(camera)
     }
 
+    //resultFragment로 부터 keyword(음식명)을 받아 retrofit으로 api 통신하여 성공시 showRestaurant
     private fun getRestaurant(location: Location) {
-        var keyword:String? = null
-//        setFragmentResultListener("Food"){ key, bundle ->
-//            keyword=bundle.getString(key)
-//        }
-        keyword = arguments?.getString("Food")
-        Log.d(TAG,"$keyword 성공")
+        val keyword = arguments?.getString("Food")
         RetrofitObject.getApiService().getRestaurant(getURL(location, keyword))
             .enqueue(object : Callback<RestaurantData> {
                 override fun onResponse(
@@ -285,11 +234,11 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
             })
     }
 
+    //지도에 주변 식당 표시
     private fun showRestaurant(data: RestaurantData) {
-        Log.d(TAG,"결과 ${data.results.size}개 성공")
         for (res in data.results){
             val position = LatLng(res.geometry.location.lat, res.geometry.location.lng)
-            val markerOptions = MarkerOptions().position(position)
+            val markerOptions = MarkerOptions().position(position).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
             val marker = mMap.addMarker(markerOptions)
             val openNow = if(res.opening_hours==null) null else res.opening_hours.open_now
             val photoReference = if(res.photos.isNullOrEmpty()) null else res.photos[0].photo_reference
@@ -300,6 +249,7 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
         fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
+    //마커 클릭시 이벤트 card view(식당정보) 표시
     override fun onMarkerClick(marker: Marker): Boolean {
         if(marker.position == currentLatLng){
             marker.title="현재 위치"
@@ -307,8 +257,7 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
             marker.showInfoWindow()
             return true
         }
-        //Glide.with(this).load(LINK).into(binding!!.imageView4)
-        binding?.cardView?.visibility = View.VISIBLE
+        binding?.CardView?.visibility = View.VISIBLE
         val arr = marker.tag.toString().split("/")
         binding?.name?.text = arr[0]
         binding?.rating?.text=arr[1]
@@ -321,33 +270,37 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
             "false" ->"영업 중이지 않음"
             else -> "영업 중인지 알 수 없음"
         }
-        Log.d(TAG, "${arr[5]} 성공")
-        Glide.with(this).load(getURL(arr[5])).into(binding!!.imageView4)
-
+        Glide.with(this).load(getURL(arr[5])).into(binding!!.imgRes)
+        binding?.btnFav?.setOnClickListener {
+            marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.maker))
+        }
     return true
     }
 
+    //지도 클릭시 이벤트 (cardView 감추기)
     override fun onMapClick(latLng: LatLng) {
-        binding?.cardView?.visibility=View.GONE
+        binding?.CardView?.visibility=View.GONE
     }
 
-    //동적 URL 생성
+    //동적 URL 생성(textsearch api 호출용)
     private fun getURL(location: Location, keyword: String?): String {
         val url = "maps/api/place/textsearch/json?query=${keyword}" +
                 "&location=${location.latitude},${location.longitude}" +
-                "&radius=5000&key=${API_KEY}&type=restaurant&language=ko"
+                "&radius=5000&key=$API_KEY&type=restaurant&language=ko"
         return url
     }
+
+    //동적 URL 생성(photo api 호출용)
     private fun getURL(photoReference: String): String{
         val url = "${BASE_URL}maps/api/place/photo?maxwidth=200&" +
-                "photo_reference=$photoReference&key=${API_KEY}"
+                "photo_reference=$photoReference&key=$API_KEY"
     return url
     }
 
+    //fragment 삭제시 binding=null 메모리 누수 방지
     override fun onDestroyView() {
         super.onDestroyView()
         binding=null
     }
-
 
 }
