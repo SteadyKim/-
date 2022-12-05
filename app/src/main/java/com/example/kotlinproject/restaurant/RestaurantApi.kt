@@ -1,6 +1,5 @@
-package com.example.kotlinproject
+package com.example.kotlinproject.restaurant
 
-import com.example.kotlinproject.restaurant.RestaurantData
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
