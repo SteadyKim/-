@@ -8,6 +8,8 @@
     android:foregroundTint="#FFFFFF"
     tools:context=".Main2Activity">
 
+
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/frg_nav"
         android:name="androidx.navigation.fragment.NavHostFragment"

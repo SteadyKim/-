@@ -129,7 +129,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/txt_redo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="다시하기"

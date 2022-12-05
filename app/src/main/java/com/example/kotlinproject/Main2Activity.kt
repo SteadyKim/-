@@ -1,13 +1,14 @@
 package com.example.kotlinproject
 
-import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.kotlinproject.databinding.ActivityMain2Binding
+import kotlinx.android.synthetic.main.activity_main2.*
 
 class Main2Activity : AppCompatActivity() {
 
@@ -15,17 +16,13 @@ class Main2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val binding = ActivityMain2Binding.inflate(layoutInflater)
-
         val navController = binding.frgNav.getFragment<NavHostFragment>().navController
-//        val appBarConfiguration = AppBarConfiguration (
-//            setOf(R.id.entryFragment, R.id.historyFragment, R.id.mapFragment, R.id.selectFragment)
-//                )
-        binding.bottomNav.setupWithNavController(navController )
+
+        binding.bottomNav.setupWithNavController(navController)
         setContentView(binding.root)
-//
-//        val animationDrawable = binding.ctrMain.background as AnimationDrawable
-//        animationDrawable.setEnterFadeDuration(1000)
-//        animationDrawable.setExitFadeDuration(1000)
-//        animationDrawable.start()
+
+
+
     }
+
 }
