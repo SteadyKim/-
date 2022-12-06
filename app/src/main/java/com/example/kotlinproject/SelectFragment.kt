@@ -1,12 +1,16 @@
 package com.example.kotlinproject
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
+
 import com.example.kotlinproject.databinding.FragmentSelectBinding
 import com.example.kotlinproject.utils.RandomFood
 import com.example.kotlinproject.utils.RandomFood.Companion.ANYTHINGFOOD
@@ -109,6 +113,8 @@ class SelectFragment : Fragment() {
             }
             findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)
         }
+
+
     }
 
     override fun onDestroyView() {

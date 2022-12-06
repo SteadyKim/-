@@ -1,8 +1,12 @@
 package com.example.kotlinproject
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.NavHostFragment
@@ -10,6 +14,8 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.kotlinproject.databinding.ActivityFirstBinding
 import com.example.kotlinproject.databinding.ActivityMain2Binding
+import com.example.kotlinproject.utils.AlarmReceiver
+import com.example.kotlinproject.utils.ProgressService
 import kotlinx.android.synthetic.main.activity_first.*
 import kotlinx.android.synthetic.main.activity_main2.*
 
@@ -27,6 +33,23 @@ class FirstActivity : AppCompatActivity() {
 
         vpAdapter = CustomPagerAdapter(this)
         viewPager2.adapter = vpAdapter
+
+        //Alarm Service
+        val intent = Intent(this, AlarmReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(
+            this, 0 , intent, PendingIntent.FLAG_IMMUTABLE
+        )
+
+        getSystemService(AlarmManager::class.java).setExact(
+            AlarmManager.RTC_WAKEUP,
+            SystemClock.elapsedRealtime(),
+            pendingIntent
+        )
+
+        val intent2 = Intent(this, ProgressService::class.java)
+
+        ContextCompat.startForegroundService(this, intent2)
+
 
         binding.btnSkip.setOnClickListener{
             val intent = Intent(this,Main2Activity::class.java)

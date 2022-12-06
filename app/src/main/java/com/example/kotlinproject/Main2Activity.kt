@@ -1,13 +1,15 @@
 package com.example.kotlinproject
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.kotlinproject.databinding.ActivityMain2Binding
+import com.example.kotlinproject.utils.AlarmReceiver
 
 class Main2Activity : AppCompatActivity() {
 
@@ -19,7 +21,6 @@ class Main2Activity : AppCompatActivity() {
 
         binding.bottomNav.setupWithNavController(navController)
         setContentView(binding.root)
-
 
 
     }
