@@ -66,12 +66,12 @@ class FirstActivity : AppCompatActivity() {
         }
 
         override fun createFragment(position: Int): Fragment {
-            return when (position) {
-                0 -> TestFragment.newInstance(R.raw.img00, "오늘 뭐먹지?")
-                1 -> TestFragment.newInstance(R.raw.img01, "음식 메뉴 추천받기")
-                2 -> TestFragment.newInstance(R.raw.img02, "차트로 한눈에 보기")
-                3 -> TestFragment.newInstance(R.raw.img03, "카카오톡 공유 가능")
-                else -> TestFragment.newInstance(R.raw.img00, "오늘 뭐먹지")
+            return when (position) {    //image와 text받아서 화면에 표시
+                0 -> FirstFragment.newInstance(R.raw.img00, "오늘 뭐먹지?")
+                1 -> FirstFragment.newInstance(R.raw.img01, "음식 메뉴 추천받기")
+                2 -> FirstFragment.newInstance(R.raw.img02, "차트로 한눈에 보기")
+                3 -> FirstFragment.newInstance(R.raw.img03, "카카오톡 공유 가능")
+                else -> FirstFragment.newInstance(R.raw.img00, "오늘 뭐먹지")
             }
         }
     }

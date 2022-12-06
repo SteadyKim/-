@@ -36,9 +36,9 @@ class TestFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(image: Int, text: String) =
-            TestFragment().apply {
-                arguments = Bundle().apply {
+        fun newInstance(image: Int, text: String) = //외부에서 image와 text의 파라미터를 받아온다
+            FirstFragment().apply {
+                arguments = Bundle().apply { //arguments에 key,value형식으로 전달
                     putInt("image", image)
                     putString("text", text)
                 }
