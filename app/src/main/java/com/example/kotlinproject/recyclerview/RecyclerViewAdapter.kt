@@ -59,6 +59,7 @@ class RecyclerViewAdapter(val foodList : LiveData<ArrayList<Foods>>) : RecyclerV
     }
 
     override fun getItemCount(): Int {
+        // 수업시간에 배운 엘비스 연산자를 사용하여 최대한 !!연산자를 사용하지 않으려 노력
         val size = foodList.value?.size ?: 0
         return size
     }
@@ -72,9 +73,6 @@ class RecyclerViewAdapter(val foodList : LiveData<ArrayList<Foods>>) : RecyclerV
         foodList.value?.let {
             holder.bind(it[position])
         }
-//        holder.apply {
-//            bind(item)
-//        }
     }
 
     /**

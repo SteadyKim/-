@@ -73,7 +73,6 @@ class ResultFragment : Fragment() {
             val bundle = Bundle().apply {
                 putString("Food",selectedFood)
             }
-            //setFragmentResult("Food", bundle)
             // 2.내부 DB에 저장
             db = AppDatabase.getInstance(requireContext())
             db?.FoodsDao()?.insertAll(food)

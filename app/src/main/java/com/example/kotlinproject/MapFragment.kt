@@ -109,7 +109,7 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
     //권한 허용 받는 함수
     private fun getPermission(){
         val requestLocation = registerForActivityResult(ActivityResultContracts.RequestPermission(),
-        ACCESS_FINE_LOCATION){ isGranted ->
+            ACCESS_FINE_LOCATION){ isGranted ->
             if(isGranted) {
                 //권한허용시 startProcess
                 startProcess()
@@ -274,7 +274,7 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
         binding?.btnFav?.setOnClickListener {
             marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.maker))
         }
-    return true
+        return true
     }
 
     //지도 클릭시 이벤트 (cardView 감추기)
@@ -294,7 +294,7 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
     private fun getURL(photoReference: String): String{
         val url = "${BASE_URL}maps/api/place/photo?maxwidth=200&" +
                 "photo_reference=$photoReference&key=$API_KEY"
-    return url
+        return url
     }
 
     //fragment 삭제시 binding=null 메모리 누수 방지

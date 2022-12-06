@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.kotlinproject.databinding.FragmentEntryBinding
-import com.example.kotlinproject.utils.AlarmReceiver
 
 class EntryFragment : Fragment() {
     var binding: FragmentEntryBinding? = null

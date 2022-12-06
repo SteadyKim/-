@@ -5,13 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import com.example.kotlinproject.databinding.FragmentTestBinding
-import kotlinx.android.synthetic.main.fragment_test.*
 
 class TestFragment : Fragment() {
     private var image: Int? = null
     private var text: String? = null
+    var binding : FragmentTestBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,13 +25,13 @@ class TestFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_test, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        imageView.setImageResource(image!!)
-        textView.text = text
+        binding?.imvExplain?.setImageResource(image!!)
+        binding?.txtExplain?.text = text
 
     }
 
@@ -45,7 +44,9 @@ class TestFragment : Fragment() {
                 }
             }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
+        binding = null
     }
 }

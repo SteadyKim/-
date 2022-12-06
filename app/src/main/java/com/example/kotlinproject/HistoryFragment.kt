@@ -72,16 +72,12 @@ class HistoryFragment : Fragment() {
                  * 콜백 받음
                  */
 
-                /**
-                 * Room 내부 DB에서 데이터 지우기
-                 */
+                //1. Android Library Room 내부 DB에서 데이터 지우기
                val foods = foodsList[position]
                 db?.FoodsDao()?.delete(foods = foods) //DB에서 삭제
                 foodsList.removeAt(position) //리스트에서 삭제
 
-                /**
-                 * Firebase 데이터 지우기
-                 */
+                //2. Firebase에서 데이터 지우기
                 deleteFirebaseData(foods)
             }
 

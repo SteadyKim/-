@@ -13,7 +13,7 @@ const val ALARM_NOTIFICATION_ID = 3
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         context?.let {
-            // content를 눌렀을 때 Main Activity가 떠야한다.
+            // content를 눌렀을 때 Main2 Activity가 떠야한다.
             val contentIntent = Intent(context, Main2Activity::class.java)
             val pendingIntent = PendingIntent.getActivity(context, 0, contentIntent, PendingIntent.FLAG_IMMUTABLE)
 

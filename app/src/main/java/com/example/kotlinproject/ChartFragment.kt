@@ -49,6 +49,7 @@ class ChartFragment : Fragment() {
                 binding?.chartPie?.visibility = View.VISIBLE
                 binding?.txtInfo?.visibility = View.INVISIBLE
 
+                //수업시간에 배운 Companion Object를 활용해 OOP를 적용 시도
                 pieChart = Chart.initPieChart(binding?.chartPie)
 
                 val foodMap = getFoodMap(foodsList)
@@ -61,6 +62,7 @@ class ChartFragment : Fragment() {
         }
     }
 
+    //Array 상태인 데이터를 Map으로 변환
     private fun getFoodMap(foodsList: ArrayList<Foods>): MutableMap<String, Int> {
         val foodMap = mutableMapOf<String, Int>()
         for (food in foodsList) {
