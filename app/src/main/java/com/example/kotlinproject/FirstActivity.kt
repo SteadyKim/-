@@ -9,11 +9,8 @@ import android.os.SystemClock
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.kotlinproject.databinding.ActivityFirstBinding
-import com.example.kotlinproject.databinding.ActivityMain2Binding
 import com.example.kotlinproject.utils.AlarmReceiver
 import com.example.kotlinproject.utils.ProgressService
 import kotlinx.android.synthetic.main.activity_first.*
@@ -66,7 +63,8 @@ class FirstActivity : AppCompatActivity() {
         }
 
         override fun createFragment(position: Int): Fragment {
-            return when (position) {    //image와 text받아서 화면에 표시
+            return when (position) {
+                //image와 text받아서 화면에 표시
                 0 -> FirstFragment.newInstance(R.raw.img00, "오늘 뭐먹지?")
                 1 -> FirstFragment.newInstance(R.raw.img01, "음식 메뉴 추천받기")
                 2 -> FirstFragment.newInstance(R.raw.img02, "차트로 한눈에 보기")
