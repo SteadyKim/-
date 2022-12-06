@@ -3,7 +3,6 @@ package com.example.kotlinproject
 
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
@@ -15,7 +14,6 @@ import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +31,7 @@ import com.example.kotlinproject.restaurant.RestaurantData
 import com.example.kotlinproject.restaurant.RetrofitObject
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
+import com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -82,7 +81,7 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //시작할때 카드뷰 숨기기
-        binding?.CardView?.visibility = View.GONE
+        binding?.cdvInfo?.visibility = View.GONE
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         //권한 허용시 startProcess 아니라면 getPermission
         if(isPermitted()) {
@@ -109,7 +108,7 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
     //권한 허용 받는 함수
     private fun getPermission(){
         val requestLocation = registerForActivityResult(ActivityResultContracts.RequestPermission(),
-            ACCESS_FINE_LOCATION){ isGranted ->
+        ACCESS_FINE_LOCATION){ isGranted ->
             if(isGranted) {
                 //권한허용시 startProcess
                 startProcess()
@@ -122,6 +121,7 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
             ) {
                 //요청 1회 거절시 알림
                 Toast.makeText(requireActivity(), "주변 음식점 검색을 위해 위치 권한이 허용 되어야 합니다.", Toast.LENGTH_SHORT).show()
+                //getPermission()
             }
             //요청 2회 이상 거절시 noticeCantWork 호출
             else noticeCantWork()
@@ -142,7 +142,7 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
     }
 
     //snackBar 클릭시 설정으로 가는 이벤트
-    fun goSettings(){
+    private fun goSettings(){
         val intent = Intent()
         intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
         val uri = Uri.fromParts("package", activity?.packageName, null)
@@ -165,7 +165,7 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
         locationRequest = LocationRequest.create().apply {
             interval = 10000
             fastestInterval = 5000
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            priority = PRIORITY_HIGH_ACCURACY
         }
 
         val builder = LocationSettingsRequest.Builder()
@@ -198,7 +198,7 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
                 }
             }
         }
-        //권한 허가된 경우에만 requestLocaionUpdate 호출
+        //권한 허가된 경우에만 requestLocationUpdate 호출
         @SuppressLint("MissingPermission")
         if(isPermitted()) {
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
@@ -257,47 +257,45 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
             marker.showInfoWindow()
             return true
         }
-        binding?.CardView?.visibility = View.VISIBLE
+        binding?.cdvInfo?.visibility = View.VISIBLE
         val arr = marker.tag.toString().split("/")
-        binding?.name?.text = arr[0]
-        binding?.rating?.text=arr[1]
+        binding?.txtName?.text = arr[0]
+        binding?.txtRating?.text=arr[1]
         binding?.ratingBar?.rating = arr[1].toFloat()
         val review = arr[2]+"개의 리뷰"
-        binding?.ratingTotal?.text=review
-        binding?.address?.text =arr[3]
-        binding?.openNow?.text = when(arr[4]) {
+        binding?.txtTotal?.text=review
+        binding?.txtAddress?.text =arr[3]
+        binding?.txtOpen?.text = when(arr[4]) {
             "true" -> "현재 영업 중"
             "false" ->"영업 중이지 않음"
             else -> "영업 중인지 알 수 없음"
         }
-        Glide.with(this).load(getURL(arr[5])).into(binding!!.imgRes)
+        binding?.imvPhoto?.let { Glide.with(this).load(getURL(arr[5])).into(it) }
         binding?.btnFav?.setOnClickListener {
             marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.maker))
         }
-        return true
+    return true
     }
 
     //지도 클릭시 이벤트 (cardView 감추기)
     override fun onMapClick(latLng: LatLng) {
-        binding?.CardView?.visibility=View.GONE
+        binding?.cdvInfo?.visibility=View.GONE
     }
 
     //동적 URL 생성(textsearch api 호출용)
     private fun getURL(location: Location, keyword: String?): String {
-        val url = "maps/api/place/textsearch/json?query=${keyword}" +
+        return "maps/api/place/textsearch/json?query=${keyword}" +
                 "&location=${location.latitude},${location.longitude}" +
                 "&radius=5000&key=$API_KEY&type=restaurant&language=ko"
-        return url
     }
 
     //동적 URL 생성(photo api 호출용)
     private fun getURL(photoReference: String): String{
-        val url = "${BASE_URL}maps/api/place/photo?maxwidth=200&" +
+        return "${BASE_URL}maps/api/place/photo?maxwidth=200&" +
                 "photo_reference=$photoReference&key=$API_KEY"
-        return url
     }
 
-    //fragment 삭제시 binding=null 메모리 누수 방지
+    //fragment Destroy시 binding=null 메모리 누수 방지
     override fun onDestroyView() {
         super.onDestroyView()
         binding=null

@@ -13,8 +13,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.kotlinproject.databinding.ActivityFirstBinding
 import com.example.kotlinproject.utils.AlarmReceiver
 import com.example.kotlinproject.utils.ProgressService
-import kotlinx.android.synthetic.main.activity_first.*
-import kotlinx.android.synthetic.main.activity_main2.*
 
 class FirstActivity : AppCompatActivity() {
 
@@ -27,7 +25,7 @@ class FirstActivity : AppCompatActivity() {
         val binding = ActivityFirstBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-
+        binding
         vpAdapter = CustomPagerAdapter(this)
         viewPager2.adapter = vpAdapter
 
@@ -47,7 +45,6 @@ class FirstActivity : AppCompatActivity() {
 
         ContextCompat.startForegroundService(this, intent2)
 
-
         binding.btnSkip.setOnClickListener{
             val intent = Intent(this,Main2Activity::class.java)
             startActivity(intent)
@@ -55,6 +52,7 @@ class FirstActivity : AppCompatActivity() {
         }
 
     }
+
     class CustomPagerAdapter(fa: FragmentActivity): FragmentStateAdapter(fa) {
         private val PAGENUMBER = 4
 
@@ -73,6 +71,5 @@ class FirstActivity : AppCompatActivity() {
             }
         }
     }
-
 
 }

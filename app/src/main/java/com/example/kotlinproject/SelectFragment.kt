@@ -113,8 +113,6 @@ class SelectFragment : Fragment() {
             }
             findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)
         }
-
-
     }
 
     override fun onDestroyView() {
