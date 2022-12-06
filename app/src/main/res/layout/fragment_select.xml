@@ -22,6 +22,7 @@
         app:strokeWidth="4dp">
 
         <ImageView
+            android:id="@+id/imv_chinese"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -47,6 +48,7 @@
         app:strokeWidth="4dp">
 
         <ImageView
+            android:id="@+id/imv_korean"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -72,6 +74,7 @@
         app:strokeWidth="4dp">
 
         <ImageView
+            android:id="@+id/imv_western"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -97,6 +100,7 @@
         app:strokeWidth="4dp">
 
         <ImageView
+            android:id="@+id/imv_asian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -121,6 +125,7 @@
         app:strokeWidth="4dp">
 
         <ImageView
+            android:id="@+id/imv_japanese"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -145,6 +150,7 @@
         app:strokeWidth="4dp">
 
         <ImageView
+            android:id="@+id/imv_noodle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -169,6 +175,7 @@
         app:strokeWidth="4dp">
 
         <ImageView
+            android:id="@+id/imv_meat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -194,6 +201,7 @@
         app:strokeWidth="4dp">
 
         <ImageView
+            android:id="@+id/imv_rice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -203,7 +211,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cdv_Anything"
+        android:id="@+id/cdv_anything"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginBottom="-200dp"
@@ -217,6 +225,7 @@
         app:strokeWidth="4dp">
 
         <ImageView
+            android:id="@+id/imv_anything"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -233,9 +242,9 @@
         android:text="아무거나"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/cdv_Anything"
-        app:layout_constraintStart_toStartOf="@+id/cdv_Anything"
-        app:layout_constraintTop_toBottomOf="@+id/cdv_Anything" />
+        app:layout_constraintEnd_toEndOf="@+id/cdv_anything"
+        app:layout_constraintStart_toStartOf="@+id/cdv_anything"
+        app:layout_constraintTop_toBottomOf="@+id/cdv_anything" />
 
     <TextView
         android:id="@+id/txt_korean"

@@ -5,12 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_first.*
+import com.example.kotlinproject.databinding.FragmentFirstBinding
 
 class FirstFragment : Fragment() {
     private var image: Int? = null
     private var text: String? = null
-
+    var binding : FragmentFirstBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -24,14 +24,14 @@ class FirstFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_first, container, false)
+        binding = FragmentFirstBinding.inflate(inflater)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        imageView.setImageResource(image!!)
-        textView.text = text
-
+        image?.let { binding?.imageView?.setImageResource(it) }
+        binding?.textView?.text = text
     }
 
     companion object {

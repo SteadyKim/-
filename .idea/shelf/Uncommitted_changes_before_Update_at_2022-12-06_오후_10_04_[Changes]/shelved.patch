@@ -1,0 +1,432 @@
+Index: app/src/main/java/com/example/kotlinproject/FirstFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.kotlinproject\r\n\r\nimport android.os.Bundle\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport kotlinx.android.synthetic.main.fragment_first.*\r\n\r\nclass FirstFragment : Fragment() {\r\n    private var image: Int? = null\r\n    private var text: String? = null\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        arguments?.let {\r\n            image = it.getInt(\"image\", 0)\r\n            text = it.getString(\"text\", \"\")\r\n        }\r\n    }\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater,\r\n        container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n        return inflater.inflate(R.layout.fragment_first, container, false)\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n        imageView.setImageResource(image!!)\r\n        textView.text = text\r\n\r\n    }\r\n\r\n    companion object {\r\n        fun newInstance(image: Int, text: String) = //외부에서 image와 text의 파라미터를 받아온다\r\n            FirstFragment().apply {\r\n                arguments = Bundle().apply { //arguments에 key,value형식으로 전달\r\n                    putInt(\"image\", image)\r\n                    putString(\"text\", text)\r\n                }\r\n            }\r\n    }\r\n    override fun onDestroyView() {\r\n        super.onDestroyView()\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/kotlinproject/FirstFragment.kt b/app/src/main/java/com/example/kotlinproject/FirstFragment.kt
+--- a/app/src/main/java/com/example/kotlinproject/FirstFragment.kt	(revision a2fa254c05febdbfa0fa7dba13ec7fde6799a4c0)
++++ b/app/src/main/java/com/example/kotlinproject/FirstFragment.kt	(date 1670330013402)
+@@ -31,7 +31,6 @@
+         super.onViewCreated(view, savedInstanceState)
+         imageView.setImageResource(image!!)
+         textView.text = text
+-
+     }
+ 
+     companion object {
+Index: app/src/main/java/com/example/kotlinproject/FirstActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.kotlinproject\r\n\r\nimport android.app.AlarmManager\r\nimport android.app.PendingIntent\r\nimport android.content.Intent\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.os.SystemClock\r\nimport androidx.core.content.ContextCompat\r\nimport androidx.fragment.app.Fragment\r\nimport androidx.fragment.app.FragmentActivity\r\nimport androidx.navigation.fragment.NavHostFragment\r\nimport androidx.navigation.ui.setupWithNavController\r\nimport androidx.viewpager2.adapter.FragmentStateAdapter\r\nimport com.example.kotlinproject.databinding.ActivityFirstBinding\r\nimport com.example.kotlinproject.databinding.ActivityMain2Binding\r\nimport com.example.kotlinproject.utils.AlarmReceiver\r\nimport com.example.kotlinproject.utils.ProgressService\r\nimport kotlinx.android.synthetic.main.activity_first.*\r\nimport kotlinx.android.synthetic.main.activity_main2.*\r\n\r\nclass FirstActivity : AppCompatActivity() {\r\n\r\n    private var vpAdapter: FragmentStateAdapter? = null\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n\r\n        setContentView(R.layout.activity_first)\r\n        val binding = ActivityFirstBinding.inflate(layoutInflater)\r\n\r\n        setContentView(binding.root)\r\n\r\n        vpAdapter = CustomPagerAdapter(this)\r\n        viewPager2.adapter = vpAdapter\r\n\r\n        //Alarm Service\r\n        val intent = Intent(this, AlarmReceiver::class.java)\r\n        val pendingIntent = PendingIntent.getBroadcast(\r\n            this, 0 , intent, PendingIntent.FLAG_IMMUTABLE\r\n        )\r\n\r\n        getSystemService(AlarmManager::class.java).setExact(\r\n            AlarmManager.RTC_WAKEUP,\r\n            SystemClock.elapsedRealtime(),\r\n            pendingIntent\r\n        )\r\n\r\n        val intent2 = Intent(this, ProgressService::class.java)\r\n\r\n        ContextCompat.startForegroundService(this, intent2)\r\n\r\n\r\n        binding.btnSkip.setOnClickListener{\r\n            val intent = Intent(this,Main2Activity::class.java)\r\n            startActivity(intent)\r\n            finish()\r\n        }\r\n\r\n    }\r\n    class CustomPagerAdapter(fa: FragmentActivity): FragmentStateAdapter(fa) {\r\n        private val PAGENUMBER = 4\r\n\r\n        override fun getItemCount(): Int {\r\n            return PAGENUMBER\r\n        }\r\n\r\n        override fun createFragment(position: Int): Fragment {\r\n            return when (position) {    //image와 text받아서 화면에 표시\r\n                0 -> FirstFragment.newInstance(R.raw.img00, \"오늘 뭐먹지?\")\r\n                1 -> FirstFragment.newInstance(R.raw.img01, \"음식 메뉴 추천받기\")\r\n                2 -> FirstFragment.newInstance(R.raw.img02, \"차트로 한눈에 보기\")\r\n                3 -> FirstFragment.newInstance(R.raw.img03, \"카카오톡 공유 가능\")\r\n                else -> FirstFragment.newInstance(R.raw.img00, \"오늘 뭐먹지\")\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/kotlinproject/FirstActivity.kt b/app/src/main/java/com/example/kotlinproject/FirstActivity.kt
+--- a/app/src/main/java/com/example/kotlinproject/FirstActivity.kt	(revision a2fa254c05febdbfa0fa7dba13ec7fde6799a4c0)
++++ b/app/src/main/java/com/example/kotlinproject/FirstActivity.kt	(date 1670328344265)
+@@ -30,7 +30,6 @@
+         val binding = ActivityFirstBinding.inflate(layoutInflater)
+ 
+         setContentView(binding.root)
+-
+         vpAdapter = CustomPagerAdapter(this)
+         viewPager2.adapter = vpAdapter
+ 
+Index: app/src/main/res/layout/fragment_map.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n\r\n<RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n\r\n    <fragment\r\n        android:id=\"@+id/map\"\r\n        android:name=\"com.google.android.gms.maps.SupportMapFragment\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        tools:context=\".MainActivity\" />\r\n\r\n    <androidx.cardview.widget.CardView\r\n        android:id=\"@+id/CardView\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_alignParentTop=\"false\"\r\n        android:layout_alignParentBottom=\"true\"\r\n        android:layout_marginStart=\"20dp\"\r\n        android:layout_marginEnd=\"20dp\"\r\n        android:layout_marginBottom=\"30dp\"\r\n        app:cardBackgroundColor=\"#ffffff\"\r\n        app:cardCornerRadius=\"20dp\"\r\n        app:cardElevation=\"20dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\">\r\n\r\n        <androidx.constraintlayout.widget.ConstraintLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"140dp\">\r\n\r\n            <androidx.cardview.widget.CardView\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginStart=\"240dp\"\r\n                android:layout_marginTop=\"20dp\"\r\n                android:layout_marginEnd=\"40dp\"\r\n                android:layout_marginBottom=\"10dp\"\r\n                app:cardCornerRadius=\"20dp\"\r\n                app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toTopOf=\"parent\">\r\n\r\n                <ImageView\r\n                    android:id=\"@+id/imgRes\"\r\n                    android:layout_width=\"100dp\"\r\n                    android:layout_height=\"100dp\"\r\n                    app:srcCompat=\"@drawable/background_profile\"\r\n                    tools:layout_marginTop=\"100dp\" />\r\n\r\n            </androidx.cardview.widget.CardView>\r\n\r\n        </androidx.constraintlayout.widget.ConstraintLayout>\r\n\r\n        <LinearLayout\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:gravity=\"bottom\"\r\n            android:orientation=\"vertical\">\r\n\r\n            <TextView\r\n                android:id=\"@+id/name\"\r\n                android:layout_width=\"201dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginStart=\"25dp\"\r\n                android:layout_marginTop=\"16dp\"\r\n                android:layout_marginEnd=\"245dp\"\r\n                android:text=\"이름\"\r\n                android:textColor=\"#000000\"\r\n                android:textSize=\"20sp\"\r\n                android:textStyle=\"bold\" />\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"match_parent\">\r\n\r\n            </LinearLayout>\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"262dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginTop=\"10dp\"\r\n                android:orientation=\"horizontal\">\r\n\r\n                <TextView\r\n                    android:id=\"@+id/rating\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"19dp\"\r\n                    android:layout_marginStart=\"25dp\"\r\n                    android:layout_marginEnd=\"5dp\"\r\n                    android:text=\"평점\" />\r\n\r\n                <RatingBar\r\n                    android:id=\"@+id/ratingBar\"\r\n                    style=\"?android:attr/ratingBarStyleSmall\"\r\n                    android:layout_width=\"80dp\"\r\n                    android:layout_height=\"20dp\"\r\n                    android:layout_marginEnd=\"5dp\"\r\n                    android:isIndicator=\"true\"\r\n                    android:numStars=\"0\"\r\n                    android:progressTint=\"#ffd400\"\r\n                    android:rating=\"0\"\r\n                    android:stepSize=\"0.5\" />\r\n\r\n                <TextView\r\n                    android:id=\"@+id/ratingTotal\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"20dp\"\r\n                    android:layout_marginEnd=\"0dp\"\r\n                    android:text=\"리뷰\" />\r\n\r\n            </LinearLayout>\r\n\r\n            <TextView\r\n                android:id=\"@+id/address\"\r\n                android:layout_width=\"198dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginStart=\"25dp\"\r\n                android:layout_marginTop=\"10dp\"\r\n                android:text=\"주소\"\r\n                android:textColor=\"#000000\"\r\n                android:textSize=\"16sp\" />\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"match_parent\"\r\n                android:orientation=\"horizontal\">\r\n\r\n                <TextView\r\n                    android:id=\"@+id/open_now\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginStart=\"25dp\"\r\n                    android:layout_marginTop=\"10dp\"\r\n                    android:layout_marginBottom=\"20dp\"\r\n                    android:text=\"영업\"\r\n                    android:textColor=\"#22CC26\"\r\n                    android:textSize=\"12sp\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n                <ImageButton\r\n                    android:id=\"@+id/btn_fav\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginStart=\"15dp\"\r\n                    android:layout_marginTop=\"7dp\"\r\n                    android:layout_marginBottom=\"10dp\"\r\n                    android:background=\"#00ff0000\"\r\n                    app:srcCompat=\"@drawable/ic_baseline_star_outline_24\" />\r\n            </LinearLayout>\r\n\r\n        </LinearLayout>\r\n\r\n    </androidx.cardview.widget.CardView>\r\n\r\n</RelativeLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_map.xml b/app/src/main/res/layout/fragment_map.xml
+--- a/app/src/main/res/layout/fragment_map.xml	(revision a2fa254c05febdbfa0fa7dba13ec7fde6799a4c0)
++++ b/app/src/main/res/layout/fragment_map.xml	(date 1670327982797)
+@@ -18,7 +18,7 @@
+         tools:context=".MainActivity" />
+ 
+     <androidx.cardview.widget.CardView
+-        android:id="@+id/CardView"
++        android:id="@+id/cdv_info"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentTop="false"
+@@ -39,6 +39,7 @@
+             android:layout_height="140dp">
+ 
+             <androidx.cardview.widget.CardView
++                android:id="@+id/cdv_img"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="240dp"
+@@ -52,7 +53,7 @@
+                 app:layout_constraintTop_toTopOf="parent">
+ 
+                 <ImageView
+-                    android:id="@+id/imgRes"
++                    android:id="@+id/imv_photo"
+                     android:layout_width="100dp"
+                     android:layout_height="100dp"
+                     app:srcCompat="@drawable/background_profile"
+@@ -69,7 +70,7 @@
+             android:orientation="vertical">
+ 
+             <TextView
+-                android:id="@+id/name"
++                android:id="@+id/txt_name"
+                 android:layout_width="201dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="25dp"
+@@ -80,12 +81,6 @@
+                 android:textSize="20sp"
+                 android:textStyle="bold" />
+ 
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="match_parent">
+-
+-            </LinearLayout>
+-
+             <LinearLayout
+                 android:layout_width="262dp"
+                 android:layout_height="wrap_content"
+@@ -93,7 +88,7 @@
+                 android:orientation="horizontal">
+ 
+                 <TextView
+-                    android:id="@+id/rating"
++                    android:id="@+id/txt_rating"
+                     android:layout_width="wrap_content"
+                     android:layout_height="19dp"
+                     android:layout_marginStart="25dp"
+@@ -101,7 +96,7 @@
+                     android:text="평점" />
+ 
+                 <RatingBar
+-                    android:id="@+id/ratingBar"
++                    android:id="@+id/rating_bar"
+                     style="?android:attr/ratingBarStyleSmall"
+                     android:layout_width="80dp"
+                     android:layout_height="20dp"
+@@ -113,7 +108,7 @@
+                     android:stepSize="0.5" />
+ 
+                 <TextView
+-                    android:id="@+id/ratingTotal"
++                    android:id="@+id/txt_total"
+                     android:layout_width="wrap_content"
+                     android:layout_height="20dp"
+                     android:layout_marginEnd="0dp"
+@@ -122,7 +117,7 @@
+             </LinearLayout>
+ 
+             <TextView
+-                android:id="@+id/address"
++                android:id="@+id/txt_address"
+                 android:layout_width="198dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="25dp"
+@@ -137,7 +132,7 @@
+                 android:orientation="horizontal">
+ 
+                 <TextView
+-                    android:id="@+id/open_now"
++                    android:id="@+id/txt_open"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginStart="25dp"
+Index: app/src/main/res/layout/fragment_select.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:orientation=\"vertical\">\r\n\r\n\r\n    <androidx.cardview.widget.CardView\r\n        android:id=\"@+id/cdv_chinese\"\r\n        android:layout_width=\"60dp\"\r\n        android:layout_height=\"60dp\"\r\n        android:layout_marginBottom=\"450dp\"\r\n        app:cardCornerRadius=\"10dp\"\r\n        app:cardElevation=\"20dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:strokeColor=\"#000000\"\r\n        app:strokeWidth=\"4dp\">\r\n\r\n        <ImageView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:adjustViewBounds=\"true\"\r\n            android:src=\"@drawable/btn_chinese\"\r\n            app:strokeColor=\"#000000\"\r\n            app:strokeWidth=\"4dp\" />\r\n    </androidx.cardview.widget.CardView>\r\n\r\n\r\n    <androidx.cardview.widget.CardView\r\n        android:id=\"@+id/cdv_korean\"\r\n        android:layout_width=\"60dp\"\r\n        android:layout_height=\"60dp\"\r\n        android:layout_marginStart=\"-250dp\"\r\n        android:layout_marginBottom=\"450dp\"\r\n        app:cardCornerRadius=\"10dp\"\r\n        app:cardElevation=\"20dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:strokeColor=\"#000000\"\r\n        app:strokeWidth=\"4dp\">\r\n\r\n        <ImageView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:adjustViewBounds=\"true\"\r\n            android:src=\"@drawable/btn_korean\"\r\n            app:strokeColor=\"#000000\"\r\n            app:strokeWidth=\"4dp\" />\r\n    </androidx.cardview.widget.CardView>\r\n\r\n\r\n    <androidx.cardview.widget.CardView\r\n        android:id=\"@+id/cdv_western\"\r\n        android:layout_width=\"60dp\"\r\n        android:layout_height=\"60dp\"\r\n        android:layout_marginEnd=\"-250dp\"\r\n        android:layout_marginBottom=\"450dp\"\r\n        app:cardCornerRadius=\"10dp\"\r\n        app:cardElevation=\"20dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:strokeColor=\"#000000\"\r\n        app:strokeWidth=\"4dp\">\r\n\r\n        <ImageView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:adjustViewBounds=\"true\"\r\n            android:src=\"@drawable/btn_western\"\r\n            app:strokeColor=\"#000000\"\r\n            app:strokeWidth=\"4dp\" />\r\n    </androidx.cardview.widget.CardView>\r\n\r\n\r\n    <androidx.cardview.widget.CardView\r\n        android:id=\"@+id/cdv_asian\"\r\n        android:layout_width=\"60dp\"\r\n        android:layout_height=\"60dp\"\r\n        android:layout_marginEnd=\"150dp\"\r\n        android:layout_marginBottom=\"250dp\"\r\n        app:cardCornerRadius=\"10dp\"\r\n        app:cardElevation=\"20dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:strokeColor=\"#000000\"\r\n        app:strokeWidth=\"4dp\">\r\n\r\n        <ImageView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:adjustViewBounds=\"true\"\r\n            android:src=\"@drawable/btn_asian\"\r\n            app:strokeColor=\"#000000\"\r\n            app:strokeWidth=\"4dp\" />\r\n    </androidx.cardview.widget.CardView>\r\n\r\n    <androidx.cardview.widget.CardView\r\n        android:id=\"@+id/cdv_japanese\"\r\n        android:layout_width=\"60dp\"\r\n        android:layout_height=\"60dp\"\r\n        android:layout_marginStart=\"150dp\"\r\n        android:layout_marginBottom=\"250dp\"\r\n        app:cardCornerRadius=\"10dp\"\r\n        app:cardElevation=\"20dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:strokeColor=\"#000000\"\r\n        app:strokeWidth=\"4dp\">\r\n\r\n        <ImageView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:adjustViewBounds=\"true\"\r\n            android:src=\"@drawable/btn_japanese\"\r\n            app:strokeColor=\"#000000\"\r\n            app:strokeWidth=\"4dp\" />\r\n    </androidx.cardview.widget.CardView>\r\n\r\n    <androidx.cardview.widget.CardView\r\n        android:id=\"@+id/cdv_noodle\"\r\n        android:layout_width=\"60dp\"\r\n        android:layout_height=\"60dp\"\r\n        android:layout_marginStart=\"-250dp\"\r\n        android:layout_marginBottom=\"70dp\"\r\n        app:cardCornerRadius=\"10dp\"\r\n        app:cardElevation=\"20dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:strokeColor=\"#000000\"\r\n        app:strokeWidth=\"4dp\">\r\n\r\n        <ImageView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:adjustViewBounds=\"true\"\r\n            android:src=\"@drawable/btn_noodle\"\r\n            app:strokeColor=\"#000000\"\r\n            app:strokeWidth=\"4dp\" />\r\n    </androidx.cardview.widget.CardView>\r\n\r\n\r\n    <androidx.cardview.widget.CardView\r\n        android:id=\"@+id/cdv_meat\"\r\n        android:layout_width=\"60dp\"\r\n        android:layout_height=\"60dp\"\r\n        android:layout_marginBottom=\"70dp\"\r\n        app:cardCornerRadius=\"10dp\"\r\n        app:cardElevation=\"20dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:strokeColor=\"#000000\"\r\n        app:strokeWidth=\"4dp\">\r\n\r\n        <ImageView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:adjustViewBounds=\"true\"\r\n            android:src=\"@drawable/btn_meat\"\r\n            app:strokeColor=\"#000000\"\r\n            app:strokeWidth=\"4dp\" />\r\n    </androidx.cardview.widget.CardView>\r\n\r\n\r\n    <androidx.cardview.widget.CardView\r\n        android:id=\"@+id/cdv_rice\"\r\n        android:layout_width=\"60dp\"\r\n        android:layout_height=\"60dp\"\r\n        android:layout_marginEnd=\"-250dp\"\r\n        android:layout_marginBottom=\"70dp\"\r\n        app:cardCornerRadius=\"10dp\"\r\n        app:cardElevation=\"20dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:strokeColor=\"#000000\"\r\n        app:strokeWidth=\"4dp\">\r\n\r\n        <ImageView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:adjustViewBounds=\"true\"\r\n            android:src=\"@drawable/btn_rice\"\r\n            app:strokeColor=\"#000000\"\r\n            app:strokeWidth=\"4dp\" />\r\n    </androidx.cardview.widget.CardView>\r\n\r\n    <androidx.cardview.widget.CardView\r\n        android:id=\"@+id/cdv_Anything\"\r\n        android:layout_width=\"60dp\"\r\n        android:layout_height=\"60dp\"\r\n        android:layout_marginBottom=\"-200dp\"\r\n        app:cardCornerRadius=\"10dp\"\r\n        app:cardElevation=\"20dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:strokeColor=\"#000000\"\r\n        app:strokeWidth=\"4dp\">\r\n\r\n        <ImageView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:adjustViewBounds=\"true\"\r\n            android:src=\"@drawable/btn_anything\"\r\n            app:strokeColor=\"#000000\"\r\n            app:strokeWidth=\"4dp\" />\r\n    </androidx.cardview.widget.CardView>\r\n\r\n\r\n    <TextView\r\n        android:id=\"@+id/txt_anything\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"아무거나\"\r\n        android:textSize=\"16sp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/cdv_Anything\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/cdv_Anything\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/cdv_Anything\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/txt_korean\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"한식\"\r\n        android:textSize=\"16sp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/cdv_korean\"\r\n        app:layout_constraintHorizontal_bias=\"0.533\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/cdv_korean\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/cdv_korean\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/txt_chinese\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"중식\"\r\n        android:textSize=\"16sp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/cdv_chinese\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/cdv_chinese\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/cdv_chinese\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/txt_western\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"양식\"\r\n        android:textSize=\"16sp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/cdv_western\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/cdv_western\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/cdv_western\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/txt_asian\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"아시안\"\r\n        android:textSize=\"16sp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/cdv_asian\"\r\n        app:layout_constraintHorizontal_bias=\"0.666\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/cdv_asian\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/cdv_asian\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/txt_noodle\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"면\"\r\n        android:textSize=\"16sp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/cdv_noodle\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/cdv_noodle\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/cdv_noodle\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/txt_meat\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"고기\"\r\n        android:textSize=\"16sp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/cdv_meat\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/cdv_meat\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/cdv_meat\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/txt_rice\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"밥\"\r\n        android:textSize=\"16sp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/cdv_rice\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/cdv_rice\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/cdv_rice\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/txt_japanese\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"일식\"\r\n        android:textSize=\"16sp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/cdv_japanese\"\r\n        app:layout_constraintHorizontal_bias=\"0.433\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/cdv_japanese\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/cdv_japanese\" />\r\n\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_select.xml b/app/src/main/res/layout/fragment_select.xml
+--- a/app/src/main/res/layout/fragment_select.xml	(revision a2fa254c05febdbfa0fa7dba13ec7fde6799a4c0)
++++ b/app/src/main/res/layout/fragment_select.xml	(date 1670327783946)
+@@ -22,6 +22,7 @@
+         app:strokeWidth="4dp">
+ 
+         <ImageView
++            android:id="@+id/imv_chinese"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:adjustViewBounds="true"
+@@ -47,6 +48,7 @@
+         app:strokeWidth="4dp">
+ 
+         <ImageView
++            android:id="@+id/imv_korean"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:adjustViewBounds="true"
+@@ -72,6 +74,7 @@
+         app:strokeWidth="4dp">
+ 
+         <ImageView
++            android:id="@+id/imv_western"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:adjustViewBounds="true"
+@@ -97,6 +100,7 @@
+         app:strokeWidth="4dp">
+ 
+         <ImageView
++            android:id="@+id/imv_asian"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:adjustViewBounds="true"
+@@ -121,6 +125,7 @@
+         app:strokeWidth="4dp">
+ 
+         <ImageView
++            android:id="@+id/imv_japanese"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:adjustViewBounds="true"
+@@ -145,6 +150,7 @@
+         app:strokeWidth="4dp">
+ 
+         <ImageView
++            android:id="@+id/imv_noodle"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:adjustViewBounds="true"
+@@ -169,6 +175,7 @@
+         app:strokeWidth="4dp">
+ 
+         <ImageView
++            android:id="@+id/imv_meat"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:adjustViewBounds="true"
+@@ -194,6 +201,7 @@
+         app:strokeWidth="4dp">
+ 
+         <ImageView
++            android:id="@+id/imv_rice"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:adjustViewBounds="true"
+@@ -203,7 +211,7 @@
+     </androidx.cardview.widget.CardView>
+ 
+     <androidx.cardview.widget.CardView
+-        android:id="@+id/cdv_Anything"
++        android:id="@+id/cdv_anything"
+         android:layout_width="60dp"
+         android:layout_height="60dp"
+         android:layout_marginBottom="-200dp"
+@@ -217,6 +225,7 @@
+         app:strokeWidth="4dp">
+ 
+         <ImageView
++            android:id="@+id/imv_anything"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:adjustViewBounds="true"
+@@ -233,9 +242,9 @@
+         android:text="아무거나"
+         android:textSize="16sp"
+         android:textStyle="bold"
+-        app:layout_constraintEnd_toEndOf="@+id/cdv_Anything"
+-        app:layout_constraintStart_toStartOf="@+id/cdv_Anything"
+-        app:layout_constraintTop_toBottomOf="@+id/cdv_Anything" />
++        app:layout_constraintEnd_toEndOf="@+id/cdv_anything"
++        app:layout_constraintStart_toStartOf="@+id/cdv_anything"
++        app:layout_constraintTop_toBottomOf="@+id/cdv_anything" />
+ 
+     <TextView
+         android:id="@+id/txt_korean"
+Index: app/src/main/java/com/example/kotlinproject/SelectFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.kotlinproject\r\n\r\nimport android.app.AlarmManager\r\nimport android.app.PendingIntent\r\nimport android.content.Intent\r\nimport android.os.Bundle\r\nimport android.os.SystemClock\r\nimport androidx.fragment.app.Fragment\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.navigation.fragment.findNavController\r\n\r\nimport com.example.kotlinproject.databinding.FragmentSelectBinding\r\nimport com.example.kotlinproject.utils.RandomFood\r\nimport com.example.kotlinproject.utils.RandomFood.Companion.ANYTHINGFOOD\r\nimport com.example.kotlinproject.utils.RandomFood.Companion.ASIANFOOD\r\nimport com.example.kotlinproject.utils.RandomFood.Companion.CHINESEFOOD\r\nimport com.example.kotlinproject.utils.RandomFood.Companion.JAPANESEFOOD\r\nimport com.example.kotlinproject.utils.RandomFood.Companion.KOREANFOOD\r\nimport com.example.kotlinproject.utils.RandomFood.Companion.MEATFOOD\r\nimport com.example.kotlinproject.utils.RandomFood.Companion.NOODLEFOOD\r\nimport com.example.kotlinproject.utils.RandomFood.Companion.RICEFOOD\r\nimport com.example.kotlinproject.utils.RandomFood.Companion.WESTERNFOOD\r\n\r\nclass SelectFragment : Fragment() {\r\n    var binding : FragmentSelectBinding? = null\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n        binding = FragmentSelectBinding.inflate(inflater)\r\n        return binding?.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n\r\n        initFoodBtnListener()\r\n\r\n    }\r\n\r\n    private fun initFoodBtnListener() {\r\n        binding?.cdvAnything?.setOnClickListener {\r\n            val anythingFood = RandomFood.getAnyThing()\r\n            val bundle = Bundle().apply {\r\n                putStringArrayList(ANYTHINGFOOD, anythingFood)\r\n            }\r\n            findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)\r\n        }\r\n\r\n        binding?.cdvKorean?.setOnClickListener {\r\n            val koreanFood = RandomFood.getKoreanFood()\r\n            val bundle = Bundle().apply {\r\n                putStringArrayList(KOREANFOOD, koreanFood)\r\n            }\r\n            findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)\r\n        }\r\n\r\n        binding?.cdvChinese?.setOnClickListener {\r\n            val chineseFood = RandomFood.getChineseFood()\r\n            val bundle = Bundle().apply {\r\n                putStringArrayList(CHINESEFOOD, chineseFood)\r\n            }\r\n            findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)\r\n        }\r\n\r\n        binding?.cdvWestern?.setOnClickListener {\r\n            val westernFood = RandomFood.getWesternFood()\r\n            val bundle = Bundle().apply {\r\n                putStringArrayList(WESTERNFOOD, westernFood)\r\n            }\r\n            findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)\r\n        }\r\n\r\n        binding?.cdvAsian?.setOnClickListener {\r\n            val asianFood = RandomFood.getAsianFood()\r\n            val bundle = Bundle().apply {\r\n                putStringArrayList(ASIANFOOD, asianFood)\r\n            }\r\n            findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)\r\n        }\r\n\r\n        binding?.cdvJapanese?.setOnClickListener {\r\n            val japanenseFood = RandomFood.getJapaneseFood()\r\n            val bundle = Bundle().apply {\r\n                putStringArrayList(JAPANESEFOOD, japanenseFood)\r\n            }\r\n            findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)\r\n        }\r\n\r\n        binding?.cdvNoodle?.setOnClickListener {\r\n            val noodleFood = RandomFood.getNoodleFood()\r\n            val bundle = Bundle().apply {\r\n                putStringArrayList(NOODLEFOOD, noodleFood)\r\n            }\r\n            findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)\r\n        }\r\n\r\n        binding?.cdvMeat?.setOnClickListener {\r\n            val meatFood = RandomFood.getMeatFood()\r\n            val bundle = Bundle().apply {\r\n                putStringArrayList(MEATFOOD, meatFood)\r\n            }\r\n            findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)\r\n        }\r\n\r\n        binding?.cdvRice?.setOnClickListener {\r\n            val riceFood = RandomFood.getRiceFood()\r\n            val bundle = Bundle().apply {\r\n                putStringArrayList(RICEFOOD, riceFood)\r\n            }\r\n            findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)\r\n        }\r\n\r\n\r\n    }\r\n\r\n    override fun onDestroyView() {\r\n        super.onDestroyView()\r\n        binding = null\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/kotlinproject/SelectFragment.kt b/app/src/main/java/com/example/kotlinproject/SelectFragment.kt
+--- a/app/src/main/java/com/example/kotlinproject/SelectFragment.kt	(revision a2fa254c05febdbfa0fa7dba13ec7fde6799a4c0)
++++ b/app/src/main/java/com/example/kotlinproject/SelectFragment.kt	(date 1670327783955)
+@@ -113,8 +113,6 @@
+             }
+             findNavController().navigate(R.id.action_selectFragment_to_resultFragment, bundle)
+         }
+-
+-
+     }
+ 
+     override fun onDestroyView() {
+Index: app/src/main/res/layout/fragment_result.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\">\r\n\r\n\r\n    <TextView\r\n        android:id=\"@+id/txt_choose\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginTop=\"30dp\"\r\n        android:text=\"이걸로 결정?\"\r\n        android:textColor=\"#000000\"\r\n        android:textSize=\"33sp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintBottom_toTopOf=\"@+id/cdv_food\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/txt_result\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_marginStart=\"151dp\"\r\n        android:layout_marginEnd=\"154dp\"\r\n        android:text=\"RESULT\"\r\n        android:textAlignment=\"center\"\r\n        android:textColor=\"#000000\"\r\n        android:textSize=\"30sp\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintBottom_toTopOf=\"@+id/cdv_share\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/cdv_food\" />\r\n\r\n    <androidx.cardview.widget.CardView\r\n        android:id=\"@+id/cdv_food\"\r\n        android:layout_width=\"325dp\"\r\n        android:layout_height=\"325dp\"\r\n        android:layout_marginTop=\"120dp\"\r\n        app:cardCornerRadius=\"10dp\"\r\n        app:layout_constraintBottom_toTopOf=\"@+id/txt_result\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        android:padding=\"10dp\">\r\n\r\n        <ImageView\r\n            android:id=\"@+id/imv_result\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"\r\n            android:scaleType=\"centerCrop\"\r\n            app:srcCompat=\"@drawable/select_bibim_bap\" />\r\n    </androidx.cardview.widget.CardView>\r\n\r\n    <androidx.cardview.widget.CardView\r\n        android:id=\"@+id/cdv_map\"\r\n        android:layout_width=\"40dp\"\r\n        android:layout_height=\"40dp\"\r\n        android:layout_marginEnd=\"-250dp\"\r\n        android:layout_marginBottom=\"-500dp\"\r\n        app:cardCornerRadius=\"10dp\"\r\n        app:cardElevation=\"5dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:strokeColor=\"#000000\"\r\n        app:strokeWidth=\"4dp\">\r\n\r\n        <ImageView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:adjustViewBounds=\"true\"\r\n            android:src=\"@drawable/btn_map\"\r\n            app:strokeColor=\"#000000\"\r\n            app:strokeWidth=\"4dp\" />\r\n    </androidx.cardview.widget.CardView>\r\n\r\n    <androidx.cardview.widget.CardView\r\n        android:id=\"@+id/cdv_share\"\r\n        android:layout_width=\"40dp\"\r\n        android:layout_height=\"40dp\"\r\n        android:layout_marginBottom=\"-500dp\"\r\n        app:cardCornerRadius=\"10dp\"\r\n        app:cardElevation=\"5dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:strokeColor=\"#000000\"\r\n        app:strokeWidth=\"4dp\">\r\n\r\n        <ImageView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:adjustViewBounds=\"true\"\r\n            android:src=\"@drawable/btn_share\"\r\n            app:strokeColor=\"#000000\"\r\n            app:strokeWidth=\"4dp\" />\r\n    </androidx.cardview.widget.CardView>\r\n\r\n\r\n    <androidx.cardview.widget.CardView\r\n        android:id=\"@+id/cdv_redo\"\r\n        android:layout_width=\"40dp\"\r\n        android:layout_height=\"40dp\"\r\n        android:layout_marginStart=\"-250dp\"\r\n        android:layout_marginBottom=\"-500dp\"\r\n        app:cardCornerRadius=\"10dp\"\r\n        app:cardElevation=\"5dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:strokeColor=\"#000000\"\r\n        app:strokeWidth=\"4dp\">\r\n\r\n        <ImageView\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:adjustViewBounds=\"true\"\r\n            android:src=\"@drawable/btn_redo\"\r\n            app:strokeColor=\"#000000\"\r\n            app:strokeWidth=\"4dp\" />\r\n    </androidx.cardview.widget.CardView>\r\n\r\n    <TextView\r\n        android:id=\"@+id/txt_redo\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"다시하기\"\r\n        android:textAllCaps=\"false\"\r\n        android:textColor=\"#000000\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/cdv_redo\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/cdv_redo\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/cdv_redo\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/txt_share\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"공유하기\"\r\n        android:textAlignment=\"center\"\r\n        android:textColor=\"#000000\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/cdv_share\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/cdv_share\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/cdv_share\" />\r\n\r\n    <TextView\r\n        android:id=\"@+id/txt_find\"\r\n        android:layout_width=\"71dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"식당 찾기\"\r\n        android:textAlignment=\"center\"\r\n        android:textColor=\"#000000\"\r\n        android:textStyle=\"bold\"\r\n        app:layout_constraintEnd_toEndOf=\"@+id/cdv_map\"\r\n        app:layout_constraintStart_toStartOf=\"@+id/cdv_map\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/cdv_map\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_result.xml b/app/src/main/res/layout/fragment_result.xml
+--- a/app/src/main/res/layout/fragment_result.xml	(revision a2fa254c05febdbfa0fa7dba13ec7fde6799a4c0)
++++ b/app/src/main/res/layout/fragment_result.xml	(date 1670327982784)
+@@ -72,6 +72,7 @@
+         app:strokeWidth="4dp">
+ 
+         <ImageView
++            android:id="@+id/imv_map"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:adjustViewBounds="true"
+@@ -95,6 +96,7 @@
+         app:strokeWidth="4dp">
+ 
+         <ImageView
++            android:id="@+id/imv_share"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:adjustViewBounds="true"
+@@ -120,6 +122,7 @@
+         app:strokeWidth="4dp">
+ 
+         <ImageView
++            android:id="@+id/imv_redo"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:adjustViewBounds="true"
+Index: app/src/main/java/com/example/kotlinproject/MapFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.kotlinproject\r\n\r\n\r\nimport android.Manifest.permission.ACCESS_FINE_LOCATION\r\nimport android.annotation.SuppressLint\r\nimport android.content.ContentValues.TAG\r\nimport android.content.Intent\r\nimport android.content.IntentSender\r\nimport android.content.pm.PackageManager\r\nimport android.location.Location\r\nimport android.net.Uri\r\nimport androidx.fragment.app.Fragment\r\n\r\nimport android.os.Bundle\r\nimport android.os.Looper\r\nimport android.provider.Settings\r\n\r\nimport android.util.Log\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport android.widget.Toast\r\nimport androidx.activity.result.contract.ActivityResultContracts\r\nimport androidx.activity.result.launch\r\nimport androidx.activity.result.registerForActivityResult\r\n\r\nimport androidx.core.app.ActivityCompat\r\nimport com.bumptech.glide.Glide\r\nimport com.example.kotlinproject.databinding.FragmentMapBinding\r\nimport com.example.kotlinproject.restaurant.API_KEY\r\nimport com.example.kotlinproject.restaurant.BASE_URL\r\nimport com.example.kotlinproject.restaurant.RestaurantData\r\nimport com.example.kotlinproject.restaurant.RetrofitObject\r\nimport com.google.android.gms.common.api.ResolvableApiException\r\nimport com.google.android.gms.location.*\r\n\r\nimport com.google.android.gms.maps.CameraUpdateFactory\r\nimport com.google.android.gms.maps.GoogleMap\r\nimport com.google.android.gms.maps.OnMapReadyCallback\r\nimport com.google.android.gms.maps.SupportMapFragment\r\nimport com.google.android.gms.maps.model.BitmapDescriptorFactory\r\nimport com.google.android.gms.maps.model.CameraPosition\r\nimport com.google.android.gms.maps.model.LatLng\r\nimport com.google.android.gms.maps.model.Marker\r\nimport com.google.android.gms.maps.model.MarkerOptions\r\nimport com.google.android.gms.tasks.Task\r\nimport com.google.android.material.snackbar.Snackbar\r\nimport retrofit2.Call\r\nimport retrofit2.Callback\r\nimport retrofit2.Response\r\n\r\nclass MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener {\r\n\r\n    private lateinit var mMap: GoogleMap\r\n    private lateinit var fusedLocationClient: FusedLocationProviderClient\r\n    private lateinit var locationRequest: LocationRequest\r\n    private lateinit var locationCallback: LocationCallback\r\n    private lateinit var currentLatLng: LatLng\r\n    private val permissions = Array(2){\r\n        android.Manifest.permission.ACCESS_COARSE_LOCATION\r\n        ACCESS_FINE_LOCATION\r\n    }\r\n    private val callback = OnMapReadyCallback { googleMap ->\r\n        //googleMap 객체 생성후 defaultLocation 보여준 뒤 setting 하고 현재 위치정보 업데이트\r\n        mMap = googleMap\r\n        showDefaultLocation()\r\n        setLocationRequestSettings()\r\n        locationUpdate()\r\n    }\r\n    private var binding: FragmentMapBinding? = null\r\n\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater,\r\n        container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n        //binding inflate\r\n        binding = FragmentMapBinding.inflate(inflater)\r\n        return binding?.root\r\n    }\r\n\r\n    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {\r\n        super.onViewCreated(view, savedInstanceState)\r\n        //시작할때 카드뷰 숨기기\r\n        binding?.CardView?.visibility = View.GONE\r\n        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())\r\n        //권한 허용시 startProcess 아니라면 getPermission\r\n        if(isPermitted()) {\r\n            startProcess()\r\n        }\r\n        else getPermission()\r\n    }\r\n\r\n    //권한 허용되어 있는지 체크 허용됐으면 true, 안됐으면 false 반환\r\n    private fun isPermitted() : Boolean {\r\n        for (perm in permissions) {\r\n            if (ActivityCompat.checkSelfPermission(requireActivity(), perm) != PackageManager.PERMISSION_GRANTED)\r\n                return false\r\n        }\r\n        return true\r\n    }\r\n\r\n    //프로세스 시작 mapFragment 생성후 OnMapReadyCallBack 호출\r\n    private fun startProcess(){\r\n        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment\r\n        mapFragment.getMapAsync(callback)\r\n    }\r\n\r\n    //권한 허용 받는 함수\r\n    private fun getPermission(){\r\n        val requestLocation = registerForActivityResult(ActivityResultContracts.RequestPermission(),\r\n        ACCESS_FINE_LOCATION){ isGranted ->\r\n            if(isGranted) {\r\n                //권한허용시 startProcess\r\n                startProcess()\r\n            }\r\n            else if (\r\n                ActivityCompat.shouldShowRequestPermissionRationale(\r\n                    requireActivity(),\r\n                    ACCESS_FINE_LOCATION\r\n                )\r\n            ) {\r\n                //요청 1회 거절시 알림\r\n                Toast.makeText(requireActivity(), \"주변 음식점 검색을 위해 위치 권한이 허용 되어야 합니다.\", Toast.LENGTH_SHORT).show()\r\n            }\r\n            //요청 2회 이상 거절시 noticeCantWork 호출\r\n            else noticeCantWork()\r\n        }\r\n        requestLocation.launch()\r\n    }\r\n\r\n    //권한 2회 이상 거절시 동작 할 수 없음 알리고 설정창으로 이동하게 끔 함\r\n    private fun noticeCantWork(){\r\n        Toast.makeText(requireActivity(), \"설정에서 위치 사용 권한을 허용해 주세요\", Toast.LENGTH_SHORT).show()\r\n        val snackBar = binding?.root?.let {\r\n            Snackbar.make(it,\"음식점 검색을 위한 위치 정보 접근 권한이 필요합니다\",\r\n                Snackbar.LENGTH_INDEFINITE\r\n            )\r\n        }\r\n        snackBar?.setAction(\"승인\"){goSettings()}\r\n        snackBar?.show()\r\n    }\r\n\r\n    //snackBar 클릭시 설정으로 가는 이벤트\r\n    fun goSettings(){\r\n        val intent = Intent()\r\n        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS\r\n        val uri = Uri.fromParts(\"package\", activity?.packageName, null)\r\n        intent.data = uri\r\n        startActivity(intent)\r\n    }\r\n\r\n    //기본 위치를 보여줌\r\n    private fun showDefaultLocation(){\r\n        val markerOptions = MarkerOptions()\r\n        markerOptions.position(LatLng(37.56,126.97))\r\n        markerOptions.title(\"위치정보 가져올 수 없음\")\r\n        markerOptions.snippet(\"위치 권한과 GPS 활성 여부를 확인하세요\")\r\n        mMap.addMarker(markerOptions)\r\n        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(37.56,126.97),15.0f))\r\n    }\r\n\r\n    //locationRequest setting하고 gps 사용 여부 확인\r\n    private fun setLocationRequestSettings() {\r\n        locationRequest = LocationRequest.create().apply {\r\n            interval = 10000\r\n            fastestInterval = 5000\r\n            priority = LocationRequest.PRIORITY_HIGH_ACCURACY\r\n        }\r\n\r\n        val builder = LocationSettingsRequest.Builder()\r\n            .addLocationRequest(locationRequest)\r\n        val client: SettingsClient = LocationServices.getSettingsClient(requireActivity())\r\n        val task: Task<LocationSettingsResponse> = client.checkLocationSettings(builder.build())\r\n        //GPS가 켜져있는 경우 아무 것도 안함\r\n        task.addOnFailureListener { exception ->\r\n            // GPS가 꺼져있을 경우\r\n            if (exception is ResolvableApiException) {\r\n                try {\r\n                    exception.startResolutionForResult(\r\n                        requireActivity(),\r\n                        0\r\n                    )\r\n                } catch (sendEx: IntentSender.SendIntentException) {\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    //locationCallback 설정 업데이트, 현재 위치 정보 받아오고 이하 메서드 실행\r\n    private fun locationUpdate(){\r\n        locationCallback = object : LocationCallback(){\r\n            override fun onLocationResult(locationResult: LocationResult) {\r\n                locationResult.run{\r\n                    currentLatLng=LatLng(locations[0].latitude, locations[0].longitude)\r\n                    showCurrentLocation(locations[0])\r\n                    getRestaurant(locations[0])\r\n                }\r\n            }\r\n        }\r\n        //권한 허가된 경우에만 requestLocaionUpdate 호출\r\n        @SuppressLint(\"MissingPermission\")\r\n        if(isPermitted()) {\r\n            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())\r\n        }\r\n    }\r\n\r\n    //구글맵에 현재 위치를 마커로 표시\r\n    private fun showCurrentLocation(location: Location){\r\n        val currentLocation = LatLng(location.latitude, location.longitude)\r\n        val markerOption = MarkerOptions().position(currentLocation).title(\"현재 위치입니다\")\r\n        val cameraOption= CameraPosition.Builder().target(currentLocation).zoom(15.0f).build()\r\n        val camera = CameraUpdateFactory.newCameraPosition(cameraOption)\r\n        mMap.clear()\r\n        mMap.addMarker(markerOption)\r\n        mMap.moveCamera(camera)\r\n    }\r\n\r\n    //resultFragment로 부터 keyword(음식명)을 받아 retrofit으로 api 통신하여 성공시 showRestaurant\r\n    private fun getRestaurant(location: Location) {\r\n        val keyword = arguments?.getString(\"Food\")\r\n        RetrofitObject.getApiService().getRestaurant(getURL(location, keyword))\r\n            .enqueue(object : Callback<RestaurantData> {\r\n                override fun onResponse(\r\n                    call: Call<RestaurantData>,\r\n                    response: Response<RestaurantData>\r\n                ) {\r\n                    showRestaurant(response.body() as RestaurantData)\r\n                }\r\n\r\n                override fun onFailure(call: Call<RestaurantData>, t: Throwable) {\r\n                    Toast.makeText(requireActivity(), \"api request 실패.\", Toast.LENGTH_SHORT).show()\r\n                }\r\n            })\r\n    }\r\n\r\n    //지도에 주변 식당 표시\r\n    private fun showRestaurant(data: RestaurantData) {\r\n        for (res in data.results){\r\n            val position = LatLng(res.geometry.location.lat, res.geometry.location.lng)\r\n            val markerOptions = MarkerOptions().position(position).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))\r\n            val marker = mMap.addMarker(markerOptions)\r\n            val openNow = if(res.opening_hours==null) null else res.opening_hours.open_now\r\n            val photoReference = if(res.photos.isNullOrEmpty()) null else res.photos[0].photo_reference\r\n            marker?.tag = \"${res.name}/${res.rating}/${res.user_ratings_total}/${res.formatted_address}/${openNow}/${photoReference}\"\r\n        }\r\n        mMap.setOnMarkerClickListener(this)\r\n        mMap.setOnMapClickListener(this)\r\n        fusedLocationClient.removeLocationUpdates(locationCallback)\r\n    }\r\n\r\n    //마커 클릭시 이벤트 card view(식당정보) 표시\r\n    override fun onMarkerClick(marker: Marker): Boolean {\r\n        if(marker.position == currentLatLng){\r\n            marker.title=\"현재 위치\"\r\n            marker.snippet=\"현재 계신 위치 입니다\"\r\n            marker.showInfoWindow()\r\n            return true\r\n        }\r\n        binding?.CardView?.visibility = View.VISIBLE\r\n        val arr = marker.tag.toString().split(\"/\")\r\n        binding?.name?.text = arr[0]\r\n        binding?.rating?.text=arr[1]\r\n        binding?.ratingBar?.rating = arr[1].toFloat()\r\n        val review = arr[2]+\"개의 리뷰\"\r\n        binding?.ratingTotal?.text=review\r\n        binding?.address?.text =arr[3]\r\n        binding?.openNow?.text = when(arr[4]) {\r\n            \"true\" -> \"현재 영업 중\"\r\n            \"false\" ->\"영업 중이지 않음\"\r\n            else -> \"영업 중인지 알 수 없음\"\r\n        }\r\n        Glide.with(this).load(getURL(arr[5])).into(binding!!.imgRes)\r\n        binding?.btnFav?.setOnClickListener {\r\n            marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.maker))\r\n        }\r\n    return true\r\n    }\r\n\r\n    //지도 클릭시 이벤트 (cardView 감추기)\r\n    override fun onMapClick(latLng: LatLng) {\r\n        binding?.CardView?.visibility=View.GONE\r\n    }\r\n\r\n    //동적 URL 생성(textsearch api 호출용)\r\n    private fun getURL(location: Location, keyword: String?): String {\r\n        val url = \"maps/api/place/textsearch/json?query=${keyword}\" +\r\n                \"&location=${location.latitude},${location.longitude}\" +\r\n                \"&radius=5000&key=$API_KEY&type=restaurant&language=ko\"\r\n        return url\r\n    }\r\n\r\n    //동적 URL 생성(photo api 호출용)\r\n    private fun getURL(photoReference: String): String{\r\n        val url = \"${BASE_URL}maps/api/place/photo?maxwidth=200&\" +\r\n                \"photo_reference=$photoReference&key=$API_KEY\"\r\n    return url\r\n    }\r\n\r\n    //fragment 삭제시 binding=null 메모리 누수 방지\r\n    override fun onDestroyView() {\r\n        super.onDestroyView()\r\n        binding=null\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/kotlinproject/MapFragment.kt b/app/src/main/java/com/example/kotlinproject/MapFragment.kt
+--- a/app/src/main/java/com/example/kotlinproject/MapFragment.kt	(revision a2fa254c05febdbfa0fa7dba13ec7fde6799a4c0)
++++ b/app/src/main/java/com/example/kotlinproject/MapFragment.kt	(date 1670330877403)
+@@ -3,7 +3,6 @@
+ 
+ import android.Manifest.permission.ACCESS_FINE_LOCATION
+ import android.annotation.SuppressLint
+-import android.content.ContentValues.TAG
+ import android.content.Intent
+ import android.content.IntentSender
+ import android.content.pm.PackageManager
+@@ -15,7 +14,6 @@
+ import android.os.Looper
+ import android.provider.Settings
+ 
+-import android.util.Log
+ import android.view.LayoutInflater
+ import android.view.View
+ import android.view.ViewGroup
+@@ -33,6 +31,7 @@
+ import com.example.kotlinproject.restaurant.RetrofitObject
+ import com.google.android.gms.common.api.ResolvableApiException
+ import com.google.android.gms.location.*
++import com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
+ 
+ import com.google.android.gms.maps.CameraUpdateFactory
+ import com.google.android.gms.maps.GoogleMap
+@@ -82,7 +81,7 @@
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+         super.onViewCreated(view, savedInstanceState)
+         //시작할때 카드뷰 숨기기
+-        binding?.CardView?.visibility = View.GONE
++        binding?.cdvInfo?.visibility = View.GONE
+         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+         //권한 허용시 startProcess 아니라면 getPermission
+         if(isPermitted()) {
+@@ -122,6 +121,7 @@
+             ) {
+                 //요청 1회 거절시 알림
+                 Toast.makeText(requireActivity(), "주변 음식점 검색을 위해 위치 권한이 허용 되어야 합니다.", Toast.LENGTH_SHORT).show()
++                //getPermission()
+             }
+             //요청 2회 이상 거절시 noticeCantWork 호출
+             else noticeCantWork()
+@@ -142,7 +142,7 @@
+     }
+ 
+     //snackBar 클릭시 설정으로 가는 이벤트
+-    fun goSettings(){
++    private fun goSettings(){
+         val intent = Intent()
+         intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+         val uri = Uri.fromParts("package", activity?.packageName, null)
+@@ -165,7 +165,7 @@
+         locationRequest = LocationRequest.create().apply {
+             interval = 10000
+             fastestInterval = 5000
+-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
++            priority = PRIORITY_HIGH_ACCURACY
+         }
+ 
+         val builder = LocationSettingsRequest.Builder()
+@@ -198,7 +198,7 @@
+                 }
+             }
+         }
+-        //권한 허가된 경우에만 requestLocaionUpdate 호출
++        //권한 허가된 경우에만 requestLocationUpdate 호출
+         @SuppressLint("MissingPermission")
+         if(isPermitted()) {
+             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
+@@ -257,20 +257,20 @@
+             marker.showInfoWindow()
+             return true
+         }
+-        binding?.CardView?.visibility = View.VISIBLE
++        binding?.cdvInfo?.visibility = View.VISIBLE
+         val arr = marker.tag.toString().split("/")
+-        binding?.name?.text = arr[0]
+-        binding?.rating?.text=arr[1]
++        binding?.txtName?.text = arr[0]
++        binding?.txtRating?.text=arr[1]
+         binding?.ratingBar?.rating = arr[1].toFloat()
+         val review = arr[2]+"개의 리뷰"
+-        binding?.ratingTotal?.text=review
+-        binding?.address?.text =arr[3]
+-        binding?.openNow?.text = when(arr[4]) {
++        binding?.txtTotal?.text=review
++        binding?.txtAddress?.text =arr[3]
++        binding?.txtOpen?.text = when(arr[4]) {
+             "true" -> "현재 영업 중"
+             "false" ->"영업 중이지 않음"
+             else -> "영업 중인지 알 수 없음"
+         }
+-        Glide.with(this).load(getURL(arr[5])).into(binding!!.imgRes)
++        binding?.imvPhoto?.let { Glide.with(this).load(getURL(arr[5])).into(it) }
+         binding?.btnFav?.setOnClickListener {
+             marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.maker))
+         }
+@@ -279,25 +279,23 @@
+ 
+     //지도 클릭시 이벤트 (cardView 감추기)
+     override fun onMapClick(latLng: LatLng) {
+-        binding?.CardView?.visibility=View.GONE
++        binding?.cdvInfo?.visibility=View.GONE
+     }
+ 
+     //동적 URL 생성(textsearch api 호출용)
+     private fun getURL(location: Location, keyword: String?): String {
+-        val url = "maps/api/place/textsearch/json?query=${keyword}" +
++        return "maps/api/place/textsearch/json?query=${keyword}" +
+                 "&location=${location.latitude},${location.longitude}" +
+                 "&radius=5000&key=$API_KEY&type=restaurant&language=ko"
+-        return url
+     }
+ 
+     //동적 URL 생성(photo api 호출용)
+     private fun getURL(photoReference: String): String{
+-        val url = "${BASE_URL}maps/api/place/photo?maxwidth=200&" +
++        return "${BASE_URL}maps/api/place/photo?maxwidth=200&" +
+                 "photo_reference=$photoReference&key=$API_KEY"
+-    return url
+     }
+ 
+-    //fragment 삭제시 binding=null 메모리 누수 방지
++    //fragment Destroy시 binding=null 메모리 누수 방지
+     override fun onDestroyView() {
+         super.onDestroyView()
+         binding=null
