@@ -5,11 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import com.example.kotlinproject.databinding.FragmentTestBinding
-import kotlinx.android.synthetic.main.fragment_test.*
+import kotlinx.android.synthetic.main.fragment_first.*
 
-class TestFragment : Fragment() {
+class FirstFragment : Fragment() {
     private var image: Int? = null
     private var text: String? = null
 
@@ -26,7 +24,7 @@ class TestFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_test, container, false)
+        return inflater.inflate(R.layout.fragment_first, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,9 +35,9 @@ class TestFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(image: Int, text: String) =
-            TestFragment().apply {
-                arguments = Bundle().apply {
+        fun newInstance(image: Int, text: String) = //외부에서 image와 text의 파라미터를 받아온다
+            FirstFragment().apply {
+                arguments = Bundle().apply { //arguments에 key,value형식으로 전달
                     putInt("image", image)
                     putString("text", text)
                 }
