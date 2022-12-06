@@ -61,7 +61,7 @@ class ResultFragment : Fragment() {
         Log.d(TAG, "${selectedFood}, 성공")
         binding?.txtResult?.text=selectedFood
 
-        binding?.btnMap?.setOnClickListener {
+        binding?.cdvMap?.setOnClickListener {
 
             // food 객체 만들기
             var random_uuid = UUID.randomUUID()
@@ -80,12 +80,12 @@ class ResultFragment : Fragment() {
             findNavController().navigate(R.id.action_resultFragment_to_mapFragment, bundle)
         }
 
-        binding?.btnRedo?.setOnClickListener {
+        binding?.cdvRedo?.setOnClickListener {
             setImage()
             binding?.txtResult?.text=selectedFood
         }
 
-        binding?.btnShare?.setOnClickListener {
+        binding?.cdvShare?.setOnClickListener {
 
             KakaoLink.init(requireContext())
             val kakaoFeed = KakaoLink.getKakaoTemplate(selectedFood)
@@ -96,7 +96,7 @@ class ResultFragment : Fragment() {
     }
 
     private fun setCurrentImage() {
-        binding?.imgResult?.setImageResource(imageStatus)
+        binding?.imvResult?.setImageResource(imageStatus)
     }
 
     private fun setImage() {
@@ -164,7 +164,7 @@ class ResultFragment : Fragment() {
                 else -> R.drawable.select_jeyugbokk_eum
             }
             imageStatus = randomResource
-            binding?.imgResult?.setImageResource(randomResource)
+            binding?.imvResult?.setImageResource(randomResource)
         }
 
         if (korean != null) {
@@ -193,7 +193,7 @@ class ResultFragment : Fragment() {
                 else -> R.drawable.select_sundaebokk_eum
             }
             imageStatus = randomResource
-            binding?.imgResult?.setImageResource(randomResource)
+            binding?.imvResult?.setImageResource(randomResource)
         }
 
         if (chinese != null) {
@@ -208,7 +208,7 @@ class ResultFragment : Fragment() {
                 else -> R.drawable.select_yang_kko_chi
             }
             imageStatus = randomResource
-            binding?.imgResult?.setImageResource(randomResource)
+            binding?.imvResult?.setImageResource(randomResource)
         }
 
         if (western != null) {
@@ -226,7 +226,7 @@ class ResultFragment : Fragment() {
 
             }
             imageStatus = randomResource
-            binding?.imgResult?.setImageResource(randomResource)
+            binding?.imvResult?.setImageResource(randomResource)
         }
 
         if (asian != null) {
@@ -255,7 +255,7 @@ class ResultFragment : Fragment() {
                 else -> R.drawable.select_yang_kko_chi
             }
             imageStatus = randomResource
-            binding?.imgResult?.setImageResource(randomResource)
+            binding?.imvResult?.setImageResource(randomResource)
         }
 
         if (japanese != null) {
@@ -269,7 +269,7 @@ class ResultFragment : Fragment() {
                 else -> R.drawable.select_soyed_crab
             }
             imageStatus = randomResource
-            binding?.imgResult?.setImageResource(randomResource)
+            binding?.imvResult?.setImageResource(randomResource)
         }
 
         if (noodle != null) {
@@ -286,7 +286,7 @@ class ResultFragment : Fragment() {
                 else -> R.drawable.select_ssal_guksu
             }
             imageStatus = randomResource
-            binding?.imgResult?.setImageResource(randomResource)
+            binding?.imvResult?.setImageResource(randomResource)
         }
 
         if (meat != null) {
@@ -302,7 +302,7 @@ class ResultFragment : Fragment() {
                 else -> R.drawable.select_yug_hoe
             }
             imageStatus = randomResource
-            binding?.imgResult?.setImageResource(randomResource)
+            binding?.imvResult?.setImageResource(randomResource)
         }
 
         if (rice != null) {
@@ -322,7 +322,7 @@ class ResultFragment : Fragment() {
                 else -> R.drawable.select_sam_gye_tang
             }
             imageStatus = randomResource
-            binding?.imgResult?.setImageResource(randomResource)
+            binding?.imvResult?.setImageResource(randomResource)
         }
     }
 

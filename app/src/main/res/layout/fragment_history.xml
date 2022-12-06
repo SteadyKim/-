@@ -24,8 +24,8 @@
             android:id="@+id/btn_chart"
             android:scaleType="fitXY"
             android:background="@android:color/transparent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:srcCompat="@drawable/btn_chart"
             />
     </androidx.cardview.widget.CardView>

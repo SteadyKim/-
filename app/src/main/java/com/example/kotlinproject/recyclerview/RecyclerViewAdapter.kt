@@ -166,7 +166,7 @@ class RecyclerViewAdapter(val foodList : LiveData<ArrayList<Foods>>) : RecyclerV
                 else -> "육회"
             }
             binding.txtDate.text = foods.date
-            binding.btnDelete.setOnClickListener {
+            binding.cdvDelete.setOnClickListener {
                 /**
                  * interface 콜백 시작
                  */

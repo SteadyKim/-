@@ -15,7 +15,7 @@
         android:textColor="#000000"
         android:textSize="33sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintBottom_toTopOf="@+id/cdv_food"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,13 +31,13 @@
         android:textColor="#000000"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btn_share"
+        app:layout_constraintBottom_toTopOf="@+id/cdv_share"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+        app:layout_constraintTop_toBottomOf="@+id/cdv_food" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/cdv_food"
         android:layout_width="325dp"
         android:layout_height="325dp"
         android:layout_marginTop="120dp"
@@ -49,7 +49,7 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/img_result"
+            android:id="@+id/imv_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
@@ -57,7 +57,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/btn_map"
+        android:id="@+id/cdv_map"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="-250dp"
@@ -81,7 +81,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/btn_share"
+        android:id="@+id/cdv_share"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginBottom="-500dp"
@@ -105,7 +105,7 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/btn_redo"
+        android:id="@+id/cdv_redo"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="-250dp"
@@ -136,32 +136,32 @@
         android:textAllCaps="false"
         android:textColor="#000000"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/btn_redo"
-        app:layout_constraintStart_toStartOf="@+id/btn_redo"
-        app:layout_constraintTop_toBottomOf="@+id/btn_redo" />
+        app:layout_constraintEnd_toEndOf="@+id/cdv_redo"
+        app:layout_constraintStart_toStartOf="@+id/cdv_redo"
+        app:layout_constraintTop_toBottomOf="@+id/cdv_redo" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/txt_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="공유하기"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/btn_share"
-        app:layout_constraintStart_toStartOf="@+id/btn_share"
-        app:layout_constraintTop_toBottomOf="@+id/btn_share" />
+        app:layout_constraintEnd_toEndOf="@+id/cdv_share"
+        app:layout_constraintStart_toStartOf="@+id/cdv_share"
+        app:layout_constraintTop_toBottomOf="@+id/cdv_share" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/txt_find"
         android:layout_width="71dp"
         android:layout_height="wrap_content"
         android:text="식당 찾기"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/btn_map"
-        app:layout_constraintStart_toStartOf="@+id/btn_map"
-        app:layout_constraintTop_toBottomOf="@+id/btn_map" />
+        app:layout_constraintEnd_toEndOf="@+id/cdv_map"
+        app:layout_constraintStart_toStartOf="@+id/cdv_map"
+        app:layout_constraintTop_toBottomOf="@+id/cdv_map" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
