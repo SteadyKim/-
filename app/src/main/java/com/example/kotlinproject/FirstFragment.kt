@@ -11,6 +11,8 @@ class FirstFragment : Fragment() {
     private var image: Int? = null
     private var text: String? = null
     var binding : FragmentFirstBinding? = null
+
+    //newInstance에서 생성했던 arguments 번들의 값을 image와 text에 넣는다.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -27,17 +29,18 @@ class FirstFragment : Fragment() {
         binding = FragmentFirstBinding.inflate(inflater)
         return binding?.root
     }
-
+    //imageView, textView 표시
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        image?.let { binding?.imageView?.setImageResource(it) }
-        binding?.textView?.text = text
+        image?.let { binding?.imgFirst?.setImageResource(it) }
+        binding?.txtFirst?.text = text
     }
 
+    //외부에서 image와 text의 값을 받고, arguments에 bundle 형식으로 전달한다.
     companion object {
-        fun newInstance(image: Int, text: String) = //외부에서 image와 text의 파라미터를 받아온다
+        fun newInstance(image: Int, text: String) =
             FirstFragment().apply {
-                arguments = Bundle().apply { //arguments에 key,value형식으로 전달
+                arguments = Bundle().apply {
                     putInt("image", image)
                     putString("text", text)
                 }
@@ -45,5 +48,6 @@ class FirstFragment : Fragment() {
     }
     override fun onDestroyView() {
         super.onDestroyView()
+        binding = null
     }
 }
