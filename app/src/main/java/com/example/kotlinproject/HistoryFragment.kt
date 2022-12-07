@@ -1,7 +1,6 @@
 package com.example.kotlinproject
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import com.example.kotlinproject.db.AppDatabase
 import com.example.kotlinproject.db.entity.Foods
 import com.example.kotlinproject.recyclerview.RecyclerViewAdapter
 import com.example.kotlinproject.viewmodel.MyViewModel
-import com.google.firebase.database.*
 
 
 class HistoryFragment : Fragment() {
@@ -26,10 +24,6 @@ class HistoryFragment : Fragment() {
     val viewModel: MyViewModel by activityViewModels()
 
     var binding: FragmentHistoryBinding? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

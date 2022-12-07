@@ -6,9 +6,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
-import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.ColorFilter
 import android.location.Location
 import android.net.Uri
 import androidx.fragment.app.Fragment
@@ -48,7 +45,6 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
-import com.google.type.ColorProto
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -121,7 +117,8 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
                 )
             ) {
                 //요청 1회 거절시 알림
-                Toast.makeText(requireActivity(), "주변 음식점 검색을 위해 위치 권한이 허용 되어야 합니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(),
+                    "주변 음식점 검색을 위해 위치 권한이 허용 되어야 합니다.", Toast.LENGTH_SHORT).show()
                 //getPermission()
             }
             //요청 2회 이상 거절시 noticeCantWork 호출
@@ -186,6 +183,7 @@ class MapFragment : Fragment(), GoogleMap.OnMarkerClickListener, GoogleMap.OnMap
                         0
                     )
                 } catch (sendEx: IntentSender.SendIntentException) {
+                    //오류 무시
                 }
             }
         }

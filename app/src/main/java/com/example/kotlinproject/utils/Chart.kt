@@ -10,7 +10,7 @@ class Chart {
     companion object {
 
         fun initPieChart(param: PieChart?): PieChart? {
-            var pieChart = param
+            val pieChart = param
 
             return pieChart
         }
@@ -22,7 +22,7 @@ class Chart {
 
             // 길이가 5 이상이라면 상위 5개만 체크한다.
             var flag = 0
-            var pieTmpDataMap = mutableMapOf<String, Float>()
+            val pieTmpDataMap = mutableMapOf<String, Float>()
             if (sortedFoodMap.size >= 5) {
                 for ((key, value) in sortedFoodMap) {
 

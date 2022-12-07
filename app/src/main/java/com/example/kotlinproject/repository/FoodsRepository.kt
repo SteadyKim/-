@@ -1,9 +1,7 @@
 package com.example.kotlinproject.repository
 
-import android.util.Log
+
 import androidx.lifecycle.MutableLiveData
-import com.example.kotlinproject.Main2Activity
-import com.example.kotlinproject.db.AppDatabase
 import com.example.kotlinproject.db.entity.Foods
 import com.google.firebase.database.*
 
