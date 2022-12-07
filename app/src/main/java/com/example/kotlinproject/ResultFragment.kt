@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.example.kotlinproject.databinding.FragmentResultBinding
 import com.example.kotlinproject.db.AppDatabase
@@ -22,7 +21,6 @@ import com.example.kotlinproject.utils.RandomFood.Companion.NOODLEFOOD
 import com.example.kotlinproject.utils.RandomFood.Companion.RICEFOOD
 import com.example.kotlinproject.utils.RandomFood.Companion.WESTERNFOOD
 import com.example.kotlinproject.db.entity.Foods
-import com.example.kotlinproject.enum.FoodNames
 import com.example.kotlinproject.utils.KakaoLink
 import com.example.kotlinproject.utils.RandomFood
 import com.example.kotlinproject.viewmodel.MyViewModel
@@ -63,7 +61,7 @@ class ResultFragment : Fragment() {
         binding?.cdvMap?.setOnClickListener {
 
             // food 객체 만들기
-            var random_uuid = UUID.randomUUID()
+            val random_uuid = UUID.randomUUID()
             val today: LocalDate = LocalDate.now()
             val food = Foods(random_uuid.toString(), selectedFood, today.toString())
 

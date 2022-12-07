@@ -1,6 +1,5 @@
 package com.example.kotlinproject.recyclerview
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
@@ -8,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinproject.R
 import com.example.kotlinproject.databinding.ItemFoodsBinding
 import com.example.kotlinproject.db.entity.Foods
-import com.example.kotlinproject.enum.FoodNames
 import com.example.kotlinproject.enum.FoodNames.Companion.BIBIM_BAP
 import com.example.kotlinproject.enum.FoodNames.Companion.BUCHIM_GAE
 import com.example.kotlinproject.enum.FoodNames.Companion.CHEONGGUCK_JANG

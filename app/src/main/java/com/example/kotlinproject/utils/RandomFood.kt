@@ -1,6 +1,5 @@
 package com.example.kotlinproject.utils
 
-import com.example.kotlinproject.enum.FoodNames
 import com.example.kotlinproject.enum.FoodNames.Companion.BIBIM_BAP
 import com.example.kotlinproject.enum.FoodNames.Companion.BUCHIM_GAE
 import com.example.kotlinproject.enum.FoodNames.Companion.CHEONGGUCK_JANG
