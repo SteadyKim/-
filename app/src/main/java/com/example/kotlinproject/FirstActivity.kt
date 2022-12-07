@@ -25,9 +25,9 @@ class FirstActivity : AppCompatActivity() {
         val binding = ActivityFirstBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-        binding
+
         vpAdapter = CustomPagerAdapter(this)
-        viewPager2.adapter = vpAdapter
+        binding.viewPager2.adapter = vpAdapter
 
         //Alarm Service
         val intent = Intent(this, AlarmReceiver::class.java)
